@@ -55,7 +55,19 @@ export function CommandPalette() {
   const { toggle: toggleSound } = useSound();
   const listId = useId();
 
-  const commands = useMemo(() => (open ? allCommands() : []), [open]);
+  const [content, setContent] = useState<Command[]>([]);
+  useEffect(() => {
+    if (!open || content.length) return;
+    let cancelled = false;
+    void import('./contentCommands.ts').then((module) => {
+      if (!cancelled) setContent(module.contentCommands());
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [open, content.length]);
+
+  const commands = useMemo(() => (open ? [...allCommands(), ...content] : []), [open, content]);
 
   const rows = useMemo<Row[]>(() => {
     const q = query.trim().toLowerCase();

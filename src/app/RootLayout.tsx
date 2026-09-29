@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { lazy, Suspense, useEffect, useRef } from 'react';
 import { NavigationType, Outlet, useLocation, useMatches, useNavigationType } from 'react-router';
 import { placeForPath } from '../content/routes.ts';
 import { RouteAnnouncer } from '../features/a11y/RouteAnnouncer.tsx';
@@ -20,6 +20,7 @@ import { isDirectorNavigating } from '../features/transition/director.ts';
 import { TransitionLayer } from '../features/transition/TransitionLayer.tsx';
 import { useResolvedMotion } from '../hooks/useResolvedMotion.ts';
 import { useProgress } from '../stores/progress.ts';
+import { useUi } from '../stores/ui.ts';
 import styles from './RootLayout.module.css';
 
 /** Route-level options, declared through React Router's `handle`. */
@@ -28,6 +29,8 @@ export interface RouteHandle {
   footer?: boolean;
 }
 
+const Terminal = lazy(() => import('../features/terminal/Terminal.tsx'));
+
 export function RootLayout() {
   const worldRef = useRef<HTMLDivElement>(null);
   const motion = useResolvedMotion();
@@ -35,6 +38,7 @@ export function RootLayout() {
   const navigationType = useNavigationType();
   const matches = useMatches();
   const showFooter = !matches.some((m) => (m.handle as RouteHandle | undefined)?.footer === false);
+  const terminalMounted = useUi((s) => s.terminalMounted);
 
   useEffect(() => {
     useProgress.getState().beginSession();
@@ -82,6 +86,11 @@ export function RootLayout() {
       <Header />
       <SiteIndex />
       <CommandPalette />
+      {terminalMounted && (
+        <Suspense fallback={null}>
+          <Terminal />
+        </Suspense>
+      )}
       <Toasts />
       <TransitionLayer worldRef={worldRef} />
       <Intro />

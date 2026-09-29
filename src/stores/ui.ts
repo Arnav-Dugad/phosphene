@@ -19,6 +19,8 @@ interface UiStore {
   menuOpen: boolean;
   paletteOpen: boolean;
   terminalOpen: boolean;
+  /** The terminal's code loads the first time it opens, then stays mounted. */
+  terminalMounted: boolean;
   introPhase: IntroPhase;
   /** Increments to replay the intro in full. */
   introRun: number;
@@ -38,12 +40,14 @@ export const useUi = create<UiStore>()((set) => ({
   menuOpen: false,
   paletteOpen: false,
   terminalOpen: false,
+  terminalMounted: false,
   introPhase: 'boot',
   introRun: 0,
   toasts: [],
   setMenu: (menuOpen) => set({ menuOpen, paletteOpen: false }),
   setPalette: (paletteOpen) => set({ paletteOpen, menuOpen: false }),
-  setTerminal: (terminalOpen) => set({ terminalOpen, paletteOpen: false, menuOpen: false }),
+  setTerminal: (terminalOpen) =>
+    set((s) => ({ terminalOpen, terminalMounted: s.terminalMounted || terminalOpen, paletteOpen: false, menuOpen: false })),
   setIntroPhase: (introPhase) => set({ introPhase }),
   replayIntro: () => set((s) => ({ introRun: s.introRun + 1, introPhase: 'boot', menuOpen: false, paletteOpen: false })),
   toast: (toast) => {

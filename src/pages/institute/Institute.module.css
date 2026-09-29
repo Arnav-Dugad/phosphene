@@ -1,0 +1,465 @@
+.page {
+  --page-line: var(--line-na);
+  padding-top: calc(var(--header-h) + var(--safe-top) + clamp(3rem, 12vh, 8rem));
+  padding-bottom: clamp(4rem, 10vh, 8rem);
+}
+
+/* ── Hero ───────────────────────────────────────────────────────────────── */
+
+.hero {
+  display: grid;
+  gap: 1.5rem;
+  max-width: 62rem;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: var(--type-display);
+  line-height: 0.92;
+  letter-spacing: -0.035em;
+  color: var(--bone);
+}
+
+.title em {
+  display: block;
+  margin-top: 0.1em;
+  font-size: 0.48em;
+  letter-spacing: -0.015em;
+  color: var(--line-na);
+}
+
+.lede {
+  max-width: 50ch;
+  font-size: var(--type-lead);
+  line-height: 1.5;
+  color: var(--bone-dim);
+  text-wrap: pretty;
+}
+
+.definition {
+  display: grid;
+  gap: 0.4rem;
+  max-width: 34rem;
+  margin: 0.6rem 0 0;
+  padding: 1rem 1.2rem;
+  border-left: 1px solid var(--line-na);
+  background: linear-gradient(90deg, color-mix(in oklab, var(--line-na) 8%, transparent), transparent);
+}
+
+.word {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  color: var(--bone);
+}
+
+.word span {
+  margin-left: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: var(--type-micro);
+  color: var(--bone-faint);
+}
+
+.sense {
+  font-size: var(--type-small);
+  line-height: 1.55;
+  color: var(--bone-dim);
+}
+
+/* ── Sections ───────────────────────────────────────────────────────────── */
+
+.section {
+  margin-top: clamp(5rem, 14vh, 10rem);
+}
+
+.heading {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: var(--type-h2);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--bone);
+}
+
+.intro {
+  max-width: 52ch;
+  margin-top: 1rem;
+  font-size: var(--type-body);
+  line-height: var(--leading-relaxed);
+  color: var(--bone-dim);
+}
+
+/* ── Figures ────────────────────────────────────────────────────────────── */
+
+.figures {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  max-width: 58rem;
+  margin-top: 2.2rem;
+  border-top: 1px solid var(--hairline);
+}
+
+.figure {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 0.5rem;
+  padding: 1.6rem 1.4rem 1.8rem 0;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.figureValue {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(2.2rem, 1.4rem + 2.4vw, 3.6rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums lining-nums;
+  color: var(--bone);
+}
+
+.figureLabel {
+  max-width: 24ch;
+  font-size: var(--type-small);
+  line-height: 1.45;
+  color: var(--bone-faint);
+}
+
+/* ── Pipeline ───────────────────────────────────────────────────────────── */
+
+.pipeline {
+  position: relative;
+  margin-top: 3rem;
+}
+
+.beamTrack {
+  position: absolute;
+  top: 0.45rem;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--hairline-strong);
+}
+
+.beam {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, var(--line-he), var(--line-na), var(--line-o3), var(--line-mg), var(--line-hb), var(--line-ca));
+  box-shadow: 0 0 12px var(--line-na);
+  transform-origin: left center;
+}
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 1.4rem;
+}
+
+.step {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 0.5rem;
+  padding: 2rem 0.9rem 1.1rem 0;
+  background: linear-gradient(to bottom, transparent 1.4rem, color-mix(in oklab, var(--void) 68%, transparent) 1.4rem);
+}
+
+.stepNode {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0.9rem;
+  height: 0.9rem;
+  border-radius: 50%;
+  background: var(--void);
+  border: 1px solid var(--step-line);
+  box-shadow: 0 0 12px var(--step-line), inset 0 0 6px var(--step-line);
+}
+
+.stepIndex {
+  font-family: var(--font-mono);
+  font-size: var(--type-nano);
+  letter-spacing: 0.14em;
+  color: var(--step-line);
+}
+
+.stepName {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 400;
+  line-height: 1.1;
+  color: var(--bone);
+}
+
+.stepWhere {
+  font-family: var(--font-mono);
+  font-size: var(--type-nano);
+  font-stretch: 87.5%;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--bone-faint);
+}
+
+.stepText {
+  font-size: var(--type-small);
+  line-height: 1.6;
+  color: var(--bone-dim);
+}
+
+/* ── Principles ─────────────────────────────────────────────────────────── */
+
+.principles {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+  margin-top: 2.5rem;
+  border-top: 1px solid var(--hairline);
+  border-left: 1px solid var(--hairline);
+}
+
+.principle {
+  display: grid;
+  align-content: start;
+  gap: 0.8rem;
+  padding: 1.8rem 1.6rem 2rem;
+  border-right: 1px solid var(--hairline);
+  border-bottom: 1px solid var(--hairline);
+  background: color-mix(in oklab, var(--void) 68%, transparent);
+  transition: background-color var(--dur-quick) var(--ease-out);
+}
+
+.principle:hover {
+  background: color-mix(in oklab, var(--line-ca) 5%, transparent);
+}
+
+.numeral {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.1rem;
+  color: var(--line-ca);
+}
+
+.principleTitle {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.55rem;
+  line-height: 1.15;
+  color: var(--bone);
+}
+
+.principleText {
+  font-size: var(--type-small);
+  line-height: 1.6;
+  color: var(--bone-dim);
+}
+
+/* ── Keepers ────────────────────────────────────────────────────────────── */
+
+.keepers {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  gap: 1.2rem;
+  margin-top: 2.5rem;
+}
+
+.keeper {
+  display: grid;
+  align-content: start;
+  gap: 0.6rem;
+  padding: 1.4rem 1.3rem 1.6rem;
+  border: 1px solid var(--hairline);
+  background: color-mix(in oklab, var(--ink-0) 74%, transparent);
+  transition:
+    border-color var(--dur-quick) var(--ease-out),
+    translate var(--dur-nav) var(--ease-out);
+}
+
+.keeper:hover {
+  border-color: color-mix(in oklab, var(--keeper-line) 60%, var(--hairline));
+  translate: 0 -3px;
+}
+
+.portrait {
+  display: grid;
+  place-items: center;
+  height: 7.5rem;
+  margin-bottom: 0.4rem;
+  color: var(--keeper-line);
+  filter: drop-shadow(0 0 8px color-mix(in oklab, var(--keeper-line) 50%, transparent));
+}
+
+.portrait svg {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.keeperRole {
+  font-family: var(--font-mono);
+  font-size: var(--type-nano);
+  font-stretch: 87.5%;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--keeper-line);
+}
+
+.keeperName {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.45rem;
+  line-height: 1.1;
+  color: var(--bone);
+}
+
+.keeperText {
+  font-size: var(--type-small);
+  line-height: 1.6;
+  color: var(--bone-dim);
+}
+
+/* ── Questions ──────────────────────────────────────────────────────────── */
+
+.questions {
+  max-width: 54rem;
+  margin-top: 2rem;
+  border-top: 1px solid var(--hairline);
+}
+
+.question {
+  border-bottom: 1px solid var(--hairline);
+}
+
+.question summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.25rem 0.2rem;
+  cursor: pointer;
+  list-style: none;
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  line-height: 1.25;
+  color: var(--bone);
+}
+
+.question summary::-webkit-details-marker {
+  display: none;
+}
+
+.question summary:hover {
+  color: color-mix(in oklab, var(--line-na) 60%, var(--bone));
+}
+
+.questionIcon {
+  flex-shrink: 0;
+  color: var(--line-na);
+  transition: rotate var(--dur-nav) var(--ease-out);
+}
+
+.question[open] .questionIcon {
+  rotate: 45deg;
+}
+
+.question p {
+  max-width: 62ch;
+  padding: 0 0.2rem 1.5rem;
+  font-size: var(--type-body);
+  line-height: var(--leading-relaxed);
+  color: var(--bone-dim);
+}
+
+/* ── Colophon ───────────────────────────────────────────────────────────── */
+
+.colophon {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 3rem;
+  max-width: 58rem;
+  margin-top: 2rem;
+}
+
+.colophon > div {
+  display: grid;
+  grid-template-columns: 9rem minmax(0, 1fr);
+  gap: 1rem;
+  padding: 0.9rem 0;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.colophon dt {
+  font-family: var(--font-mono);
+  font-size: var(--type-nano);
+  font-stretch: 87.5%;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--bone-faint);
+  padding-top: 0.2rem;
+}
+
+.colophon dd {
+  font-size: var(--type-small);
+  line-height: 1.5;
+  color: var(--bone-dim);
+}
+
+.onward {
+  margin-top: 3rem;
+}
+
+.onwardLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 1.2rem + 1.2vw, 2.4rem);
+  color: var(--bone);
+  border-bottom: 1px solid var(--hairline-strong);
+  padding-bottom: 0.3rem;
+  transition:
+    color var(--dur-quick) var(--ease-out),
+    border-color var(--dur-quick) var(--ease-out),
+    gap var(--dur-nav) var(--ease-out);
+}
+
+.onwardLink:hover {
+  color: var(--line-na);
+  border-color: var(--line-na);
+  gap: 1rem;
+}
+
+@media (max-width: 1100px) {
+  .steps {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    row-gap: 2.6rem;
+  }
+  .beamTrack {
+    display: none;
+  }
+  .principles {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 700px) {
+  .figures {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .steps,
+  .principles,
+  .colophon {
+    grid-template-columns: 1fr;
+  }
+  .steps {
+    row-gap: 2rem;
+    padding-left: 1.4rem;
+    border-left: 1px solid var(--hairline-strong);
+  }
+  .stepNode {
+    left: calc(-1.4rem - 0.45rem - 0.5px);
+  }
+  .step {
+    padding-top: 0;
+  }
+  .colophon > div {
+    grid-template-columns: 7.5rem minmax(0, 1fr);
+  }
+}

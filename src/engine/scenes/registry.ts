@@ -17,6 +17,8 @@ export const sceneLoaders: Partial<Record<SceneKey, Loader>> = {
   terrain: () => import('./terrain/TerrainScene.ts'),
   aurora: () => import('./aurora/AuroraScene.ts'),
   array: () => import('./array/ArrayScene.ts'),
+  constellation: () => import('./constellation/ConstellationScene.ts'),
+  static: () => import('./static/StaticScene.ts'),
 };
 
 export function loaderFor(key: SceneKey): Loader {

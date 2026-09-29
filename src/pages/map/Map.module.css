@@ -1,0 +1,468 @@
+.page {
+  --page-line: var(--line-o3);
+  position: relative;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+/* ── Labels pinned to the stars ─────────────────────────────────────────── */
+
+.labels {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  pointer-events: none;
+}
+
+.label {
+  --detail: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: var(--detail);
+  transition: opacity var(--dur-quick) var(--ease-out);
+}
+
+.label[data-kind='place'] {
+  --detail: 1;
+}
+
+.label[data-visible='false'] {
+  visibility: hidden;
+}
+
+.labelLink {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  translate: 0.9rem -50%;
+  padding: 0.2rem 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-stretch: 87.5%;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--bone-dim);
+  text-shadow: 0 0 10px rgb(0 0 0 / 0.95);
+  pointer-events: auto;
+}
+
+.label[data-kind='place'] .labelLink {
+  translate: 1.3rem -50%;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-stretch: normal;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  color: var(--bone);
+}
+
+.labelLink:hover,
+.labelLink:focus-visible,
+.label[data-hovered='true'] .labelLink {
+  color: var(--bone);
+  background: color-mix(in oklab, var(--ink-0) 70%, transparent);
+}
+
+.labelLink:focus-visible {
+  outline: 1px solid var(--label-line);
+  outline-offset: 2px;
+}
+
+/* Children fade in with zoom; focus always shows them. */
+.label:not([data-kind='place']):has(.labelLink:focus-visible),
+.label[data-hovered='true'] {
+  opacity: 1;
+}
+
+.label:not([data-kind='place'])[data-detail='off'] .labelLink {
+  pointer-events: none;
+}
+
+.badge {
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.08em;
+  color: var(--line-ca);
+  text-shadow: 0 0 8px var(--line-ca);
+}
+
+/* ── Tooltip ────────────────────────────────────────────────────────────── */
+
+.tooltip {
+  position: fixed;
+  z-index: 4;
+  top: 0;
+  left: 0;
+  width: 15rem;
+  margin: 1.4rem 0 0 1.2rem;
+  padding: 0.75rem 0.85rem 0.8rem;
+  background: color-mix(in oklab, var(--ink-0) 88%, transparent);
+  border: 1px solid var(--hairline);
+  border-left: 2px solid var(--label-line);
+  box-shadow: 0 20px 50px -20px rgb(0 0 0 / 0.9);
+  pointer-events: none;
+}
+
+.tooltipKind {
+  font-family: var(--font-mono);
+  font-size: var(--type-nano);
+  font-stretch: 87.5%;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--bone-faint);
+}
+
+.tooltipName {
+  margin-top: 0.3rem;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  line-height: 1.15;
+  color: var(--bone);
+}
+
+.tooltipGloss {
+  margin-top: 0.25rem;
+  font-size: var(--type-small);
+  line-height: 1.45;
+  color: var(--bone-dim);
+}
+
+/* ── HUD ────────────────────────────────────────────────────────────────── */
+
+.hud {
+  position: fixed;
+  z-index: 3;
+  inset: calc(var(--header-h) + var(--safe-top) + 0.75rem) max(var(--space-gutter), var(--safe-right))
+    calc(var(--safe-bottom) + 3rem) max(var(--space-gutter), var(--safe-left));
+  display: grid;
+  grid-template-columns: minmax(0, 24rem) 1fr auto;
+  grid-template-rows: auto 1fr auto;
+  gap: 1rem;
+  pointer-events: none;
+}
+
+.hud > * {
+  pointer-events: auto;
+}
+
+.masthead {
+  grid-column: 1;
+  grid-row: 1;
+  display: grid;
+  gap: 0.65rem;
+  text-shadow: 0 1px 18px rgb(0 0 0 / 0.9);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(2rem, 1.2rem + 1.7vw, 3rem);
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+  color: var(--bone);
+  text-wrap: balance;
+}
+
+.lede {
+  max-width: 36ch;
+  font-size: var(--type-small);
+  line-height: 1.6;
+  color: var(--bone-dim);
+}
+
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem 1rem;
+  font-family: var(--font-mono);
+  font-size: var(--type-nano);
+  font-stretch: 87.5%;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--bone-faint);
+}
+
+.stats strong {
+  font-weight: 400;
+  color: var(--bone);
+}
+
+.legend {
+  grid-column: 1;
+  grid-row: 3;
+  align-self: end;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  max-width: 24rem;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.legendTitle {
+  width: 100%;
+  margin-bottom: 0.35rem;
+  padding: 0;
+  font-family: var(--font-mono);
+  font-size: var(--type-nano);
+  font-stretch: 87.5%;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--bone-faint);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 2.2rem;
+  padding: 0 0.75rem;
+  border: 1px solid var(--hairline-strong);
+  border-radius: var(--radius-round);
+  background: color-mix(in oklab, var(--ink-0) 70%, transparent);
+  font-size: 0.8rem;
+  color: var(--bone-dim);
+  transition:
+    color var(--dur-quick) var(--ease-out),
+    border-color var(--dur-quick) var(--ease-out),
+    opacity var(--dur-quick) var(--ease-out);
+}
+
+.chip[aria-pressed='false'] {
+  opacity: 0.45;
+}
+
+.chip[aria-pressed='false'] .chipDot {
+  background: transparent;
+  box-shadow: inset 0 0 0 1px var(--bone-faint);
+}
+
+.chip:hover {
+  color: var(--bone);
+  border-color: var(--bone-faint);
+}
+
+.chipDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--bone);
+  box-shadow: 0 0 8px var(--bone);
+}
+
+.chip[data-kind='place'] .chipDot {
+  width: 10px;
+  height: 10px;
+}
+
+.chip[data-kind='relic'] .chipDot {
+  width: 5px;
+  height: 5px;
+}
+
+.chipCount {
+  font-family: var(--font-mono);
+  font-size: var(--type-nano);
+  color: var(--bone-faint);
+}
+
+.pathKey {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  width: 100%;
+  margin-top: 0.45rem;
+  font-size: 0.8rem;
+  color: var(--bone-dim);
+}
+
+.pathSwatch {
+  width: 1.6rem;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--line-na));
+  box-shadow: 0 0 8px var(--line-na);
+}
+
+.controls {
+  grid-column: 3;
+  grid-row: 3;
+  align-self: end;
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.control {
+  display: grid;
+  place-items: center;
+  width: 2.6rem;
+  height: 2.6rem;
+  border: 1px solid var(--hairline-strong);
+  border-radius: 50%;
+  background: color-mix(in oklab, var(--ink-0) 70%, transparent);
+  color: var(--bone-dim);
+  transition:
+    color var(--dur-quick) var(--ease-out),
+    border-color var(--dur-quick) var(--ease-out);
+}
+
+.control:hover {
+  color: var(--bone);
+  border-color: var(--bone-faint);
+}
+
+.listToggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2.6rem;
+  margin-left: 0.4rem;
+  padding: 0 1rem;
+  border: 1px solid var(--hairline-strong);
+  border-radius: var(--radius-round);
+  background: color-mix(in oklab, var(--ink-0) 70%, transparent);
+  font-size: var(--type-small);
+  color: var(--bone);
+}
+
+.listToggle:hover,
+.listToggle[aria-expanded='true'] {
+  border-color: var(--page-line);
+}
+
+/* ── The list ───────────────────────────────────────────────────────────── */
+
+.list {
+  grid-column: 3;
+  grid-row: 1 / span 2;
+  width: min(24rem, 38vw);
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  padding: 1.1rem 1.1rem 1.4rem;
+  background: color-mix(in oklab, var(--ink-0) 88%, transparent);
+  backdrop-filter: blur(var(--blur-glass));
+  -webkit-backdrop-filter: blur(var(--blur-glass));
+  border: 1px solid var(--hairline);
+  border-top-color: var(--page-line);
+}
+
+.list[hidden] {
+  display: none;
+}
+
+.listGroup + .listGroup {
+  margin-top: 1.3rem;
+}
+
+.listTitle {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding-bottom: 0.45rem;
+  border-bottom: 1px solid var(--hairline);
+  font-family: var(--font-mono);
+  font-size: var(--type-nano);
+  font-weight: 400;
+  font-stretch: 87.5%;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--bone-dim);
+}
+
+.listGroup ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.listLink {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.1rem 0.8rem;
+  padding: 0.55rem 0 0.55rem 0.7rem;
+  border-bottom: 1px solid var(--hairline);
+  border-left: 2px solid transparent;
+  transition: border-color var(--dur-quick) var(--ease-out);
+}
+
+.listLink:hover,
+.listLink:focus-visible {
+  border-left-color: var(--label-line);
+}
+
+.listName {
+  font-size: var(--type-small);
+  color: var(--bone);
+}
+
+.listGloss {
+  grid-column: 1;
+  font-size: 0.75rem;
+  color: var(--bone-faint);
+}
+
+.seen {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  align-self: center;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-family: var(--font-mono);
+  font-size: var(--type-nano);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--line-o3);
+}
+
+@media (max-width: 760px) {
+  .hud {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto auto;
+  }
+  .masthead {
+    gap: 0.4rem;
+  }
+  .lede {
+    display: none;
+  }
+  .legend {
+    grid-row: 3;
+    flex-wrap: nowrap;
+    max-width: none;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .legendTitle,
+  .pathKey {
+    display: none;
+  }
+  .chip {
+    flex-shrink: 0;
+  }
+  .controls {
+    grid-column: 1;
+    grid-row: 4;
+    justify-self: stretch;
+  }
+  .listToggle {
+    margin-left: auto;
+  }
+  .list {
+    position: fixed;
+    inset: calc(var(--header-h) + var(--safe-top) + 0.5rem) 0.6rem calc(var(--safe-bottom) + 4.8rem);
+    width: auto;
+  }
+}

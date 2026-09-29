@@ -19,6 +19,11 @@ export const pageModules = {
   instruments: () => import('../pages/instruments/InstrumentsPage.tsx'),
   instrument: () => import('../pages/instruments/InstrumentPage.tsx'),
   array: () => import('../pages/array/ArrayPage.tsx'),
+  map: () => import('../pages/map/MapPage.tsx'),
+  institute: () => import('../pages/institute/InstitutePage.tsx'),
+  settings: () => import('../pages/settings/SettingsPage.tsx'),
+  'transmission-zero': () => import('../pages/transmission-zero/TransmissionZeroPage.tsx'),
+  credits: () => import('../pages/credits/CreditsPage.tsx'),
   notFound: () => import('../pages/not-found/NotFoundPage.tsx'),
 } satisfies Record<string, PageModule>;
 

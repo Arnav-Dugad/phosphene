@@ -240,7 +240,7 @@ export default function ArrayPage() {
       {wide && surface}
       {wide && <SourceMarker scene={scene} />}
       <p className="sr-only">
-        A live rendering of the Array: sixty-four radio dishes on the floor of {world.arraySite}, tracking the Lacuna low
+        A live rendering of the Array: sixty-four light-gathering dishes on the floor of {world.arraySite}, tracking the Lacuna low
         in the north-western sky, with the rim of the crater on the horizon.
       </p>
 
@@ -406,8 +406,8 @@ export default function ArrayPage() {
             </dl>
             <Segmented label="Light in the view" value={light} options={LIGHTS} onChange={setLight} />
             <p className={styles.note}>
-              Day and night follow the real Moon: noon here falls at new Moon. The far side never faces Earth, so its sky
-              is free of our radio noise.
+              Day and night follow the real Moon: noon here falls at new Moon. The far side never faces Earth — no
+              earthlight, no radio chatter, nothing between the Array and the dark.
             </p>
           </section>
         </div>

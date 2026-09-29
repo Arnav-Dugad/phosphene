@@ -24,7 +24,12 @@ const routes: RouteObject[] = [
       { path: 'instruments', lazy: page(pageModules.instruments) },
       { path: 'instruments/:slug', lazy: page(pageModules.instrument), handle: { footer: false } },
       { path: 'array', lazy: page(pageModules.array), handle: { footer: false } },
-      { path: '*', lazy: page(pageModules.notFound) },
+      { path: 'map', lazy: page(pageModules.map), handle: { footer: false } },
+      { path: 'institute', lazy: page(pageModules.institute) },
+      { path: 'settings', lazy: page(pageModules.settings) },
+      { path: 'transmission-zero', lazy: page(pageModules['transmission-zero']) },
+      { path: 'credits', lazy: page(pageModules.credits), handle: { footer: false } },
+      { path: '*', lazy: page(pageModules.notFound), handle: { footer: false } },
     ],
   },
 ];
