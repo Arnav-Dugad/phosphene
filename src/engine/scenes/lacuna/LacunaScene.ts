@@ -128,6 +128,9 @@ const MODE_FORMATION: Record<LacunaMode, FormationKey> = {
 
 const colorOf = (key: SpectralKey): Color => new Color(spectralLines[key].nocturne);
 
+/** Modes that sit behind pages of text rather than being the page. */
+const READING_MODES: ReadonlySet<LacunaMode> = new Set(['dusk', 'ambient', 'chronicle', 'lanterns']);
+
 class LacunaScene implements StageScene {
   readonly scene = new Scene();
   readonly camera = new PerspectiveCamera(36, 1, 0.05, 400);
@@ -229,7 +232,9 @@ class LacunaScene implements StageScene {
     const target = LOOKS[this.mode];
     const k = still ? 60 : 1.6;
     const l = this.look;
-    l.ringIntensity = damp(l.ringIntensity, target.ringIntensity, k, raw);
+    // On phones, reading pages stack their text over the ring: it steps back to let the words through.
+    const reading = this.ctx.viewport.compact && READING_MODES.has(this.mode);
+    l.ringIntensity = damp(l.ringIntensity, target.ringIntensity * (reading ? 0.4 : 1), k, raw);
     l.stars = damp(l.stars, target.stars, k, raw);
     l.seaRough = damp(l.seaRough, target.seaRough, k, raw);
     l.brightness = damp(l.brightness, target.brightness, k, raw);
@@ -277,7 +282,10 @@ class LacunaScene implements StageScene {
     const compose =
       this.mode === 'home' && !this.ctx.viewport.compact ? -3.8 * (1 - smoothstep(0.45, 1.2, chapter)) : 0;
     // Asymmetric poses (ring framed to one side) are re-centred on portrait screens.
-    const lookX = this.mode !== 'home' && this.ctx.viewport.compact ? pose.look[0] * 0.2 : pose.look[0];
+    const lookX =
+      this.mode !== 'home' && this.ctx.viewport.compact
+        ? pose.look[0] * 0.2 - (READING_MODES.has(this.mode) ? 2.2 : 0)
+        : pose.look[0];
     // On narrow screens the hero stacks its text below the ring instead: look lower so the ring rides high.
     const lift =
       this.mode === 'home' && this.ctx.viewport.compact ? 2.1 * (1 - smoothstep(0.45, 1.2, chapter)) : 0;

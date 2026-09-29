@@ -28,6 +28,9 @@ export class OrbitRig {
   private thetaVelocity = 0;
   private phiVelocity = 0;
   private phiGoal: number | null = null;
+  private following = false;
+  private readonly followed = new Vector3();
+  private readonly carry = new Vector3();
   private dragging = false;
   private lastX = 0;
   private lastY = 0;
@@ -97,6 +100,7 @@ export class OrbitRig {
 
   flyTo(target: Vector3, distance?: number): void {
     this.targetGoal.copy(target);
+    this.following = false;
     if (distance !== undefined)
       this.distanceGoal = clamp(distance, this.options.minDistance, this.options.maxDistance);
   }
@@ -106,9 +110,16 @@ export class OrbitRig {
     this.phiGoal = clamp(phi, this.options.minPhi, this.options.maxPhi);
   }
 
-  /** Follow a moving subject without the easing lag of `flyTo`. */
+  /**
+   * Follow a moving subject: the camera is carried along with the subject's
+   * motion, so only the remaining approach from `flyTo` eases — a fast orbit
+   * never leaves the subject trailing out of frame.
+   */
   follow(target: Vector3): void {
+    if (this.following) this.target.add(this.carry.copy(target).sub(this.followed));
     this.targetGoal.copy(target);
+    this.followed.copy(target);
+    this.following = true;
   }
 
   setLimits(minDistance: number, maxDistance: number): void {
