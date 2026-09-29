@@ -912,8 +912,8 @@
     z-index: -1;
     background: radial-gradient(
       ellipse at 40% 45%,
-      rgb(4 4 6 / 0.82),
-      rgb(4 4 6 / 0.55) 55%,
+      color-mix(in oklab, var(--void) 82%, transparent),
+      color-mix(in oklab, var(--void) 55%, transparent) 55%,
       transparent 78%
     );
     pointer-events: none;

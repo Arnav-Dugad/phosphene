@@ -15,17 +15,13 @@ import { world } from './world.ts';
  * Crater (that one follows the real Moon), and what the decoder just logged.
  */
 
-/** One scene unit is ten metres. */
-export const METRES_PER_UNIT = 10;
-export const DISH_DIAMETER_M = 25;
-
 export type DishGroup = 'Core' | 'Arm I' | 'Arm II' | 'Arm III';
 export type DishState = 'tracking' | 'calibrating' | 'slewing' | 'stowed' | 'offline';
 
 export interface Dish {
   index: number;
   id: string;
-  /** Scene position in units (x east, z south). */
+  /** Scene position in units of ten metres (x east, z south); each dish is 25 m across. */
   x: number;
   z: number;
   group: DishGroup;
