@@ -10,6 +10,7 @@ import { Grain } from '../features/grain/Grain.tsx';
 import { Hud } from '../features/hud/Hud.tsx';
 import { Intro } from '../features/intro/Intro.tsx';
 import { KeyboardShortcuts } from '../features/keyboard/KeyboardShortcuts.tsx';
+import { ConnectionNotice } from '../features/network/ConnectionNotice.tsx';
 import { Header } from '../features/nav/Header.tsx';
 import { SiteIndex } from '../features/nav/SiteIndex.tsx';
 import { Preferences } from '../features/preferences/Preferences.tsx';
@@ -71,6 +72,7 @@ export function RootLayout() {
       <Preferences />
       <AudioController />
       <KeyboardShortcuts />
+      <ConnectionNotice />
       <a className="skip-link" href="#main">
         Skip to content
       </a>

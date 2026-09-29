@@ -1,6 +1,6 @@
 import type { StoryBlock } from '../../../content/stories.ts';
 import { IthranText } from '../../../components/IthranText.tsx';
-import { resolveStoryText } from '../storyText.ts';
+import { resolveStoryText } from '../../../lib/storyText.ts';
 import { GlyphTry } from './GlyphTry.tsx';
 import { RedactedText } from './Redacted.tsx';
 import styles from '../Story.module.css';

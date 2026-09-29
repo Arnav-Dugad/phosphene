@@ -1,5 +1,5 @@
-import { observatoryTime, yearsListening } from '../../lib/time.ts';
-import { numberToWords } from '../../lib/words.ts';
+import { observatoryTime, yearsListening } from './time.ts';
+import { numberToWords } from './words.ts';
 
 /** Resolves the time-sensitive tokens stories may contain (see content/stories.ts). */
 export function resolveStoryText(text: string): string {

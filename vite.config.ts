@@ -1,10 +1,11 @@
 /// <reference types="vitest/config" />
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import { devHead, prerender } from './build/prerender-plugin.ts';
 import { designTokens } from './build/tokens-plugin.ts';
 
 export default defineConfig({
-  plugins: [react(), designTokens()],
+  plugins: [react(), designTokens(), devHead(), prerender()],
   build: {
     target: 'es2022',
     cssTarget: ['chrome111', 'edge111', 'firefox115', 'safari16.4'],

@@ -1,0 +1,13 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  // A static-assets Worker: the built site is served straight from Cloudflare's edge.
+  "name": "phosphene",
+  "compatibility_date": "2026-09-01",
+  "assets": {
+    "directory": "./dist",
+    // Unknown addresses get the lost-signal page, with a real 404 status.
+    "not_found_handling": "404-page",
+    // /archive/sr-0021 is served from archive/sr-0021.html.
+    "html_handling": "auto-trailing-slash"
+  }
+}

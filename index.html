@@ -21,6 +21,7 @@
     <link rel="preload" href="/fonts/mona-sans-latin.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/martian-mono-latin.woff2" as="font" type="font/woff2" crossorigin />
     <script src="/boot.js"></script>
+    <noscript><style>.boot { display: none; }</style></noscript>
     <style>
       html,
       body {
@@ -91,6 +92,25 @@
         .boot__dot {
           animation: none;
         }
+      }
+      .prerender {
+        max-width: 44rem;
+        margin: 0 auto;
+        padding: 18vh 24px 12vh;
+        color: #ece6da;
+        font: 17px/1.65 Georgia, 'Iowan Old Style', serif;
+      }
+      .prerender h1 {
+        font-weight: 400;
+        font-size: 2.6rem;
+        line-height: 1.05;
+        margin: 0 0 1.5rem;
+      }
+      .prerender p {
+        color: #aaa498;
+      }
+      .prerender a {
+        color: #ffb45e;
       }
       noscript .noscript {
         position: relative;
