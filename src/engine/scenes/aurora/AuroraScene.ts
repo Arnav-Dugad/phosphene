@@ -18,13 +18,14 @@ import { clamp, TAU } from '../../../lib/math.ts';
 import { createRng } from '../../../lib/random.ts';
 import type { SceneParams } from '../../../stores/stage.ts';
 import { glsl, hash } from '../../shaders/chunks.ts';
-import type {
-  FrameState,
-  PostSettings,
-  SceneFactory,
-  StageContext,
-  StageScene,
-  Viewport,
+import {
+  screenDensity,
+  type FrameState,
+  type PostSettings,
+  type SceneFactory,
+  type StageContext,
+  type StageScene,
+  type Viewport,
 } from '../../types.ts';
 import { Gpgpu, referenceUvs } from '../../util/gpgpu.ts';
 import { TrailBuffer } from '../../util/TrailBuffer.ts';
@@ -125,6 +126,8 @@ class AuroraScene implements StageScene {
   private readonly trails: TrailBuffer;
   private readonly waves: Vector4[] = Array.from({ length: WAVES }, () => new Vector4());
   private seed = 1;
+  /** Particle brightness for this screen size (see screenDensity). */
+  private density = 1;
   private scale = 1;
   private speed = 1;
   private turbulence = 1;
@@ -169,7 +172,7 @@ class AuroraScene implements StageScene {
           uSize: { value: 1.5 },
           uTop: { value: this.top },
           uBottom: { value: this.bottom },
-          uEnergy: { value: side >= 512 ? 0.065 : side >= 256 ? 0.14 : 0.34 },
+          uEnergy: { value: (side >= 512 ? 0.065 : side >= 256 ? 0.14 : 0.34) * this.density },
         },
         transparent: true,
         depthWrite: false,
@@ -228,9 +231,14 @@ class AuroraScene implements StageScene {
     this.camera.aspect = viewport.aspect;
     this.camera.fov = viewport.aspect < 1 ? 70 : 46;
     const shift = viewport.compact ? 0 : viewport.width * 0.1;
-    this.camera.setViewOffset(viewport.width, viewport.height, shift, 0, viewport.width, viewport.height);
+    // Beside the panel on wide screens; above the bottom sheet on narrow ones.
+    const lift = viewport.compact ? viewport.height * 0.22 : 0;
+    this.camera.setViewOffset(viewport.width, viewport.height, shift, lift, viewport.width, viewport.height);
     this.camera.updateProjectionMatrix();
     this.trails.resize(viewport);
+    const energy = this.points.material.uniforms.uEnergy as { value: number };
+    energy.value *= screenDensity(viewport) / this.density;
+    this.density = screenDensity(viewport);
     (this.points.material.uniforms.uSize as { value: number }).value = Math.max(
       1,
       viewport.dpr * (viewport.height / 900) * 1.4,

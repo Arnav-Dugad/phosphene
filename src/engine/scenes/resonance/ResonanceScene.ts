@@ -295,7 +295,7 @@ class ResonanceScene implements StageScene {
       viewport.width,
       viewport.height,
       shift,
-      viewport.compact ? viewport.height * 0.08 : 0,
+      viewport.compact ? viewport.height * 0.2 : 0,
       viewport.width,
       viewport.height,
     );

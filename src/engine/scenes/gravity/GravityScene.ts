@@ -20,13 +20,14 @@ import { clamp, TAU } from '../../../lib/math.ts';
 import { createRng } from '../../../lib/random.ts';
 import type { SceneParams } from '../../../stores/stage.ts';
 import { gauss, glsl, hash, spectrum } from '../../shaders/chunks.ts';
-import type {
-  FrameState,
-  PostSettings,
-  SceneFactory,
-  StageContext,
-  StageScene,
-  Viewport,
+import {
+  screenDensity,
+  type FrameState,
+  type PostSettings,
+  type SceneFactory,
+  type StageContext,
+  type StageScene,
+  type Viewport,
 } from '../../types.ts';
 import { Emitter } from '../../util/Emitter.ts';
 import { Gpgpu, referenceUvs } from '../../util/gpgpu.ts';
@@ -219,6 +220,8 @@ class GravityScene implements StageScene {
   private stableAnnounced = false;
   private time = 0;
   private massValue = 1;
+  /** Particle brightness for this screen size (see screenDensity). */
+  private density = 1;
 
   constructor(ctx: StageContext, params: SceneParams) {
     this.ctx = ctx;
@@ -298,7 +301,7 @@ class GravityScene implements StageScene {
         uPosition: { value: null },
         uVelocity: { value: null },
         uSize: { value: 1.4 },
-        uEnergy: { value: side >= 512 ? 0.35 : side >= 256 ? 0.6 : 1 },
+        uEnergy: { value: (side >= 512 ? 0.35 : side >= 256 ? 0.6 : 1) * this.density },
       },
       transparent: true,
       depthWrite: false,
@@ -412,9 +415,14 @@ class GravityScene implements StageScene {
     this.camera.aspect = viewport.aspect;
     this.camera.fov = viewport.aspect < 1 ? (42 / Math.max(0.5, viewport.aspect)) * 0.85 : 42;
     const shift = viewport.compact ? 0 : viewport.width * 0.1;
-    this.camera.setViewOffset(viewport.width, viewport.height, shift, 0, viewport.width, viewport.height);
+    // Beside the panel on wide screens; above the bottom sheet on narrow ones.
+    const lift = viewport.compact ? viewport.height * 0.22 : 0;
+    this.camera.setViewOffset(viewport.width, viewport.height, shift, lift, viewport.width, viewport.height);
     this.camera.updateProjectionMatrix();
     this.trails.resize(viewport);
+    const energy = this.particles.material.uniforms.uEnergy as { value: number };
+    energy.value *= screenDensity(viewport) / this.density;
+    this.density = screenDensity(viewport);
     const size = Math.max(1, viewport.dpr * (viewport.height / 900) * 1.2);
     (this.particles.material.uniforms.uSize as { value: number }).value = size;
     (this.massPoints.material.uniforms.uScale as { value: number }).value =

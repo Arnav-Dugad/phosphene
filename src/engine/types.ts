@@ -13,6 +13,14 @@ export interface Viewport {
   compact: boolean;
 }
 
+/**
+ * How much additive particle light a screen can take: the same particle
+ * count piles up on a phone's few pixels, so smaller screens get dimmer
+ * grains to keep the image from saturating to white.
+ */
+export const screenDensity = (viewport: Readonly<Viewport>): number =>
+  Math.min(1, Math.max(0.45, Math.sqrt((viewport.width * viewport.height) / (1440 * 900))));
+
 export interface FrameState {
   /** Seconds since the engine started, scaled by the motion preference. */
   time: number;

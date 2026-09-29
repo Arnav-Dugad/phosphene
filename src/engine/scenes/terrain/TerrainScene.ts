@@ -179,7 +179,9 @@ class TerrainScene implements StageScene {
     this.camera.aspect = viewport.aspect;
     this.camera.fov = viewport.aspect < 1 ? 58 : 38;
     const shift = viewport.compact ? 0 : viewport.width * 0.1;
-    this.camera.setViewOffset(viewport.width, viewport.height, shift, 0, viewport.width, viewport.height);
+    // Beside the panel on wide screens; above the bottom sheet on narrow ones.
+    const lift = viewport.compact ? viewport.height * 0.22 : 0;
+    this.camera.setViewOffset(viewport.width, viewport.height, shift, lift, viewport.width, viewport.height);
     this.camera.updateProjectionMatrix();
   }
 

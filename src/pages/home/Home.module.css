@@ -897,3 +897,25 @@
     gap: 0.8rem 1.2rem;
   }
 }
+
+/* Narrow screens stack the lede under the ring's reflection: give it a soft, dark ground. */
+@media (max-width: 899px) {
+  .heroFoot {
+    position: relative;
+    z-index: 0;
+    isolation: isolate;
+  }
+  .heroFoot::before {
+    content: '';
+    position: absolute;
+    inset: -2.5rem -1.5rem -1.5rem;
+    z-index: -1;
+    background: radial-gradient(
+      ellipse at 40% 45%,
+      rgb(4 4 6 / 0.82),
+      rgb(4 4 6 / 0.55) 55%,
+      transparent 78%
+    );
+    pointer-events: none;
+  }
+}

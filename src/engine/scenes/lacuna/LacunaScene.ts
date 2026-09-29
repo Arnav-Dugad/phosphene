@@ -278,8 +278,11 @@ class LacunaScene implements StageScene {
       this.mode === 'home' && !this.ctx.viewport.compact ? -3.8 * (1 - smoothstep(0.45, 1.2, chapter)) : 0;
     // Asymmetric poses (ring framed to one side) are re-centred on portrait screens.
     const lookX = this.mode !== 'home' && this.ctx.viewport.compact ? pose.look[0] * 0.2 : pose.look[0];
+    // On narrow screens the hero stacks its text below the ring instead: look lower so the ring rides high.
+    const lift =
+      this.mode === 'home' && this.ctx.viewport.compact ? 2.1 * (1 - smoothstep(0.45, 1.2, chapter)) : 0;
     this.camLook.x = damp(this.camLook.x, lookX + compose, follow, raw);
-    this.camLook.y = damp(this.camLook.y, pose.look[1], follow, raw);
+    this.camLook.y = damp(this.camLook.y, pose.look[1] - lift, follow, raw);
     this.camLook.z = damp(this.camLook.z, pose.look[2], follow, raw);
     this.camFov = damp(this.camFov, pose.fov * this.fovScale, follow, raw);
     this.hasPose = true;

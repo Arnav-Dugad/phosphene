@@ -333,6 +333,7 @@
   background: color-mix(in oklab, var(--ink-0) 70%, transparent);
   font-size: var(--type-small);
   color: var(--bone);
+  white-space: nowrap;
 }
 
 .listToggle:hover,
@@ -429,7 +430,8 @@
 
 @media (max-width: 760px) {
   .hud {
-    grid-template-columns: 1fr;
+    /* minmax(0, …): the scrolling chip row must not widen the column past the screen. */
+    grid-template-columns: minmax(0, 1fr);
     grid-template-rows: auto 1fr auto auto;
   }
   .masthead {

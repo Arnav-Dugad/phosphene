@@ -652,6 +652,16 @@
   }
 }
 
+@media (max-width: 480px) {
+  /* Alternate channel labels ride on two rows so neighbours never collide. */
+  .channelScale {
+    height: 1.8rem;
+  }
+  .channelTick:nth-child(even) {
+    bottom: 0.85rem;
+  }
+}
+
 @media (max-width: 699px) {
   .log li {
     grid-template-columns: 1fr;

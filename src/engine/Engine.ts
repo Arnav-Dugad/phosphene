@@ -149,15 +149,19 @@ export class Engine implements StageContext, EngineHandle {
     const token = ++this.loadToken;
     useStage.getState().setStatus('loading');
     try {
+      performance.mark(`phosphene:${key}:request`);
       const { default: factory } = await loaderFor(key)();
       if (token !== this.loadToken) return;
       const next = await factory(this, params);
+      performance.mark(`phosphene:${key}:built`);
       if (token !== this.loadToken) {
         next.dispose();
         return;
       }
       next.resize(this.viewport);
       await this.compile(next.scene, next.camera);
+      // Marks let real-user timing see where a scene's first appearance goes: code, build, shaders.
+      performance.mark(`phosphene:${key}:compiled`);
       if (token !== this.loadToken) {
         next.dispose();
         return;
