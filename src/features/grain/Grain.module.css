@@ -1,0 +1,43 @@
+.grain {
+  position: fixed;
+  inset: -60px;
+  z-index: var(--z-grain);
+  pointer-events: none;
+  background-size: 180px 180px;
+  opacity: 0.55;
+  mix-blend-mode: overlay;
+  animation: grain 0.9s steps(6) infinite;
+}
+
+:global(:root[data-theme='plate']) .grain {
+  mix-blend-mode: multiply;
+  opacity: 0.4;
+}
+
+@keyframes grain {
+  0% {
+    translate: 0 0;
+  }
+  17% {
+    translate: -38px 22px;
+  }
+  33% {
+    translate: 27px -41px;
+  }
+  50% {
+    translate: -19px -13px;
+  }
+  67% {
+    translate: 44px 31px;
+  }
+  83% {
+    translate: -46px 9px;
+  }
+  100% {
+    translate: 0 0;
+  }
+}
+
+:global(:root[data-motion='still']) .grain {
+  animation: none;
+}

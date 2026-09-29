@@ -1,0 +1,140 @@
+.hud {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-hud);
+  pointer-events: none;
+  --inset: max(12px, env(safe-area-inset-left));
+}
+
+.corner {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  opacity: 0.55;
+}
+
+.corner::before,
+.corner::after {
+  content: '';
+  position: absolute;
+  background: var(--hairline-strong);
+}
+
+.corner::before {
+  width: 100%;
+  height: 1px;
+}
+
+.corner::after {
+  width: 1px;
+  height: 100%;
+}
+
+.tl {
+  top: calc(var(--safe-top) + var(--inset));
+  left: var(--inset);
+}
+.tr {
+  top: calc(var(--safe-top) + var(--inset));
+  right: var(--inset);
+  scale: -1 1;
+}
+.bl {
+  bottom: calc(var(--safe-bottom) + var(--inset));
+  left: var(--inset);
+  scale: 1 -1;
+}
+.br {
+  bottom: calc(var(--safe-bottom) + var(--inset));
+  right: var(--inset);
+  scale: -1 -1;
+}
+
+.status {
+  position: absolute;
+  left: calc(var(--inset) + 1.6rem);
+  bottom: calc(var(--safe-bottom) + var(--inset) - 0.25rem);
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-family: var(--font-mono);
+  font-size: var(--type-nano);
+  font-stretch: 87.5%;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--bone-faint);
+  white-space: nowrap;
+}
+
+.dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--page-line);
+  box-shadow: 0 0 8px var(--page-line);
+  animation: pulse 3.2s var(--ease-soft) infinite;
+}
+
+@keyframes pulse {
+  50% {
+    opacity: 0.35;
+  }
+}
+
+.sep {
+  width: 1.2rem;
+  height: 1px;
+  background: var(--hairline-strong);
+}
+
+.gauge {
+  position: absolute;
+  right: calc(var(--inset) + 0.2rem);
+  top: 50%;
+  translate: 0 -50%;
+  display: grid;
+  justify-items: center;
+  gap: 0.8rem;
+}
+
+.track {
+  position: relative;
+  width: 1px;
+  height: clamp(8rem, 26vh, 15rem);
+  background: var(--hairline);
+}
+
+.index {
+  --p: 0;
+  position: absolute;
+  left: -2px;
+  top: calc(var(--p) * 100%);
+  width: 5px;
+  height: 5px;
+  margin-top: -2.5px;
+  border-radius: 50%;
+  background: var(--page-line);
+  box-shadow: 0 0 10px 1px var(--page-line);
+}
+
+.value {
+  font-family: var(--font-mono);
+  font-size: var(--type-nano);
+  font-stretch: 87.5%;
+  letter-spacing: 0.08em;
+  color: var(--bone-faint);
+  writing-mode: vertical-rl;
+}
+
+@media (max-width: 1023px) {
+  .status span:not(.dot):not(:nth-child(2)) {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .status,
+  .gauge {
+    display: none;
+  }
+}

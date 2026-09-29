@@ -1,0 +1,37 @@
+.stage {
+  position: fixed;
+  inset: 0;
+  /* The large viewport height keeps the canvas stable while mobile URL bars slide. */
+  height: 100lvh;
+  z-index: var(--z-stage);
+  pointer-events: none;
+  background: var(--void);
+  contain: strict;
+}
+
+.canvas {
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+  transition: opacity var(--dur-nav) var(--ease-out), filter var(--dur-nav) var(--ease-out);
+}
+
+.stage[data-status='loading'] .canvas {
+  opacity: 0.999;
+}
+
+/* Plate theme: the luminous render becomes an engraving on paper. */
+:global(:root[data-theme='plate']) .canvas {
+  filter: invert(1) hue-rotate(180deg) saturate(0.85) contrast(0.92);
+  mix-blend-mode: multiply;
+}
+
+/* Without WebGL the world is suggested with light alone. */
+.fallback {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 38%, transparent 0 13.6vmin, color-mix(in oklab, var(--ember) 90%, white) 13.8vmin 14vmin, transparent 14.4vmin),
+    radial-gradient(circle at 50% 38%, color-mix(in oklab, var(--ember) 22%, transparent) 0, transparent 38vmin),
+    linear-gradient(to bottom, transparent 62%, color-mix(in oklab, var(--ember) 7%, var(--void)) 62.2%, var(--void));
+}

@@ -1,0 +1,161 @@
+.footer {
+  position: relative;
+  z-index: var(--z-content);
+  padding: clamp(5rem, 12vw, 10rem) 0 calc(var(--safe-bottom) + 2.5rem);
+  background: linear-gradient(to bottom, transparent, color-mix(in oklab, var(--void) 88%, transparent) 26%, var(--void));
+}
+
+.inner {
+  display: grid;
+  gap: clamp(3rem, 7vw, 6rem);
+}
+
+.coda {
+  max-width: 16ch;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: var(--type-h1);
+  line-height: 0.98;
+  letter-spacing: -0.025em;
+  color: var(--bone);
+  text-wrap: balance;
+}
+
+.coda em {
+  color: var(--ember);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(0, 1.6fr);
+  gap: 2rem clamp(1.5rem, 4vw, 4rem);
+  padding-top: 2.5rem;
+  border-top: 1px solid var(--hairline);
+}
+
+.column {
+  display: grid;
+  align-content: start;
+  gap: 1rem;
+}
+
+.column ul {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.link {
+  position: relative;
+  font-size: 0.98rem;
+  color: var(--bone-dim);
+  transition: color var(--dur-quick) var(--ease-out);
+}
+
+.link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 1px;
+  background: currentColor;
+  scale: 0 1;
+  transform-origin: right;
+  transition: scale var(--dur-nav) var(--ease-out);
+}
+
+.link:hover {
+  color: var(--bone);
+}
+
+.link:hover::after {
+  scale: 1 1;
+  transform-origin: left;
+}
+
+.status {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.status div {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px dashed var(--hairline);
+}
+
+.status dt {
+  font-size: var(--type-small);
+  color: var(--bone-faint);
+}
+
+.status dd {
+  font-family: var(--font-mono);
+  font-size: var(--type-micro);
+  font-stretch: 87.5%;
+  color: var(--bone);
+  text-align: right;
+}
+
+.base {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.2rem 2rem;
+  padding-top: 1.6rem;
+  border-top: 1px solid var(--hairline);
+}
+
+.glyphs {
+  color: var(--ember);
+  opacity: 0.8;
+}
+
+.fine {
+  font-size: var(--type-small);
+  color: var(--bone-faint);
+}
+
+.actions {
+  display: flex;
+  gap: 0.6rem;
+  margin-left: auto;
+}
+
+.action {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.55rem 0.8rem;
+  border: 1px solid var(--hairline);
+  font-size: var(--type-small);
+  color: var(--bone-dim);
+  transition:
+    color var(--dur-quick) var(--ease-out),
+    border-color var(--dur-quick) var(--ease-out);
+}
+
+.action:hover {
+  color: var(--bone);
+  border-color: var(--hairline-strong);
+}
+
+@media (max-width: 980px) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .grid > :last-child {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 560px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .actions {
+    margin-left: 0;
+  }
+}

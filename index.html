@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en" data-theme="nocturne" data-motion="full" data-contrast="standard">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <!--app-head-->
+    <meta name="color-scheme" content="dark light" />
+    <meta name="theme-color" content="#040406" />
+    <meta name="application-name" content="Phosphene" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Phosphene" />
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="icon" href="/icons/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/icons/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="preload" href="/fonts/cormorant-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/cormorant-italic-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/mona-sans-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/martian-mono-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <script src="/boot.js"></script>
+    <style>
+      html,
+      body {
+        background: #040406;
+        margin: 0;
+      }
+      html[data-theme='plate'],
+      html[data-theme='plate'] body {
+        background: #e4ded1;
+      }
+      .boot {
+        position: fixed;
+        inset: 0;
+        z-index: 700;
+        display: grid;
+        place-items: center;
+        background: #040406;
+        color: #aaa498;
+        font: 400 11px/1.4 ui-monospace, 'Cascadia Mono', Menlo, Consolas, monospace;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        pointer-events: none;
+      }
+      html[data-theme='plate'] .boot {
+        background: #e4ded1;
+        color: #4b473e;
+      }
+      .boot__aperture {
+        position: relative;
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        box-shadow: inset 0 0 0 1px rgba(236, 230, 218, 0.16);
+      }
+      .boot__dot {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 3px;
+        height: 3px;
+        margin: -1.5px 0 0 -1.5px;
+        border-radius: 50%;
+        background: #ffb45e;
+        box-shadow: 0 0 12px 2px rgba(255, 180, 94, 0.6);
+        animation: boot-pulse 1.6s ease-in-out infinite;
+      }
+      .boot__line {
+        position: absolute;
+        left: max(24px, env(safe-area-inset-left));
+        right: max(24px, env(safe-area-inset-right));
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+      }
+      .boot__line--top {
+        top: max(22px, env(safe-area-inset-top));
+      }
+      .boot__line--bottom {
+        bottom: max(22px, env(safe-area-inset-bottom));
+      }
+      @keyframes boot-pulse {
+        50% {
+          opacity: 0.35;
+          transform: scale(0.7);
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .boot__dot {
+          animation: none;
+        }
+      }
+      noscript .noscript {
+        position: relative;
+        z-index: 800;
+        max-width: 44rem;
+        margin: 12vh auto;
+        padding: 0 24px;
+        color: #ece6da;
+        font: 18px/1.6 Georgia, serif;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="boot" class="boot" aria-hidden="true">
+      <div class="boot__line boot__line--top"><span>Halden Deep Array</span><span>Channel 7</span></div>
+      <div class="boot__aperture"><span class="boot__dot"></span></div>
+      <div class="boot__line boot__line--bottom"><span>Establishing link</span><span id="boot-pct">00%</span></div>
+    </div>
+    <div id="root"><!--app-body--></div>
+    <noscript>
+      <div class="noscript">
+        <p>
+          PHOSPHENE is an interactive observatory rendered in real time. It needs JavaScript to receive the signal —
+          please enable it to continue.
+        </p>
+      </div>
+    </noscript>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

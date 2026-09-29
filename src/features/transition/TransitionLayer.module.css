@@ -1,0 +1,85 @@
+.layer {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-transition);
+  pointer-events: none;
+  overflow: clip;
+}
+
+.ring {
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-radius: 50%;
+  opacity: 0;
+  transform-origin: 50% 50%;
+  will-change: transform, opacity;
+  box-shadow:
+    0 0 0 1.5px color-mix(in oklab, var(--blink-color, var(--ember)) 90%, white),
+    0 0 26px 5px color-mix(in oklab, var(--blink-color, var(--ember)) 55%, transparent),
+    inset 0 0 36px 6px color-mix(in oklab, var(--blink-color, var(--ember)) 35%, transparent);
+}
+
+.bloom {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  will-change: transform, opacity, scale;
+}
+
+/* Two irregular, drifting blobs: phosphenes are never perfect circles. */
+.blobA,
+.blobB {
+  position: absolute;
+  border-radius: 46% 54% 41% 59% / 52% 44% 56% 48%;
+  filter: blur(14px);
+  mix-blend-mode: screen;
+}
+
+.blobA {
+  width: 46vmin;
+  height: 42vmin;
+  translate: -50% -50%;
+  background: radial-gradient(
+    closest-side,
+    color-mix(in oklab, var(--blink-color, var(--ember)) 55%, white) 0%,
+    color-mix(in oklab, var(--blink-color, var(--ember)) 60%, transparent) 38%,
+    transparent 100%
+  );
+  animation: drift-a 2.4s var(--ease-soft) infinite alternate;
+}
+
+.blobB {
+  width: 30vmin;
+  height: 34vmin;
+  translate: -18% -72%;
+  background: radial-gradient(
+    closest-side,
+    color-mix(in oklab, var(--line-o3) 60%, transparent) 0%,
+    transparent 100%
+  );
+  opacity: 0.55;
+  animation: drift-b 3.1s var(--ease-soft) infinite alternate;
+}
+
+@keyframes drift-a {
+  to {
+    rotate: 24deg;
+    translate: -46% -54%;
+  }
+}
+
+@keyframes drift-b {
+  to {
+    rotate: -30deg;
+    translate: -26% -64%;
+  }
+}
+
+:global(:root[data-theme='plate']) .blobA,
+:global(:root[data-theme='plate']) .blobB {
+  mix-blend-mode: multiply;
+}

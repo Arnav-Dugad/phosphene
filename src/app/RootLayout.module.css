@@ -1,0 +1,11 @@
+.world {
+  position: relative;
+  min-height: 100dvh;
+  isolation: isolate;
+}
+
+.main {
+  position: relative;
+  z-index: var(--z-content);
+  outline: none;
+}

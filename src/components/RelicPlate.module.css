@@ -1,0 +1,50 @@
+.plate {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.lines {
+  fill: none;
+  stroke: var(--bone);
+  stroke-width: 1px;
+  vector-effect: non-scaling-stroke;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.lines path {
+  vector-effect: non-scaling-stroke;
+}
+
+.plate[data-draw-plate] .lines path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: engrave 2.2s var(--ease-out) forwards;
+  animation-delay: calc(min(var(--li), 60) * 18ms);
+}
+
+@keyframes engrave {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.marks {
+  fill: none;
+  stroke: var(--hairline-strong);
+  stroke-width: 1px;
+}
+
+.marks path {
+  vector-effect: non-scaling-stroke;
+}
+
+.marks text {
+  fill: var(--bone-faint);
+  stroke: none;
+  font-family: var(--font-mono);
+  font-size: 7px;
+  letter-spacing: 0.1em;
+}

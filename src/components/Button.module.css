@@ -1,0 +1,159 @@
+.button {
+  --btn-line: var(--page-line);
+  --gx: 50%;
+  --gy: 50%;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9rem;
+  min-height: 3.1rem;
+  padding: 0 1.2rem 0 1.35rem;
+  font-family: var(--font-mono);
+  font-size: var(--type-micro);
+  font-stretch: 87.5%;
+  font-weight: 450;
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--bone);
+  isolation: isolate;
+  transition:
+    color var(--dur-quick) var(--ease-out),
+    background-color var(--dur-quick) var(--ease-out),
+    scale var(--dur-micro) var(--ease-out);
+}
+
+.button:active {
+  scale: 0.97;
+}
+
+.button:disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+/* Hairline frame + pointer-following glow along the border. */
+.primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border: 1px solid var(--hairline-strong);
+  background:
+    radial-gradient(160px circle at var(--gx) var(--gy), color-mix(in oklab, var(--btn-line) 16%, transparent), transparent 70%)
+      padding-box,
+    transparent;
+  transition:
+    border-color var(--dur-quick) var(--ease-out),
+    background-color var(--dur-quick) var(--ease-out);
+}
+
+.primary::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  z-index: -1;
+  padding: 1px;
+  background: radial-gradient(90px circle at var(--gx) var(--gy), var(--btn-line), transparent 70%);
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  -webkit-mask-composite: xor;
+  opacity: 0;
+  transition: opacity var(--dur-quick) var(--ease-out);
+}
+
+.primary:hover::after,
+.primary:focus-visible::after {
+  opacity: 1;
+}
+
+.primary:hover::before {
+  border-color: color-mix(in oklab, var(--btn-line) 45%, var(--hairline-strong));
+}
+
+.corners {
+  position: absolute;
+  inset: -4px;
+  pointer-events: none;
+  background:
+    linear-gradient(var(--bone), var(--bone)) top left / 6px 1px no-repeat,
+    linear-gradient(var(--bone), var(--bone)) top left / 1px 6px no-repeat,
+    linear-gradient(var(--bone), var(--bone)) bottom right / 6px 1px no-repeat,
+    linear-gradient(var(--bone), var(--bone)) bottom right / 1px 6px no-repeat;
+  opacity: 0;
+  scale: 1.08;
+  transition:
+    opacity var(--dur-quick) var(--ease-out),
+    scale var(--dur-nav) var(--ease-out);
+}
+
+.primary:hover .corners,
+.primary:focus-visible .corners {
+  opacity: 0.8;
+  scale: 1;
+}
+
+.ghost .corners,
+.quiet .corners {
+  display: none;
+}
+
+.ghost {
+  padding-inline: 0.2rem;
+  color: var(--bone-dim);
+}
+
+.ghost .label {
+  background: linear-gradient(currentColor, currentColor) left bottom / 0 1px no-repeat;
+  padding-bottom: 2px;
+  transition: background-size var(--dur-nav) var(--ease-out);
+}
+
+.ghost:hover {
+  color: var(--bone);
+}
+
+.ghost:hover .label {
+  background-size: 100% 1px;
+}
+
+.quiet {
+  min-height: 2.5rem;
+  padding-inline: 0.9rem;
+  color: var(--bone-dim);
+  border: 1px solid var(--hairline);
+}
+
+.quiet:hover {
+  color: var(--bone);
+  border-color: var(--hairline-strong);
+}
+
+/* The arrow travels out and a twin arrives: a small loop of motion on hover. */
+.icon {
+  position: relative;
+  display: inline-grid;
+  width: 16px;
+  height: 16px;
+  overflow: hidden;
+  color: var(--btn-line);
+}
+
+.icon > :global(svg) {
+  grid-area: 1 / 1;
+  transition: translate var(--dur-nav) var(--ease-out);
+}
+
+.icon > :global(svg:last-child) {
+  translate: -120% 0;
+}
+
+.button:hover .icon > :global(svg:first-child) {
+  translate: 120% 0;
+}
+
+.button:hover .icon > :global(svg:last-child) {
+  translate: 0 0;
+}

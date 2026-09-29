@@ -1,0 +1,47 @@
+.wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  color: var(--bone);
+}
+
+.mark {
+  flex: none;
+  overflow: visible;
+}
+
+.dot {
+  fill: var(--ember);
+  filter: drop-shadow(0 0 3px color-mix(in oklab, var(--ember) 80%, transparent));
+}
+
+.orbit {
+  transform-origin: 12px 12px;
+  transition: rotate 900ms var(--ease-out);
+}
+
+.afterimage {
+  opacity: 0.55;
+  transition: opacity var(--dur-quick) var(--ease-out);
+}
+
+:is(a, button):hover .orbit,
+:is(a, button):focus-visible .orbit {
+  rotate: 120deg;
+}
+
+:is(a, button):hover .afterimage {
+  opacity: 1;
+}
+
+.word {
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 520;
+  font-stretch: 118%;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  line-height: 1;
+  /* Optical correction: tracking adds trailing space after the last letter. */
+  margin-right: -0.34em;
+}

@@ -1,0 +1,43 @@
+.flare {
+  display: inline-flex;
+  white-space: nowrap;
+}
+
+.chars {
+  display: inline-flex;
+}
+
+.flareHost {
+  /* Marker class: hovering any element with it plays the flare on its FlareText. */
+}
+
+.char {
+  display: inline-block;
+}
+
+:is(a, button, [role='button'], .flareHost):hover .char,
+:is(a, button, [role='button'], .flareHost):focus-visible .char {
+  animation: flare 620ms var(--ease-soft) both;
+  animation-delay: calc(var(--i) * 26ms);
+}
+
+@keyframes flare {
+  0% {
+    color: inherit;
+    text-shadow: none;
+  }
+  30% {
+    color: color-mix(in oklab, var(--page-line) 70%, white);
+    text-shadow: 0 0 12px color-mix(in oklab, var(--page-line) 70%, transparent);
+  }
+  100% {
+    color: inherit;
+    text-shadow: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .char {
+    animation: none !important;
+  }
+}

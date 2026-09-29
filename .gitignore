@@ -1,0 +1,30 @@
+# dependencies
+node_modules/
+
+# build output
+dist/
+coverage/
+*.tsbuildinfo
+
+# platform tooling
+.wrangler/
+.vercel/
+.dev.vars
+.env
+.env.*
+!.env.example
+
+# local agent / editor tooling (machine-specific, not part of the project)
+.agentrelay/
+.codex/
+.mcp.json
+.claude/
+.playwright-mcp/
+
+# os / editors
+.DS_Store
+Thumbs.db
+*.log
+.idea/
+.vscode/*
+!.vscode/extensions.json

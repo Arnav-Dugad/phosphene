@@ -1,0 +1,206 @@
+.dialog {
+  width: min(44rem, calc(100vw - 2rem));
+  margin: min(14vh, 9rem) auto auto;
+  background: transparent;
+  overflow: visible;
+}
+
+.dialog::backdrop {
+  background: color-mix(in oklab, var(--void) 55%, transparent);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.box {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  max-height: min(34rem, 72vh);
+  background: color-mix(in oklab, var(--ink-1) 92%, transparent);
+  backdrop-filter: blur(var(--blur-heavy)) saturate(1.2);
+  -webkit-backdrop-filter: blur(var(--blur-heavy)) saturate(1.2);
+  border: 1px solid var(--hairline-strong);
+  box-shadow:
+    0 40px 120px -40px rgb(0 0 0 / 0.95),
+    0 0 0 1px color-mix(in oklab, var(--signal) 8%, transparent),
+    0 0 80px -30px color-mix(in oklab, var(--signal) 35%, transparent);
+}
+
+.inputRow {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 1.1rem 1.2rem;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.searchIcon {
+  color: var(--signal);
+  flex: none;
+}
+
+.input {
+  flex: 1;
+  min-width: 0;
+  background: none;
+  border: 0;
+  outline: none;
+  font-size: 1.08rem;
+  font-weight: 360;
+  color: var(--bone);
+}
+
+.input::placeholder {
+  color: var(--bone-faint);
+}
+
+.esc,
+.footer kbd,
+.empty kbd {
+  display: inline-grid;
+  place-items: center;
+  min-width: 1.5rem;
+  height: 1.35rem;
+  padding: 0 0.35rem;
+  border: 1px solid var(--hairline-strong);
+  border-radius: var(--radius-hair);
+  font-family: var(--font-mono);
+  font-size: var(--type-nano);
+  font-stretch: 87.5%;
+  color: var(--bone-dim);
+}
+
+.list {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 0.35rem 0.4rem 0.6rem;
+  scrollbar-width: thin;
+}
+
+.group {
+  padding: 0.85rem 0.8rem 0.35rem;
+  font-family: var(--font-mono);
+  font-size: var(--type-nano);
+  font-stretch: 87.5%;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--bone-faint);
+}
+
+.option {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.6rem minmax(0, auto) minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.62rem 0.8rem;
+  border-radius: var(--radius-hair);
+  color: var(--bone-dim);
+  cursor: pointer;
+}
+
+.option[aria-selected='true'] {
+  background: color-mix(in oklab, var(--opt-line) 10%, transparent);
+  color: var(--bone);
+}
+
+.option[aria-selected='true']::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 22%;
+  bottom: 22%;
+  width: 2px;
+  background: var(--opt-line);
+  box-shadow: 0 0 10px var(--opt-line);
+}
+
+.marker {
+  display: grid;
+  place-items: center;
+  color: var(--opt-line);
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--opt-line);
+  box-shadow: 0 0 8px color-mix(in oklab, var(--opt-line) 70%, transparent);
+}
+
+.title {
+  font-size: 0.98rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.hit {
+  background: none;
+  color: var(--opt-line);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.subtitle {
+  font-size: var(--type-small);
+  color: var(--bone-faint);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.hint {
+  font-family: var(--font-mono);
+  font-size: var(--type-nano);
+  font-stretch: 87.5%;
+  color: var(--bone-faint);
+  min-width: 1rem;
+  text-align: right;
+}
+
+.empty {
+  padding: 2rem 1.2rem;
+  color: var(--bone-dim);
+  font-size: var(--type-small);
+  line-height: 1.6;
+}
+
+.footer {
+  display: flex;
+  gap: 1.2rem;
+  align-items: center;
+  padding: 0.75rem 1.2rem;
+  border-top: 1px solid var(--hairline);
+  font-family: var(--font-mono);
+  font-size: var(--type-nano);
+  font-stretch: 87.5%;
+  letter-spacing: 0.08em;
+  color: var(--bone-faint);
+}
+
+.footer span {
+  display: inline-flex;
+  gap: 0.3rem;
+  align-items: center;
+}
+
+.count {
+  margin-left: auto;
+}
+
+@media (max-width: 640px) {
+  .dialog {
+    margin-top: calc(var(--safe-top) + 4.5rem);
+  }
+  .subtitle {
+    display: none;
+  }
+  .option {
+    grid-template-columns: 1.6rem 1fr auto;
+  }
+  .footer span:not(.count) {
+    display: none;
+  }
+}

@@ -1,0 +1,131 @@
+.region {
+  position: fixed;
+  left: max(var(--space-gutter), var(--safe-left));
+  bottom: calc(var(--safe-bottom) + 3rem);
+  z-index: var(--z-toast);
+  width: min(26rem, calc(100vw - 2 * var(--space-gutter)));
+  pointer-events: none;
+}
+
+.list {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.toast {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 0.9rem;
+  align-items: start;
+  padding: 1rem 0.9rem 1.05rem 1rem;
+  background: color-mix(in oklab, var(--ink-1) 88%, transparent);
+  backdrop-filter: blur(var(--blur-glass));
+  -webkit-backdrop-filter: blur(var(--blur-glass));
+  border: 1px solid var(--hairline);
+  box-shadow: 0 24px 60px -30px rgb(0 0 0 / 0.9);
+  pointer-events: auto;
+  overflow: hidden;
+  animation: enter 700ms var(--ease-out) both;
+}
+
+.toast[data-leaving='true'] {
+  animation: leave 420ms var(--ease-in) both;
+}
+
+@keyframes enter {
+  from {
+    opacity: 0;
+    translate: 0 1.2rem;
+    filter: blur(6px);
+  }
+}
+
+@keyframes leave {
+  to {
+    opacity: 0;
+    translate: -1rem 0;
+    filter: blur(4px);
+  }
+}
+
+.glyph {
+  width: 9px;
+  height: 9px;
+  margin-top: 0.3rem;
+  rotate: 45deg;
+  background: var(--toast-line);
+  box-shadow: 0 0 12px 1px color-mix(in oklab, var(--toast-line) 75%, transparent);
+}
+
+.toast[data-tone='info'] .glyph {
+  background: transparent;
+  border: 1px solid var(--toast-line);
+  box-shadow: none;
+}
+
+.text {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.title {
+  font-family: var(--font-mono);
+  font-size: var(--type-micro);
+  font-stretch: 87.5%;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--bone);
+}
+
+.body {
+  font-size: var(--type-small);
+  color: var(--bone-dim);
+  line-height: 1.5;
+}
+
+.quote {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.2rem;
+  line-height: 1.3;
+  color: var(--bone);
+}
+
+.close {
+  display: grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  margin: -0.3rem -0.3rem 0 0;
+  color: var(--bone-faint);
+  transition: color var(--dur-quick) var(--ease-out);
+}
+
+.close:hover {
+  color: var(--bone);
+}
+
+.timer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 1px;
+  width: 100%;
+  background: var(--toast-line);
+  transform-origin: left;
+  animation: timer var(--ttl) linear forwards;
+}
+
+.timer[data-paused='true'] {
+  animation-play-state: paused;
+}
+
+@keyframes timer {
+  from {
+    scale: 1 1;
+  }
+  to {
+    scale: 0 1;
+  }
+}

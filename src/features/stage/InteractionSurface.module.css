@@ -1,0 +1,17 @@
+.surface {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  outline: none;
+}
+
+.surface:focus-visible::after {
+  content: '';
+  position: absolute;
+  inset: calc(var(--header-h) + 0.5rem) 0.75rem 0.75rem;
+  border: 1px dashed color-mix(in oklab, var(--focus-ring) 70%, transparent);
+  pointer-events: none;
+}
