@@ -14,6 +14,7 @@ export interface EngineHandle {
   dispatchWheel(e: WheelEvent): void;
   dispatchZoom(factor: number): void;
   dispatchKey(key: string): boolean;
+  capture(): Promise<Blob | null>;
   invalidate(): void;
 }
 

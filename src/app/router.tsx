@@ -25,6 +25,8 @@ const routes: RouteObject[] = [
       { path: 'archive/:id', lazy: page(pageModules.relic), handle: { footer: false } },
       { path: 'transmissions', lazy: page(pageModules.transmissions) },
       { path: 'transmissions/:slug', lazy: page(pageModules.story) },
+      { path: 'instruments', lazy: page(pageModules.instruments) },
+      { path: 'instruments/:slug', lazy: page(pageModules.instrument), handle: { footer: false } },
       { path: '*', lazy: page(pageModules.notFound) },
     ],
   },

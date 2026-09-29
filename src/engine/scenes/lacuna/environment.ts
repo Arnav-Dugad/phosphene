@@ -8,7 +8,7 @@ import {
   Vector4,
   type PerspectiveCamera,
 } from 'three';
-import { glsl, hash } from '../../shaders/chunks.ts';
+import { gauss, glsl, hash } from '../../shaders/chunks.ts';
 import { getNoiseTexture, noiseTextureGlsl } from '../../textures/noiseTexture.ts';
 import { RING } from './formations.ts';
 
@@ -49,6 +49,7 @@ function fragmentShader(detail: number): string {
   varying vec2 vUv;
 
   ${hash}
+  ${gauss}
   ${noiseTextureGlsl}
 
   const float TAU = 6.28318530718;
@@ -91,7 +92,7 @@ function fragmentShader(detail: number): string {
     float air = smoothstep(-0.02, 0.9, hit.y);
     float a = atan(p.y, p.x);
     float breath = 1.0 + 0.06 * sin(uTime * 0.7) + uPulse * 0.6;
-    float core = exp(-pow(d / 0.011, 2.0));
+    float core = gauss(d / 0.011);
     float glow = exp(-abs(d) / 0.04) * 0.5;
     float halo = exp(-abs(d) / 0.2) * 0.06;
     float n = noiseFbm(vec2(a / TAU * 3.0 + uTime * 0.004, uTime * 0.012 + max(d, 0.0) * 0.35));

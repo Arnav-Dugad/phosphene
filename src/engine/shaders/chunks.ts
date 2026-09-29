@@ -141,6 +141,13 @@ vec3 wavelengthToRgb(float nm) {
 }
 `;
 
+/** A Gaussian falloff. exp(-x²) written without pow(), whose negative bases are undefined in GLSL. */
+export const gauss = glsl`
+float gauss(float x) {
+  return exp(-x * x);
+}
+`;
+
 export const rotate = glsl`
 mat2 rot2(float a) {
   float s = sin(a);

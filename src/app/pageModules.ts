@@ -16,6 +16,8 @@ export const pageModules = {
   relic: () => import('../pages/archive/RelicPage.tsx'),
   transmissions: () => import('../pages/transmissions/TransmissionsPage.tsx'),
   story: () => import('../pages/transmissions/StoryPage.tsx'),
+  instruments: () => import('../pages/instruments/InstrumentsPage.tsx'),
+  instrument: () => import('../pages/instruments/InstrumentPage.tsx'),
   notFound: () => import('../pages/not-found/NotFoundPage.tsx'),
 } satisfies Record<string, PageModule>;
 

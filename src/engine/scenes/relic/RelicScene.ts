@@ -18,7 +18,7 @@ import { clamp, damp } from '../../../lib/math.ts';
 import { createRng } from '../../../lib/random.ts';
 import type { SceneParams } from '../../../stores/stage.ts';
 import type { RelicFormRequest, RelicFormResponse } from '../../../workers/relicForm.worker.ts';
-import { glsl, hash, spectrum } from '../../shaders/chunks.ts';
+import { gauss, glsl, hash, spectrum } from '../../shaders/chunks.ts';
 import type { FrameState, PostSettings, SceneFactory, StageContext, StageScene, Viewport } from '../../types.ts';
 import { OrbitRig } from '../../util/OrbitRig.ts';
 
@@ -115,11 +115,12 @@ const pedestalFragment = glsl`
   varying vec2 vUv;
   varying vec3 vPos;
   ${hash}
+  ${gauss}
   void main() {
     float r = length(vPos.xy);
     float rings = 0.5 + 0.5 * sin(r * 60.0 - uTime * 1.5);
     float edge = smoothstep(1.45, 1.4, r) * smoothstep(0.3, 0.9, r);
-    float rim = exp(-pow((r - 1.42) / 0.02, 2.0));
+    float rim = gauss((r - 1.42) / 0.02);
     float ticks = step(0.92, fract(atan(vPos.y, vPos.x) * 36.0 / 6.2831853)) * smoothstep(1.3, 1.42, r);
     float glow = (edge * rings * 0.08 + rim * 0.9 + ticks * 0.35) * (0.4 + 0.6 * uDecode);
     gl_FragColor = vec4(uColor * glow, 1.0);

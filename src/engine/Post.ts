@@ -5,11 +5,12 @@ import {
   EffectComposer,
   EffectPass,
   RenderPass,
+  ShaderPass,
   ToneMappingEffect,
   ToneMappingMode,
   VignetteEffect,
 } from 'postprocessing';
-import { HalfFloatType, Uniform, Vector2, type Camera, type Scene, type WebGLRenderer } from 'three';
+import { HalfFloatType, ShaderMaterial, Uniform, Vector2, type Camera, type Scene, type WebGLRenderer } from 'three';
 import { damp } from '../lib/math.ts';
 import type { QualityProfile } from './quality.ts';
 import { glsl, spectrum } from './shaders/chunks.ts';
@@ -47,7 +48,7 @@ class LensEffect extends Effect {
         vec3 col = inputColor.rgb * uExposure * (1.0 + uWarp * 1.5);
         if (uSpectral > 0.001) {
           float l = dot(col, vec3(0.2126, 0.7152, 0.0722));
-          float nm = mix(700.0, 390.0, clamp(pow(l, 0.55) + 0.08 * sin(uv.y * 6.0 + uTime * 0.6), 0.0, 1.0));
+          float nm = mix(700.0, 390.0, clamp(pow(max(l, 0.0), 0.55) + 0.08 * sin(uv.y * 6.0 + uTime * 0.6), 0.0, 1.0));
           vec3 false_color = wavelengthToRgb(nm) * (0.25 + 1.6 * sqrt(l));
           float scan = smoothstep(0.0, 0.004, abs(fract(uv.y * 0.5 - uTime * 0.05) - 0.5) - 0.497);
           col = mix(col, false_color + scan * 0.06, uSpectral);
@@ -70,6 +71,38 @@ class LensEffect extends Effect {
     const u = this.uniforms.get(name);
     if (u) u.value = value;
   }
+}
+
+/**
+ * Replaces any NaN or infinity in the scene render with black before bloom
+ * sees it. A single invalid pixel would otherwise be smeared by the mip chain
+ * across the entire frame — one misbehaving driver must not black out a page.
+ */
+function nanGuard(): ShaderPass {
+  return new ShaderPass(
+    new ShaderMaterial({
+      uniforms: { inputBuffer: { value: null } },
+      vertexShader: glsl`
+        varying vec2 vUv;
+        void main() {
+          vUv = position.xy * 0.5 + 0.5;
+          gl_Position = vec4(position.xy, 1.0, 1.0);
+        }
+      `,
+      fragmentShader: glsl`
+        uniform sampler2D inputBuffer;
+        varying vec2 vUv;
+        void main() {
+          vec4 c = texture2D(inputBuffer, vUv);
+          bvec4 valid = equal(c, c);
+          c = vec4(valid.x ? c.x : 0.0, valid.y ? c.y : 0.0, valid.z ? c.z : 0.0, valid.w ? c.w : 1.0);
+          gl_FragColor = clamp(c, vec4(0.0), vec4(60000.0));
+        }
+      `,
+      depthTest: false,
+      depthWrite: false,
+    }),
+  );
 }
 
 export interface PostExtras {
@@ -121,6 +154,7 @@ export class Post {
     const tone = new ToneMappingEffect({ mode: ToneMappingMode.ACES_FILMIC });
     this.effectPass = new EffectPass(camera, this.bloom, this.aberration, this.lens, this.vignette, tone);
     this.composer.addPass(this.renderPass);
+    this.composer.addPass(nanGuard());
     this.composer.addPass(this.effectPass);
   }
 

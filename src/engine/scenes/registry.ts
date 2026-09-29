@@ -11,6 +11,11 @@ export const sceneLoaders: Partial<Record<SceneKey, Loader>> = {
   lacuna: () => import('./lacuna/LacunaScene.ts'),
   orrery: () => import('./orrery/OrreryScene.ts'),
   relic: () => import('./relic/RelicScene.ts'),
+  interference: () => import('./interference/InterferenceScene.ts'),
+  resonance: () => import('./resonance/ResonanceScene.ts'),
+  gravity: () => import('./gravity/GravityScene.ts'),
+  terrain: () => import('./terrain/TerrainScene.ts'),
+  aurora: () => import('./aurora/AuroraScene.ts'),
 };
 
 export function loaderFor(key: SceneKey): Loader {

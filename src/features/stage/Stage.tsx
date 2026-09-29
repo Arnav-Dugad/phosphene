@@ -34,6 +34,8 @@ export function Stage() {
         useStage.getState().setLoadProgress(0.45);
         const engine = new Engine(canvas, host);
         setEngine(engine);
+        // Development-only handle for inspecting the renderer from the console.
+        if (import.meta.env.DEV) Object.assign(window, { __phosphene: engine });
 
         const apply = (): void => {
           const { scene, params } = useStage.getState();

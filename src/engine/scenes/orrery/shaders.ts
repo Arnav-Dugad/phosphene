@@ -1,5 +1,5 @@
 import type { WorldSurface } from '../../../content/worlds.ts';
-import { fbm, glsl, hash, simplex } from '../../shaders/chunks.ts';
+import { fbm, gauss, glsl, hash, simplex } from '../../shaders/chunks.ts';
 
 const SURFACE_IDS: Record<Exclude<WorldSurface, 'star' | 'belt'>, number> = {
   ocean: 1,
@@ -40,6 +40,7 @@ export function planetFragment(surface: Exclude<WorldSurface, 'star' | 'belt'>, 
   varying vec3 vWorldPos;
   varying vec3 vObjPos;
   ${hash}
+  ${gauss}
   ${simplex}
   ${fbm(octaves)}
 
@@ -79,7 +80,7 @@ export function planetFragment(surface: Exclude<WorldSurface, 'star' | 'belt'>, 
       albedo = mix(uColorB, uColorA, smoothstep(-0.3, 0.4, h));
       float hot = smoothstep(0.55, 0.95, ndl);
       emissive += uColorC * hot * (0.6 + 0.4 * h) * 1.4;
-      float band = exp(-pow(ndl / 0.06, 2.0));
+      float band = gauss(ndl / 0.06);
       float site = step(0.9, hash13(floor(p * 70.0)));
       emissive += vec3(1.0, 0.8, 0.5) * band * site * 1.8;
       atmosphere = vec3(1.0, 0.55, 0.25) * 0.4;

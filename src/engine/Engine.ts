@@ -214,6 +214,19 @@ export class Engine implements StageContext, EngineHandle {
     this.invalidate();
   }
 
+  /**
+   * Renders the current frame and captures it as a PNG. Rendering and reading
+   * in the same task works without preserveDrawingBuffer, because toBlob
+   * snapshots the canvas synchronously.
+   */
+  capture(): Promise<Blob | null> {
+    const scene = this.current;
+    if (!scene) return Promise.resolve(null);
+    if (this.post) this.post.render(0);
+    else this.renderer.render(scene.scene, scene.camera);
+    return new Promise((resolve) => this.renderer.domElement.toBlob((blob) => resolve(blob), 'image/png'));
+  }
+
   /** Returns true when the scene consumed the key. */
   dispatchKey(key: string): boolean {
     const used = this.current?.onKey?.(key) ?? false;

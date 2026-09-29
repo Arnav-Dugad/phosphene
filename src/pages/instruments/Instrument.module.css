@@ -1,0 +1,439 @@
+.shell {
+  position: relative;
+  min-height: 100dvh;
+}
+
+/* ── Panel ─────────────────────────────────────────────────────────────── */
+
+.panel {
+  --instrument-line: var(--line-o3);
+  --page-line: var(--instrument-line);
+  position: fixed;
+  z-index: 5;
+  top: calc(var(--header-h) + var(--safe-top) + 1rem);
+  right: max(var(--space-gutter), var(--safe-right));
+  bottom: 2.4rem;
+  display: flex;
+  flex-direction: column;
+  width: min(23rem, 34vw);
+  padding: 1.3rem 1.3rem 1rem;
+  background: color-mix(in oklab, var(--ink-0) 78%, transparent);
+  backdrop-filter: blur(var(--blur-glass)) saturate(1.1);
+  -webkit-backdrop-filter: blur(var(--blur-glass)) saturate(1.1);
+  border: 1px solid var(--hairline);
+  border-top: 1px solid var(--instrument-line);
+  box-shadow: 0 30px 80px -40px rgb(0 0 0 / 0.9);
+}
+
+.panelHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--font-mono);
+  font-size: var(--type-nano);
+  font-stretch: 87.5%;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--bone-dim);
+}
+
+.back:hover {
+  color: var(--instrument-line);
+}
+
+.sheetToggle {
+  display: none;
+  place-items: center;
+  width: 2.2rem;
+  height: 2.2rem;
+  color: var(--bone-dim);
+}
+
+.name {
+  margin-top: 0.9rem;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(2rem, 1.4rem + 1.6vw, 2.9rem);
+  line-height: 0.95;
+  letter-spacing: -0.025em;
+  color: var(--bone);
+}
+
+.epithet {
+  margin-top: 0.4rem;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.05rem;
+  line-height: 1.3;
+  color: color-mix(in oklab, var(--instrument-line) 70%, var(--bone));
+}
+
+.panelBody {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+  margin-top: 1.3rem;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  padding-right: 0.3rem;
+}
+
+.controls {
+  display: grid;
+  gap: 1.3rem;
+}
+
+.groupLabel {
+  font-family: var(--font-mono);
+  font-size: var(--type-nano);
+  font-stretch: 87.5%;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--bone-dim);
+}
+
+.presets {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.presetButtons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.presetButtons button,
+.actions button {
+  min-height: 2.2rem;
+  padding: 0 0.75rem;
+  border: 1px solid var(--hairline-strong);
+  font-size: var(--type-small);
+  color: var(--bone-dim);
+  transition:
+    color var(--dur-quick) var(--ease-out),
+    border-color var(--dur-quick) var(--ease-out),
+    background-color var(--dur-quick) var(--ease-out);
+}
+
+.presetButtons button:hover,
+.actions button:hover:not(:disabled) {
+  color: var(--bone);
+  border-color: var(--bone-faint);
+}
+
+.presetButtons button[aria-pressed='true'] {
+  color: var(--bone);
+  border-color: var(--instrument-line);
+  background: color-mix(in oklab, var(--instrument-line) 14%, transparent);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.7rem;
+}
+
+.actions button:disabled {
+  opacity: 0.4;
+}
+
+.readout {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  font-family: var(--font-mono);
+  font-size: var(--type-nano);
+  font-stretch: 87.5%;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--bone-faint);
+}
+
+.actions .readout {
+  margin-left: auto;
+  gap: 0.6rem;
+}
+
+.readoutValue {
+  color: var(--bone);
+  font-variant-numeric: tabular-nums;
+}
+
+.callout {
+  display: grid;
+  gap: 0.8rem;
+  padding: 0.9rem;
+  border: 1px solid var(--hairline);
+  background: color-mix(in oklab, var(--instrument-line) 5%, transparent);
+}
+
+.figureName {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.3rem;
+  color: var(--bone);
+}
+
+.meter {
+  position: relative;
+  height: 2px;
+  background: var(--hairline-strong);
+}
+
+.meter span {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  background: var(--instrument-line);
+  box-shadow: 0 0 10px var(--instrument-line);
+  transition: width 200ms linear;
+}
+
+.hint {
+  font-size: var(--type-small);
+  line-height: 1.55;
+  color: var(--bone-faint);
+}
+
+.keys {
+  font-size: var(--type-small);
+  color: var(--bone-faint);
+}
+
+.keys kbd {
+  display: inline-grid;
+  place-items: center;
+  min-width: 1.3rem;
+  height: 1.3rem;
+  padding: 0 0.3rem;
+  border: 1px solid var(--hairline-strong);
+  font-family: var(--font-mono);
+  font-size: var(--type-nano);
+  color: var(--bone-dim);
+}
+
+.details {
+  border-top: 1px solid var(--hairline);
+  padding-top: 0.9rem;
+}
+
+.details summary {
+  cursor: pointer;
+  list-style: none;
+  font-family: var(--font-mono);
+  font-size: var(--type-nano);
+  font-stretch: 87.5%;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--bone-dim);
+}
+
+.details summary::-webkit-details-marker {
+  display: none;
+}
+
+.details summary::before {
+  content: '+';
+  display: inline-block;
+  width: 1rem;
+  color: var(--instrument-line);
+  transition: rotate var(--dur-quick) var(--ease-out);
+}
+
+.details[open] summary::before {
+  rotate: 45deg;
+}
+
+.details > p,
+.details > ul {
+  margin-top: 0.8rem;
+  font-size: var(--type-small);
+  line-height: 1.65;
+  color: var(--bone-dim);
+}
+
+.details ul {
+  padding-left: 1.1rem;
+}
+
+.principle {
+  font-family: var(--font-display);
+  font-size: 1.1rem !important;
+  line-height: 1.4 !important;
+  color: var(--bone) !important;
+}
+
+.lore {
+  font-style: italic;
+}
+
+.pager {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--hairline);
+  font-size: var(--type-small);
+}
+
+.pager a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--bone-dim);
+}
+
+.pager a:hover {
+  color: var(--bone);
+}
+
+/* ── Glyph studio ─────────────────────────────────────────────────────── */
+
+.studioArt {
+  position: fixed;
+  inset: calc(var(--header-h) + var(--safe-top)) calc(min(23rem, 34vw) + var(--space-gutter) * 2) 3rem var(--space-gutter);
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 1.4rem;
+  padding: 2rem;
+}
+
+.studioSvg {
+  max-width: 100%;
+  max-height: 62dvh;
+  width: auto;
+  height: auto;
+  filter: drop-shadow(0 0 12px color-mix(in oklab, currentColor 45%, transparent));
+}
+
+.studioCaption {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--type-h3);
+  color: var(--bone-dim);
+}
+
+.field {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.textInput {
+  padding: 0.4rem 0;
+  border: 0;
+  border-bottom: 1px solid var(--hairline-strong);
+  background: none;
+  outline: none;
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  color: var(--bone);
+}
+
+.textInput:focus {
+  border-color: var(--instrument-line);
+}
+
+.swatches {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.swatch {
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 50%;
+  background: var(--swatch);
+  box-shadow: 0 0 0 1px var(--hairline-strong);
+  transition:
+    box-shadow var(--dur-quick) var(--ease-out),
+    scale var(--dur-quick) var(--ease-out);
+}
+
+.swatch:hover {
+  scale: 1.12;
+}
+
+.swatch[aria-checked='true'] {
+  box-shadow:
+    0 0 0 2px var(--void),
+    0 0 0 3px var(--swatch),
+    0 0 14px var(--swatch);
+}
+
+.anatomy {
+  display: grid;
+  gap: 0.5rem;
+  padding: 0 !important;
+  list-style: none;
+}
+
+.anatomy li {
+  display: grid;
+  grid-template-columns: 2rem 1.2rem 1fr;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--instrument-line);
+}
+
+.anatomyChar {
+  font-family: var(--font-mono);
+  font-size: var(--type-micro);
+  color: var(--bone);
+}
+
+.anatomyInfo {
+  font-size: var(--type-small);
+  color: var(--bone-dim);
+}
+
+.missing {
+  display: grid;
+  gap: 1.2rem;
+  padding-top: calc(var(--header-h) + 6rem);
+  padding-bottom: 8rem;
+}
+
+@media (max-width: 900px) {
+  .panel {
+    top: auto;
+    left: 0.6rem;
+    right: 0.6rem;
+    bottom: calc(var(--safe-bottom) + 0.6rem);
+    width: auto;
+    max-height: 58dvh;
+    padding: 0.9rem 1rem;
+  }
+  .panel[data-open='false'] .panelBody,
+  .panel[data-open='false'] .epithet {
+    display: none;
+  }
+  .panel[data-open='false'] {
+    max-height: none;
+  }
+  .sheetToggle {
+    display: grid;
+  }
+  .name {
+    margin-top: 0.4rem;
+    font-size: 1.7rem;
+  }
+  .studioArt {
+    inset: calc(var(--header-h) + var(--safe-top)) 1rem 58dvh;
+    padding: 0.5rem;
+  }
+  .studioSvg {
+    max-height: 30dvh;
+  }
+}
