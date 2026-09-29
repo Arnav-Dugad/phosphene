@@ -12,7 +12,8 @@ import { usePageMeta } from '../../hooks/usePageMeta.ts';
 import { useResolvedMotion } from '../../hooks/useResolvedMotion.ts';
 import { useStageScene } from '../../hooks/useStageScene.ts';
 import { thousands } from '../../lib/format.ts';
-import { gsap, ScrollTrigger, SplitText, splitAnimation } from '../../lib/gsap.ts';
+import { gsap, ScrollTrigger } from '../../lib/gsap.ts';
+import { SplitText, splitAnimation } from '../../lib/gsapText.ts';
 import styles from './Chronicle.module.css';
 
 const MAX_TURNS = eras[0]?.from ?? 3_100_000;
