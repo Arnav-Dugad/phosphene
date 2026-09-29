@@ -93,9 +93,25 @@ export function ChoirLayout({ story }: { story: Story }) {
         const content = scene.firstElementChild;
         if (motion !== 'still' && content) {
           gsap
-            .timeline({ scrollTrigger: { trigger: scene, start: 'top bottom', end: 'bottom top', scrub: 0.5 } })
-            .fromTo(content, { opacity: 0, y: 60, filter: 'blur(12px)' }, { opacity: 1, y: 0, filter: 'blur(0px)', ease: 'phos.out', duration: 0.4 })
-            .to(content, { opacity: i === scenes.length - 1 ? 1 : 0, y: -60, filter: 'blur(10px)', ease: 'phos.in', duration: 0.4 }, 0.6);
+            .timeline({
+              scrollTrigger: { trigger: scene, start: 'top bottom', end: 'bottom top', scrub: 0.5 },
+            })
+            .fromTo(
+              content,
+              { opacity: 0, y: 60, filter: 'blur(12px)' },
+              { opacity: 1, y: 0, filter: 'blur(0px)', ease: 'phos.out', duration: 0.4 },
+            )
+            .to(
+              content,
+              {
+                opacity: i === scenes.length - 1 ? 1 : 0,
+                y: -60,
+                filter: 'blur(10px)',
+                ease: 'phos.in',
+                duration: 0.4,
+              },
+              0.6,
+            );
         }
         if (i === scenes.length - 1) {
           ScrollTrigger.create({ trigger: scene, start: 'top 55%', onEnter: () => unlockFragment(5) });

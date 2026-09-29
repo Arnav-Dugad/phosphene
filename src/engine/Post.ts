@@ -10,7 +10,15 @@ import {
   ToneMappingMode,
   VignetteEffect,
 } from 'postprocessing';
-import { HalfFloatType, ShaderMaterial, Uniform, Vector2, type Camera, type Scene, type WebGLRenderer } from 'three';
+import {
+  HalfFloatType,
+  ShaderMaterial,
+  Uniform,
+  Vector2,
+  type Camera,
+  type Scene,
+  type WebGLRenderer,
+} from 'three';
 import { damp } from '../lib/math.ts';
 import type { QualityProfile } from './quality.ts';
 import { glsl, spectrum } from './shaders/chunks.ts';

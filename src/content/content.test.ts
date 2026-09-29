@@ -1,5 +1,13 @@
 import { describe, expect, it } from 'vitest';
-import { DISH_COUNT, decoderLog, dishes, dishStates, lunarLight, sourcePointing, telemetry } from './array.ts';
+import {
+  DISH_COUNT,
+  decoderLog,
+  dishes,
+  dishStates,
+  lunarLight,
+  sourcePointing,
+  telemetry,
+} from './array.ts';
 import { eras } from './eras.ts';
 import { FRAGMENT_TOTAL, fragments } from './fragments.ts';
 import { chartEdges, chartNodes, nodeForPath } from './graph.ts';
@@ -32,7 +40,8 @@ describe('the universe holds together', () => {
       expect(eraIds.has(relic.era), `${relic.id} era ${relic.era}`).toBe(true);
       for (const other of relic.related) expect(relicIds.has(other), `${relic.id} → ${other}`).toBe(true);
     }
-    for (const world of worlds) for (const r of world.relics) expect(relicIds.has(r), `${world.id} → ${r}`).toBe(true);
+    for (const world of worlds)
+      for (const r of world.relics) expect(relicIds.has(r), `${world.id} → ${r}`).toBe(true);
     for (const story of stories) if (story.era) expect(eraIds.has(story.era), story.slug).toBe(true);
   });
 
@@ -64,7 +73,9 @@ describe('Transmission Zero', () => {
 describe('the chart of everything received', () => {
   it('contains every place and content item exactly once', () => {
     expect(unique(chartNodes.map((n) => n.id))).toBe(true);
-    expect(chartNodes).toHaveLength(places.length + worlds.length + eras.length + relics.length + stories.length + instruments.length);
+    expect(chartNodes).toHaveLength(
+      places.length + worlds.length + eras.length + relics.length + stories.length + instruments.length,
+    );
   });
 
   it('links only real nodes, never a node to itself', () => {
@@ -150,8 +161,14 @@ describe('prerendered pages', () => {
 
   it('covers every public route once', () => {
     expect(unique(pages.map((p) => p.path))).toBe(true);
-    for (const place of places) expect(pages.some((p) => p.path === place.path), place.path).toBe(true);
-    expect(pages).toHaveLength(places.length + worlds.length + relics.length + stories.length + instruments.length);
+    for (const place of places)
+      expect(
+        pages.some((p) => p.path === place.path),
+        place.path,
+      ).toBe(true);
+    expect(pages).toHaveLength(
+      places.length + worlds.length + relics.length + stories.length + instruments.length,
+    );
   });
 
   it('gives every page a title, a description and real content', () => {

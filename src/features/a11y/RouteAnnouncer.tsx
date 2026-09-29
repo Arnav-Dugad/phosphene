@@ -18,15 +18,18 @@ export function RouteAnnouncer() {
     if (previous.current === location.pathname) return;
     // Wait for the page to render its heading and set the title. The path is only
     // committed once this actually runs, so a cancelled StrictMode pass retries.
-    const id = window.setTimeout(() => {
-      previous.current = location.pathname;
-      const heading = document.querySelector<HTMLElement>('main h1');
-      setMessage(`Now viewing: ${document.title.replace(/\s+—\s+PHOSPHENE$/, '')}`);
-      if (heading) {
-        if (!heading.hasAttribute('tabindex')) heading.setAttribute('tabindex', '-1');
-        heading.focus({ preventScroll: true });
-      }
-    }, isDirectorNavigating() ? 0 : 60);
+    const id = window.setTimeout(
+      () => {
+        previous.current = location.pathname;
+        const heading = document.querySelector<HTMLElement>('main h1');
+        setMessage(`Now viewing: ${document.title.replace(/\s+—\s+PHOSPHENE$/, '')}`);
+        if (heading) {
+          if (!heading.hasAttribute('tabindex')) heading.setAttribute('tabindex', '-1');
+          heading.focus({ preventScroll: true });
+        }
+      },
+      isDirectorNavigating() ? 0 : 60,
+    );
     return () => window.clearTimeout(id);
   }, [location.pathname, navigationType]);
 

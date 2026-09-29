@@ -8,8 +8,10 @@ import styles from './Cursor.module.css';
 
 type Mode = 'default' | 'link' | 'label' | 'drag' | 'crosshair' | 'text' | 'hidden';
 
-const LINKISH = 'a[href], button, [role="button"], [role="option"], [role="tab"], label, summary, select, [data-cursor-label]';
-const TEXTISH = 'input:not([type="range"]):not([type="checkbox"]):not([type="radio"]), textarea, [contenteditable="true"]';
+const LINKISH =
+  'a[href], button, [role="button"], [role="option"], [role="tab"], label, summary, select, [data-cursor-label]';
+const TEXTISH =
+  'input:not([type="range"]):not([type="checkbox"]):not([type="radio"]), textarea, [contenteditable="true"]';
 
 function classify(target: Element | null): { mode: Mode; label: string; magnet: HTMLElement | null } {
   const explicit = target?.closest<HTMLElement>('[data-cursor]');
@@ -124,7 +126,8 @@ export function Cursor() {
         lastMagnet = magnet;
       }
       magnetOffset.step(dt);
-      if (magnet) magnet.style.translate = `${magnetOffset.x.value.toFixed(2)}px ${magnetOffset.y.value.toFixed(2)}px`;
+      if (magnet)
+        magnet.style.translate = `${magnetOffset.x.value.toFixed(2)}px ${magnetOffset.y.value.toFixed(2)}px`;
 
       pos.setTarget(tx, ty);
       pos.step(dt);

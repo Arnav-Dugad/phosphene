@@ -1,5 +1,12 @@
 import { describe, expect, it } from 'vitest';
-import { classifyDevice, describeRenderer, QUALITY_PROFILES, tierAt, tierIndex, type DeviceSignals } from './quality.ts';
+import {
+  classifyDevice,
+  describeRenderer,
+  QUALITY_PROFILES,
+  tierAt,
+  tierIndex,
+  type DeviceSignals,
+} from './quality.ts';
 
 const base: DeviceSignals = {
   renderer: 'ANGLE (NVIDIA, NVIDIA GeForce RTX 4070 Direct3D11 vs_5_0 ps_5_0, D3D11)',
@@ -22,7 +29,12 @@ describe('quality classification', () => {
   });
 
   it('treats integrated graphics as balanced', () => {
-    expect(classifyDevice({ ...base, renderer: 'ANGLE (Intel, Intel(R) UHD Graphics 620 Direct3D11 vs_5_0 ps_5_0, D3D11)' })).toBe('balanced');
+    expect(
+      classifyDevice({
+        ...base,
+        renderer: 'ANGLE (Intel, Intel(R) UHD Graphics 620 Direct3D11 vs_5_0 ps_5_0, D3D11)',
+      }),
+    ).toBe('balanced');
   });
 
   it('protects weak, software or data-saving devices', () => {

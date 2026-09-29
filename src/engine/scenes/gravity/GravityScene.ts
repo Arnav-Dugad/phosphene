@@ -20,7 +20,14 @@ import { clamp, TAU } from '../../../lib/math.ts';
 import { createRng } from '../../../lib/random.ts';
 import type { SceneParams } from '../../../stores/stage.ts';
 import { gauss, glsl, hash, spectrum } from '../../shaders/chunks.ts';
-import type { FrameState, PostSettings, SceneFactory, StageContext, StageScene, Viewport } from '../../types.ts';
+import type {
+  FrameState,
+  PostSettings,
+  SceneFactory,
+  StageContext,
+  StageScene,
+  Viewport,
+} from '../../types.ts';
 import { Emitter } from '../../util/Emitter.ts';
 import { Gpgpu, referenceUvs } from '../../util/gpgpu.ts';
 import { TrailBuffer } from '../../util/TrailBuffer.ts';
@@ -176,7 +183,12 @@ class GravityScene implements StageScene {
   /** The displayed scene: accumulated trails plus the masses. */
   readonly scene = new Scene();
   readonly camera = new PerspectiveCamera(42, 1, 0.1, 100);
-  readonly post: Partial<PostSettings> = { bloomIntensity: 0.9, bloomThreshold: 0.35, vignette: 0.7, aberration: 0.6 };
+  readonly post: Partial<PostSettings> = {
+    bloomIntensity: 0.9,
+    bloomThreshold: 0.35,
+    vignette: 0.7,
+    aberration: 0.6,
+  };
 
   /** `stable` fires when an orbit has held; `count` when masses change. */
   readonly events = new Emitter<{ stable: []; count: [number] }>();
@@ -247,12 +259,21 @@ class GravityScene implements StageScene {
     this.setParams(params);
   }
 
-  private buildSimulation(side: number): { position: Variable; velocity: Variable; points: Points<BufferGeometry, ShaderMaterial> } {
+  private buildSimulation(side: number): {
+    position: Variable;
+    velocity: Variable;
+    points: Points<BufferGeometry, ShaderMaterial>;
+  } {
     const blank = this.gpgpu.texture((data, i) => {
       data[i * 4 + 3] = 1;
     });
     const position = this.gpgpu.variable('texturePosition', positionShader, blank, {});
-    const velocity = this.gpgpu.variable('textureVelocity', velocityShader, this.gpgpu.texture(() => undefined), {});
+    const velocity = this.gpgpu.variable(
+      'textureVelocity',
+      velocityShader,
+      this.gpgpu.texture(() => undefined),
+      {},
+    );
     for (const v of [position, velocity]) {
       const u = v.material.uniforms;
       u.uMasses = { value: this.massUniforms };
@@ -292,7 +313,10 @@ class GravityScene implements StageScene {
   /** Seeds every grain on a Keplerian disk around the current total mass. */
   private seedDisk(): void {
     const rng = createRng(`gravity:${this.preset}:${this.respawnSeed}`);
-    const total = Math.max(0.05, this.masses.reduce((s, m) => s + m.mass, 0));
+    const total = Math.max(
+      0.05,
+      this.masses.reduce((s, m) => s + m.mass, 0),
+    );
     const pos = this.gpgpu.texture((data, i) => {
       const a = rng.next() * TAU;
       const r = 1.1 + Math.pow(rng.next(), 0.75) * 5.6;
@@ -306,7 +330,8 @@ class GravityScene implements StageScene {
       const x = posData[i * 4] as number;
       const y = posData[i * 4 + 1] as number;
       const r = Math.hypot(x, y);
-      const speed = Math.sqrt((this.gravity * total) / Math.max(r, 0.3)) * (this.preset === 'drift' ? 0.2 : 1);
+      const speed =
+        Math.sqrt((this.gravity * total) / Math.max(r, 0.3)) * (this.preset === 'drift' ? 0.2 : 1);
       data[i * 4] = (-y / r) * speed + rng.gaussian(0, 0.02);
       data[i * 4 + 1] = (x / r) * speed + rng.gaussian(0, 0.02);
       data[i * 4 + 2] = 0;
@@ -379,19 +404,21 @@ class GravityScene implements StageScene {
       const selected = this.masses[this.selected];
       if (selected) selected.mass = this.massValue;
     }
-    if (typeof params.preset === 'string' && params.preset !== this.preset) this.applyPreset(params.preset as GravityPreset);
+    if (typeof params.preset === 'string' && params.preset !== this.preset)
+      this.applyPreset(params.preset as GravityPreset);
   }
 
   resize(viewport: Readonly<Viewport>): void {
     this.camera.aspect = viewport.aspect;
-    this.camera.fov = viewport.aspect < 1 ? 42 / Math.max(0.5, viewport.aspect) * 0.85 : 42;
+    this.camera.fov = viewport.aspect < 1 ? (42 / Math.max(0.5, viewport.aspect)) * 0.85 : 42;
     const shift = viewport.compact ? 0 : viewport.width * 0.1;
     this.camera.setViewOffset(viewport.width, viewport.height, shift, 0, viewport.width, viewport.height);
     this.camera.updateProjectionMatrix();
     this.trails.resize(viewport);
     const size = Math.max(1, viewport.dpr * (viewport.height / 900) * 1.2);
     (this.particles.material.uniforms.uSize as { value: number }).value = size;
-    (this.massPoints.material.uniforms.uScale as { value: number }).value = viewport.dpr * (viewport.height / 900);
+    (this.massPoints.material.uniforms.uScale as { value: number }).value =
+      viewport.dpr * (viewport.height / 900);
   }
 
   private project(x: number, y: number): Vector3 | null {
@@ -463,7 +490,12 @@ class GravityScene implements StageScene {
     const pm = this.particles.material.uniforms;
     (pm.uPosition as { value: unknown }).value = this.gpgpu.current(this.positionVar);
     (pm.uVelocity as { value: unknown }).value = this.gpgpu.current(this.velocityVar);
-    this.trails.accumulate(renderer, this.particleScene, this.camera, frame.motion === 'still' ? 0 : this.persistence);
+    this.trails.accumulate(
+      renderer,
+      this.particleScene,
+      this.camera,
+      frame.motion === 'still' ? 0 : this.persistence,
+    );
   }
 
   update(frame: FrameState): void {

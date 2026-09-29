@@ -17,7 +17,13 @@ export function ApertureMark({ size = 22, className }: { size?: number; classNam
       focusable="false"
     >
       <circle cx="12" cy="12" r="10.25" stroke="currentColor" strokeWidth="1.1" />
-      <path className={styles.afterimage} d="M4.9 15.6a8 8 0 0 0 4.6 4.1" stroke="currentColor" strokeWidth="1.1" strokeLinecap="round" />
+      <path
+        className={styles.afterimage}
+        d="M4.9 15.6a8 8 0 0 0 4.6 4.1"
+        stroke="currentColor"
+        strokeWidth="1.1"
+        strokeLinecap="round"
+      />
       <g className={styles.orbit}>
         <circle className={styles.dot} cx="15.6" cy="8.4" r="2" />
       </g>

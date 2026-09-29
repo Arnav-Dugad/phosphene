@@ -86,7 +86,9 @@ export function CommandPalette() {
       return [...recents, ...places, ...actions];
     }
     if (q === '?') {
-      return commands.filter((c) => c.group === 'Shortcuts').map((command) => ({ command, indices: [], group: command.group }));
+      return commands
+        .filter((c) => c.group === 'Shortcuts')
+        .map((command) => ({ command, indices: [], group: command.group }));
     }
     const visible = commands.filter((c) => !c.secret || c.keywords?.some((k) => k === q));
     const ranked = rank(query, visible, 60);
@@ -98,7 +100,10 @@ export function CommandPalette() {
     }
     // Groups appear in the order of their best match.
     return [...grouped.entries()]
-      .sort((a, b) => ranked.findIndex((r) => r.item.group === a[0]) - ranked.findIndex((r) => r.item.group === b[0]))
+      .sort(
+        (a, b) =>
+          ranked.findIndex((r) => r.item.group === a[0]) - ranked.findIndex((r) => r.item.group === b[0]),
+      )
       .flatMap(([, list]) => list);
   }, [commands, query, recent]);
 
@@ -152,7 +157,11 @@ export function CommandPalette() {
     notify: (title, body) => pushToast({ tone: 'info', title, body, line: 'o3' }),
     resetProgress: () => {
       useProgress.getState().reset();
-      pushToast({ tone: 'info', title: 'Observations forgotten', body: 'Fragments, path and sigil have been cleared.' });
+      pushToast({
+        tone: 'info',
+        title: 'Observations forgotten',
+        body: 'Fragments, path and sigil have been cleared.',
+      });
     },
   };
 
@@ -224,10 +233,18 @@ export function CommandPalette() {
           <kbd className={styles.esc}>Esc</kbd>
         </div>
 
-        <div ref={listRef} id={listId} role="listbox" aria-label="Results" className={styles.list} data-lenis-prevent>
+        <div
+          ref={listRef}
+          id={listId}
+          role="listbox"
+          aria-label="Results"
+          className={styles.list}
+          data-lenis-prevent
+        >
           {rows.length === 0 && (
             <p className={styles.empty}>
-              Nothing answers to “{query}”. The signal is patient — try fewer letters, or <kbd>?</kbd> for shortcuts.
+              Nothing answers to “{query}”. The signal is patient — try fewer letters, or <kbd>?</kbd> for
+              shortcuts.
             </p>
           )}
           {rows.map((row, i) => {

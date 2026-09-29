@@ -24,12 +24,17 @@ function Redaction({ phrase }: { phrase: string }) {
  */
 export function RedactedText({ text, redacted = [] }: { text: string; redacted?: readonly string[] }) {
   if (redacted.length === 0) return <>{text}</>;
-  const pattern = new RegExp(`(${redacted.map((r) => r.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')})`, 'g');
+  const pattern = new RegExp(
+    `(${redacted.map((r) => r.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')})`,
+    'g',
+  );
   return (
     <>
-      {text.split(pattern).map((part, i) =>
-        redacted.includes(part) ? <Redaction key={i} phrase={part} /> : <Fragment key={i}>{part}</Fragment>,
-      )}
+      {text
+        .split(pattern)
+        .map((part, i) =>
+          redacted.includes(part) ? <Redaction key={i} phrase={part} /> : <Fragment key={i}>{part}</Fragment>,
+        )}
     </>
   );
 }

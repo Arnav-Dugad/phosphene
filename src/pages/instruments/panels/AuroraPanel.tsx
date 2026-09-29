@@ -30,19 +30,52 @@ export function AuroraPanel() {
   const save = async (): Promise<void> => {
     const blob = await getEngine()?.capture();
     if (!blob) {
-      toast({ tone: 'warning', title: 'Could not capture the frame', body: 'The canvas is not available right now.' });
+      toast({
+        tone: 'warning',
+        title: 'Could not capture the frame',
+        body: 'The canvas is not available right now.',
+      });
       return;
     }
     download(blob, `phosphene-aurora-${seed}-${palette}.png`);
-    toast({ tone: 'success', title: 'Frame saved', body: `Seed ${seed}, ${AURORA_PALETTES[palette]?.label ?? palette}.`, line: 'ca' });
+    toast({
+      tone: 'success',
+      title: 'Frame saved',
+      body: `Seed ${seed}, ${AURORA_PALETTES[palette]?.label ?? palette}.`,
+      line: 'ca',
+    });
   };
 
   return (
     <>
       <PresetRow label="Palette" options={PALETTE_OPTIONS} value={palette} onChange={setPalette} />
-      <Slider label="Scale" value={scale} min={0.3} max={2.5} step={0.01} onChange={setScale} format={(v) => `${v.toFixed(2)}`} />
-      <Slider label="Drift" value={speed} min={0} max={2.5} step={0.01} onChange={setSpeed} format={(v) => `${v.toFixed(2)}×`} />
-      <Slider label="Turbulence" value={turbulence} min={0.1} max={2.5} step={0.01} onChange={setTurbulence} format={(v) => v.toFixed(2)} />
+      <Slider
+        label="Scale"
+        value={scale}
+        min={0.3}
+        max={2.5}
+        step={0.01}
+        onChange={setScale}
+        format={(v) => `${v.toFixed(2)}`}
+      />
+      <Slider
+        label="Drift"
+        value={speed}
+        min={0}
+        max={2.5}
+        step={0.01}
+        onChange={setSpeed}
+        format={(v) => `${v.toFixed(2)}×`}
+      />
+      <Slider
+        label="Turbulence"
+        value={turbulence}
+        min={0.1}
+        max={2.5}
+        step={0.01}
+        onChange={setTurbulence}
+        format={(v) => v.toFixed(2)}
+      />
       <Slider
         label="Afterimage"
         value={persistence}
@@ -61,7 +94,9 @@ export function AuroraPanel() {
         </button>
         <Readout label="Seed" value={seed} />
       </ActionRow>
-      <p className={styles.hint}>Real aurorae glow oxygen-green below and oxygen-red above; the other palettes are Ithran skies.</p>
+      <p className={styles.hint}>
+        Real aurorae glow oxygen-green below and oxygen-red above; the other palettes are Ithran skies.
+      </p>
     </>
   );
 }

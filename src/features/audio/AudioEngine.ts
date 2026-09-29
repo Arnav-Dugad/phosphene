@@ -11,7 +11,8 @@ import { lineTone } from '../../lib/spectral.ts';
  * remembered — but even then audio only resumes after their first gesture.
  */
 
-export type Cue = 'hover' | 'click' | 'open' | 'close' | 'blink' | 'success' | 'fragment' | 'error' | 'type' | 'tick';
+export type Cue =
+  'hover' | 'click' | 'open' | 'close' | 'blink' | 'success' | 'fragment' | 'error' | 'type' | 'tick';
 
 const DRONE_RATIOS = [0.25, 0.5, 0.375, 1] as const;
 const DRONE_GAINS = [0.5, 0.32, 0.22, 0.05] as const;
@@ -167,7 +168,8 @@ class Engine {
 
   setVolume(volume: number): void {
     this.volume = Math.max(0, Math.min(1, volume));
-    if (this.ctx && this.master && this.enabled) this.master.gain.setTargetAtTime(this.volume, this.ctx.currentTime, 0.1);
+    if (this.ctx && this.master && this.enabled)
+      this.master.gain.setTargetAtTime(this.volume, this.ctx.currentTime, 0.1);
   }
 
   /** Glides the drone to a place's spectral line. */

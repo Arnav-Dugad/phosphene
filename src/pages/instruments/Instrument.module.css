@@ -301,7 +301,8 @@
 
 .studioArt {
   position: fixed;
-  inset: calc(var(--header-h) + var(--safe-top)) calc(min(23rem, 34vw) + var(--space-gutter) * 2) 3rem var(--space-gutter);
+  inset: calc(var(--header-h) + var(--safe-top)) calc(min(23rem, 34vw) + var(--space-gutter) * 2) 3rem
+    var(--space-gutter);
   z-index: 2;
   display: grid;
   place-items: center;

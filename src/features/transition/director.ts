@@ -104,8 +104,7 @@ export async function blink(request: BlinkRequest): Promise<void> {
   ring.style.setProperty('--blink-color', color);
   bloom.style.setProperty('--blink-color', color);
   ring.style.width = ring.style.height = `${radius * 2}px`;
-  const place = (scale: number): string =>
-    `translate(${x - radius}px, ${y - radius}px) scale(${scale})`;
+  const place = (scale: number): string => `translate(${x - radius}px, ${y - radius}px) scale(${scale})`;
   const circle = (r: number): string => `circle(${r}px at ${x}px ${y}px)`;
 
   try {

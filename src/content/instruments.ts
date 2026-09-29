@@ -25,7 +25,8 @@ export const instruments: readonly Instrument[] = [
     epithet: 'Weave coherent light into fringes and beams',
     line: 'o3',
     scene: 'interference',
-    principle: 'Coherent waves add: where crests meet crests the light doubles, where crests meet troughs it vanishes.',
+    principle:
+      'Coherent waves add: where crests meet crests the light doubles, where crests meet troughs it vanishes.',
     summary:
       'Place up to eight coherent emitters and watch their waves interfere. Arrange them in a line and shift their phases to steer a beam — the way the Array points sixty-four dishes without moving one.',
     lore: 'The Choir on Ennis was a phased array the size of a world. Reproducing its beam-forming was the Institute’s first proof that the signal was made, not found.',
@@ -58,7 +59,8 @@ export const instruments: readonly Instrument[] = [
     epithet: 'Spin a disk of dust around masses you place',
     line: 'mg',
     scene: 'gravity',
-    principle: 'Every grain feels every mass, pulled by the inverse square of the distance, and keeps its momentum.',
+    principle:
+      'Every grain feels every mass, pulled by the inverse square of the distance, and keeps its momentum.',
     summary:
       'A disk of luminous dust, simulated on your graphics card, orbiting masses you create and move. Trails persist like afterimages — phosphenes of where the light has been.',
     lore: 'The Institute reconstructs the Vael system’s debris from the Atlas of Near Stars with a loom like this one, running for months at a time.',
@@ -74,11 +76,16 @@ export const instruments: readonly Instrument[] = [
     epithet: 'Write any name in the Ithran aperture script',
     line: 'he',
     scene: 'lacuna',
-    principle: 'Each letter maps to a fixed set of strokes on an eight-spoked aperture: vowels ring closed, consonants break open.',
+    principle:
+      'Each letter maps to a fixed set of strokes on an eight-spoked aperture: vowels ring closed, consonants break open.',
     summary:
       'Transliterate text into Ithran glyphs, as a threaded line or a rosette sigil, then export it as a vector image. Whatever you keep becomes your sigil across the observatory.',
     lore: 'Names, and anything the Ithra held sacred, were written as rosettes — letters arranged around a circle like a crowd around a fire.',
-    controls: ['Type up to 32 letters or numbers.', 'Choose line or rosette, stroke and colour.', 'Export SVG or PNG, or keep it as your sigil.'],
+    controls: [
+      'Type up to 32 letters or numbers.',
+      'Choose line or rosette, stroke and colour.',
+      'Export SVG or PNG, or keep it as your sigil.',
+    ],
   },
   {
     slug: 'terrain',
@@ -86,7 +93,8 @@ export const instruments: readonly Instrument[] = [
     epithet: 'Turn sound into a landscape of light',
     line: 'na',
     scene: 'terrain',
-    principle: 'A Fourier transform splits a sound into its frequencies; stacked through time, they rise into a landscape.',
+    principle:
+      'A Fourier transform splits a sound into its frequencies; stacked through time, they rise into a landscape.',
     summary:
       'The carrier of the Serein Signal — or your own voice — decomposed into frequencies sixty times a second and laid out as ridgelines scrolling toward you.',
     lore: 'Every colour in PHOSPHENE has a tone: its light frequency, forty octaves down. This is what those tones look like when they are allowed to rise.',
@@ -102,11 +110,16 @@ export const instruments: readonly Instrument[] = [
     epithet: 'Grow the skies of Ithris from a single seed',
     line: 'ca',
     scene: 'aurora',
-    principle: 'Particles follow the curl of a noise field — a flow with no sources or sinks, which is why it curls like smoke and light.',
+    principle:
+      'Particles follow the curl of a noise field — a flow with no sources or sinks, which is why it curls like smoke and light.',
     summary:
       'A generative sky: thousands of luminous particles drifting through a divergence-free flow field. Change the seed and palette to grow a new aurora, then save the frame.',
     lore: 'The Long Noon’s descriptions of the sky over the rings of Sollen are the most repeated passages in the stream. This is the Institute’s attempt to paint one.',
-    controls: ['Choose a palette of spectral lines.', 'Shape the flow with scale, speed and turbulence.', 'Reseed for a new sky; save the frame as an image.'],
+    controls: [
+      'Choose a palette of spectral lines.',
+      'Shape the flow with scale, speed and turbulence.',
+      'Reseed for a new sky; save the frame as an image.',
+    ],
   },
 ];
 
@@ -121,4 +134,5 @@ export const AURORA_PALETTES: Record<string, { label: string; top: SpectralKey; 
   encoding: { label: 'Encoding', top: 'ca', bottom: 'he' },
 };
 
-export const instrumentBySlug = (slug: string): Instrument | undefined => instruments.find((i) => i.slug === slug);
+export const instrumentBySlug = (slug: string): Instrument | undefined =>
+  instruments.find((i) => i.slug === slug);

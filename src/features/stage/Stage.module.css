@@ -13,7 +13,9 @@
   width: 100%;
   height: 100%;
   opacity: 1;
-  transition: opacity var(--dur-nav) var(--ease-out), filter var(--dur-nav) var(--ease-out);
+  transition:
+    opacity var(--dur-nav) var(--ease-out),
+    filter var(--dur-nav) var(--ease-out);
 }
 
 .stage[data-status='loading'] .canvas {
@@ -31,7 +33,21 @@
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(circle at 50% 38%, transparent 0 13.6vmin, color-mix(in oklab, var(--ember) 90%, white) 13.8vmin 14vmin, transparent 14.4vmin),
-    radial-gradient(circle at 50% 38%, color-mix(in oklab, var(--ember) 22%, transparent) 0, transparent 38vmin),
-    linear-gradient(to bottom, transparent 62%, color-mix(in oklab, var(--ember) 7%, var(--void)) 62.2%, var(--void));
+    radial-gradient(
+      circle at 50% 38%,
+      transparent 0 13.6vmin,
+      color-mix(in oklab, var(--ember) 90%, white) 13.8vmin 14vmin,
+      transparent 14.4vmin
+    ),
+    radial-gradient(
+      circle at 50% 38%,
+      color-mix(in oklab, var(--ember) 22%, transparent) 0,
+      transparent 38vmin
+    ),
+    linear-gradient(
+      to bottom,
+      transparent 62%,
+      color-mix(in oklab, var(--ember) 7%, var(--void)) 62.2%,
+      var(--void)
+    );
 }

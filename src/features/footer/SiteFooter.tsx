@@ -5,7 +5,13 @@ import { FRAGMENT_TOTAL } from '../../content/fragments.ts';
 import { world } from '../../content/world.ts';
 import { useNow } from '../../hooks/useNow.ts';
 import { fixed, thousands } from '../../lib/format.ts';
-import { formatOstClock, formatOstDate, observatoryTime, streamFraction, yearsListening } from '../../lib/time.ts';
+import {
+  formatOstClock,
+  formatOstDate,
+  observatoryTime,
+  streamFraction,
+  yearsListening,
+} from '../../lib/time.ts';
 import { useProgress } from '../../stores/progress.ts';
 import { useUi } from '../../stores/ui.ts';
 import { scrollToY } from '../scroll/scroller.ts';
@@ -106,7 +112,12 @@ export function SiteFooter() {
         </div>
 
         <div className={styles.base}>
-          <IthranText text="phosphene" size={13} className={styles.glyphs} label="Phosphene, in Ithran script" />
+          <IthranText
+            text="phosphene"
+            size={13}
+            className={styles.glyphs}
+            label="Phosphene, in Ithran script"
+          />
           <p className={styles.fine}>
             © {year} {world.institute} — a work of fiction, rendered in real time in your browser.
           </p>

@@ -42,7 +42,14 @@ import { spectralLines, spectralOrder, type SpectralKey } from '../../../design/
 import { clamp, damp, degToRad } from '../../../lib/math.ts';
 import type { SceneParams } from '../../../stores/stage.ts';
 import { getNoiseTexture } from '../../textures/noiseTexture.ts';
-import type { FrameState, PostSettings, SceneFactory, StageContext, StageScene, Viewport } from '../../types.ts';
+import type {
+  FrameState,
+  PostSettings,
+  SceneFactory,
+  StageContext,
+  StageScene,
+  Viewport,
+} from '../../types.ts';
 import { Emitter } from '../../util/Emitter.ts';
 import { OrbitRig } from '../../util/OrbitRig.ts';
 import type { QualityProfile } from '../../quality.ts';
@@ -55,7 +62,14 @@ import {
   terrainFragment,
   terrainVertex,
 } from './shaders.ts';
-import { bakeDishShadows, buildSiteMap, DISH_PIVOT, Heightfield, SITE_SIZE, type DishPose } from './terrain.ts';
+import {
+  bakeDishShadows,
+  buildSiteMap,
+  DISH_PIVOT,
+  Heightfield,
+  SITE_SIZE,
+  type DishPose,
+} from './terrain.ts';
 
 export type LightMode = 'live' | 'day' | 'night';
 
@@ -187,7 +201,13 @@ class ArrayScene implements StageScene {
     this.siteTexture.minFilter = LinearMipmapLinearFilter;
     this.siteTexture.generateMipmaps = true;
     this.siteTexture.needsUpdate = true;
-    this.dishShadowTexture = new DataTexture(this.dishShadow, SITE_SIZE, SITE_SIZE, RedFormat, UnsignedByteType);
+    this.dishShadowTexture = new DataTexture(
+      this.dishShadow,
+      SITE_SIZE,
+      SITE_SIZE,
+      RedFormat,
+      UnsignedByteType,
+    );
     this.dishShadowTexture.wrapS = ClampToEdgeWrapping;
     this.dishShadowTexture.wrapT = ClampToEdgeWrapping;
     this.dishShadowTexture.magFilter = LinearFilter;
@@ -217,8 +237,20 @@ class ArrayScene implements StageScene {
     this.scene.add(this.sky);
 
     this.pads = dishes.map((d) => new Vector3(d.x, this.heightfield.pads[d.index] as number, d.z));
-    this.poses = dishes.map((d) => ({ x: d.x, z: d.z, pad: this.heightfield.pads[d.index] as number, nx: 0, ny: 1, nz: 0 }));
-    const reflectorMaterial = new MeshStandardMaterial({ color: 0xdcd8cf, roughness: 0.38, metalness: 0.18, side: DoubleSide });
+    this.poses = dishes.map((d) => ({
+      x: d.x,
+      z: d.z,
+      pad: this.heightfield.pads[d.index] as number,
+      nx: 0,
+      ny: 1,
+      nz: 0,
+    }));
+    const reflectorMaterial = new MeshStandardMaterial({
+      color: 0xdcd8cf,
+      roughness: 0.38,
+      metalness: 0.18,
+      side: DoubleSide,
+    });
     const feedMaterial = new MeshStandardMaterial({ color: 0x8a8781, roughness: 0.55, metalness: 0.35 });
     const mountMaterial = new MeshStandardMaterial({ color: 0xbdb9b0, roughness: 0.72, metalness: 0.08 });
     this.reflectors = new InstancedMesh(reflectorGeometry(), reflectorMaterial, DISH_COUNT);
@@ -242,7 +274,13 @@ class ArrayScene implements StageScene {
 
     this.selection = new Mesh(
       new RingGeometry(1.9, 2.02, 64),
-      new MeshBasicMaterial({ color: spectralLines.o3.nocturne, transparent: true, opacity: 0, blending: AdditiveBlending, depthWrite: false }),
+      new MeshBasicMaterial({
+        color: spectralLines.o3.nocturne,
+        transparent: true,
+        opacity: 0,
+        blending: AdditiveBlending,
+        depthWrite: false,
+      }),
     );
     this.selection.rotation.x = -Math.PI / 2;
     this.scene.add(this.selection);
@@ -267,7 +305,11 @@ class ArrayScene implements StageScene {
     const galNormal = new Vector3(-src.z, 0.3, src.x).normalize();
     const along = new Vector3().crossVectors(galNormal, src).normalize();
     if (along.y < 0) along.negate();
-    const galCenter = src.clone().multiplyScalar(Math.cos(0.42)).addScaledVector(along, Math.sin(0.42)).normalize();
+    const galCenter = src
+      .clone()
+      .multiplyScalar(Math.cos(0.42))
+      .addScaledVector(along, Math.sin(0.42))
+      .normalize();
     const galSide = new Vector3().crossVectors(galNormal, galCenter).normalize();
     return new ShaderMaterial({
       vertexShader: skyVertex,
@@ -323,7 +365,12 @@ class ArrayScene implements StageScene {
     geometry.setAttribute('aSize', new BufferAttribute(size, 1));
     dishes.forEach((dish) => {
       const pad = this.pads[dish.index] as Vector3;
-      (geometry.attributes.position as BufferAttribute).setXYZ(dish.index, pad.x + 0.6, pad.y + 0.34, pad.z + 0.6);
+      (geometry.attributes.position as BufferAttribute).setXYZ(
+        dish.index,
+        pad.x + 0.6,
+        pad.y + 0.34,
+        pad.z + 0.6,
+      );
     });
     const material = new ShaderMaterial({
       vertexShader: beaconVertex,
@@ -395,7 +442,12 @@ class ArrayScene implements StageScene {
       pose.ny = Math.cos(run.pitch);
       pose.nz = s * Math.cos(run.yaw);
     });
-    bakeDishShadows([this.sunGoal.x, this.sunGoal.y, this.sunGoal.z], this.poses, BOWL_RADIUS, this.dishShadow);
+    bakeDishShadows(
+      [this.sunGoal.x, this.sunGoal.y, this.sunGoal.z],
+      this.poses,
+      BOWL_RADIUS,
+      this.dishShadow,
+    );
     this.dishShadowTexture.needsUpdate = true;
   }
 
@@ -504,7 +556,10 @@ class ArrayScene implements StageScene {
     let bestAlong = Infinity;
     for (const dish of dishes) {
       const pad = this.pads[dish.index] as Vector3;
-      this.v2.copy(pad).setY(pad.y + DISH_PIVOT * 0.8).sub(this.camera.position);
+      this.v2
+        .copy(pad)
+        .setY(pad.y + DISH_PIVOT * 0.8)
+        .sub(this.camera.position);
       const along = this.v2.dot(this.v);
       if (along <= 0) continue;
       const miss = this.v2.lengthSq() - along * along;
@@ -547,14 +602,26 @@ class ArrayScene implements StageScene {
     const sunLight = this.shared.uSunLight as Uniform<Vector3>;
     sunLight.value.set(3.1, 3.0, 2.85).multiplyScalar(this.sunStrength);
     const night = 1 - this.sunStrength;
-    (this.terrain.material.uniforms.uLampColor as Uniform<Vector3>).value.set(1.0, 0.5, 0.17).multiplyScalar(0.05 + 0.85 * night);
+    (this.terrain.material.uniforms.uLampColor as Uniform<Vector3>).value
+      .set(1.0, 0.5, 0.17)
+      .multiplyScalar(0.05 + 0.85 * night);
     this.sunLamp.position.copy(this.sunDir).multiplyScalar(100);
     this.sunLamp.intensity = 3.4 * this.sunStrength;
     // Night: starlight from above, sodium lamps from below. Day: sunlit regolith bouncing back up.
     this.hemisphere.intensity = 0.7 + 1.0 * night;
-    this.hemisphere.color.setRGB(0.09 + 0.16 * this.sunStrength, 0.11 + 0.15 * this.sunStrength, 0.18 + 0.1 * this.sunStrength);
-    this.hemisphere.groundColor.setRGB(0.55 * night + 0.32 * this.sunStrength, 0.3 * night + 0.31 * this.sunStrength, 0.1 * night + 0.3 * this.sunStrength);
-    (this.shared.uAmbient as Uniform<Vector3>).value.set(0.012, 0.014, 0.021).lerp(this.dayAmbient, this.sunStrength);
+    this.hemisphere.color.setRGB(
+      0.09 + 0.16 * this.sunStrength,
+      0.11 + 0.15 * this.sunStrength,
+      0.18 + 0.1 * this.sunStrength,
+    );
+    this.hemisphere.groundColor.setRGB(
+      0.55 * night + 0.32 * this.sunStrength,
+      0.3 * night + 0.31 * this.sunStrength,
+      0.1 * night + 0.3 * this.sunStrength,
+    );
+    (this.shared.uAmbient as Uniform<Vector3>).value
+      .set(0.012, 0.014, 0.021)
+      .lerp(this.dayAmbient, this.sunStrength);
 
     // The signal: fronts sweep in from the source; bursts brighten them.
     // Wrapped every seven fronts, so the colour sequence is continuous and floats stay precise.
@@ -575,7 +642,8 @@ class ArrayScene implements StageScene {
     const su = this.sky.material.uniforms;
     (su.uTime as Uniform<number>).value = frame.time;
     (su.uDay as Uniform<number>).value = this.sunStrength;
-    (su.uPulse as Uniform<number>).value = 0.5 + 0.5 * Math.sin(frame.time * 0.9) * (still ? 0 : 1) + this.burstGain * 0.4;
+    (su.uPulse as Uniform<number>).value =
+      0.5 + 0.5 * Math.sin(frame.time * 0.9) * (still ? 0 : 1) + this.burstGain * 0.4;
     (this.beacons.material.uniforms.uTime as Uniform<number>).value = still ? 0 : frame.time;
 
     this.rig.update(raw, this.camera, still);
@@ -629,7 +697,12 @@ class ArrayScene implements StageScene {
       const receiving = run.state === 'tracking' ? 1 : 0.08;
       run.glow = band * receiving * (waveGain / 0.018);
       const tint = this.waveColors[((Math.floor(front) % 7) + 7) % 7] as Color;
-      color.setXYZ(DISH_COUNT + dish.index, tint.r * run.glow * 0.9, tint.g * run.glow * 0.9, tint.b * run.glow * 0.9);
+      color.setXYZ(
+        DISH_COUNT + dish.index,
+        tint.r * run.glow * 0.9,
+        tint.g * run.glow * 0.9,
+        tint.b * run.glow * 0.9,
+      );
       size.setX(dish.index, dish.index === this.hovered || dish.index === this.focus ? 2.2 : 1);
     }
     this.mounts.instanceMatrix.needsUpdate = true;

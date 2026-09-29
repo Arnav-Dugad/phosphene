@@ -57,7 +57,12 @@ export function Header() {
   return (
     <header className={styles.header} data-hidden={hidden} data-print="hide">
       <div className={styles.inner}>
-        <TransitionLink to="/" className={styles.brand} aria-label="PHOSPHENE — Arrival" data-cursor-label="Arrival">
+        <TransitionLink
+          to="/"
+          className={styles.brand}
+          aria-label="PHOSPHENE — Arrival"
+          data-cursor-label="Arrival"
+        >
           <Wordmark />
         </TransitionLink>
 

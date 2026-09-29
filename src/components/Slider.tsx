@@ -17,7 +17,18 @@ interface SliderProps {
 }
 
 /** A native range input dressed as an instrument dial: luminous fill, hairline track, ticks. */
-export function Slider({ label, value, min, max, step = 0.01, onChange, format, marks, className, hideLabel }: SliderProps) {
+export function Slider({
+  label,
+  value,
+  min,
+  max,
+  step = 0.01,
+  onChange,
+  format,
+  marks,
+  className,
+  hideLabel,
+}: SliderProps) {
   const id = useId();
   const pct = ((value - min) / (max - min)) * 100;
   const text = format ? format(value) : String(Math.round(value * 100) / 100);
@@ -47,7 +58,11 @@ export function Slider({ label, value, min, max, step = 0.01, onChange, format, 
         {marks && (
           <div className={styles.marks} aria-hidden="true">
             {marks.map((m) => (
-              <span key={m.value} className={styles.mark} style={{ left: `${((m.value - min) / (max - min)) * 100}%` }}>
+              <span
+                key={m.value}
+                className={styles.mark}
+                style={{ left: `${((m.value - min) / (max - min)) * 100}%` }}
+              >
                 {m.label && <span className={styles.markLabel}>{m.label}</span>}
               </span>
             ))}

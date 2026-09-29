@@ -42,8 +42,24 @@ export function GravityPanel() {
   return (
     <>
       <PresetRow label="System" options={PRESETS} value={preset} onChange={setPreset} />
-      <Slider label="Gravity" value={gravity} min={0.2} max={3} step={0.05} onChange={setGravity} format={(v) => `${v.toFixed(2)} G`} />
-      <Slider label="Mass to place" value={mass} min={0.1} max={3} step={0.05} onChange={setMass} format={(v) => `${v.toFixed(2)} M`} />
+      <Slider
+        label="Gravity"
+        value={gravity}
+        min={0.2}
+        max={3}
+        step={0.05}
+        onChange={setGravity}
+        format={(v) => `${v.toFixed(2)} G`}
+      />
+      <Slider
+        label="Mass to place"
+        value={mass}
+        min={0.1}
+        max={3}
+        step={0.05}
+        onChange={setMass}
+        format={(v) => `${v.toFixed(2)} M`}
+      />
       <Slider
         label="Afterimage"
         value={persistence}
@@ -64,7 +80,9 @@ export function GravityPanel() {
       <div className={styles.callout}>
         <Readout label="Masses" value={`${count}/${MAX_MASSES}`} />
         <Readout label="Grains" value={grains} />
-        <p className={styles.hint}>Grains colour by speed: slow hydrogen red through to fast calcium violet.</p>
+        <p className={styles.hint}>
+          Grains colour by speed: slow hydrogen red through to fast calcium violet.
+        </p>
       </div>
     </>
   );

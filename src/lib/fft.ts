@@ -10,7 +10,8 @@ export class FFT {
   private readonly reversed: Uint32Array;
 
   constructor(size: number) {
-    if (size < 2 || (size & (size - 1)) !== 0) throw new Error(`FFT size must be a power of two, got ${size}`);
+    if (size < 2 || (size & (size - 1)) !== 0)
+      throw new Error(`FFT size must be a power of two, got ${size}`);
     this.size = size;
     this.cos = new Float32Array(size / 2);
     this.sin = new Float32Array(size / 2);

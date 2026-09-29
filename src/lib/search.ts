@@ -14,11 +14,7 @@ export interface FuzzyMatch {
 
 const WORD_BOUNDARY = /[\s\-_/·.:,()'’]/;
 
-const normalize = (s: string): string =>
-  s
-    .normalize('NFD')
-    .replace(/[̀-ͯ]/g, '')
-    .toLowerCase();
+const normalize = (s: string): string => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
 
 export function fuzzyMatch(query: string, candidate: string): FuzzyMatch | null {
   const q = normalize(query.trim());
@@ -76,7 +72,11 @@ export interface RankedResult<T> {
 }
 
 /** Ranks items by best match over title (full weight) and keywords (reduced). */
-export function rank<T extends Searchable>(query: string, items: readonly T[], limit = 50): RankedResult<T>[] {
+export function rank<T extends Searchable>(
+  query: string,
+  items: readonly T[],
+  limit = 50,
+): RankedResult<T>[] {
   if (!query.trim()) return items.slice(0, limit).map((item) => ({ item, score: 0, indices: [] }));
   const results: RankedResult<T>[] = [];
   for (const item of items) {
@@ -95,7 +95,10 @@ export function rank<T extends Searchable>(query: string, items: readonly T[], l
 }
 
 /** Splits text into highlighted / plain segments for rendering. */
-export function highlightSegments(text: string, indices: readonly number[]): { text: string; hit: boolean }[] {
+export function highlightSegments(
+  text: string,
+  indices: readonly number[],
+): { text: string; hit: boolean }[] {
   if (indices.length === 0) return [{ text, hit: false }];
   const set = new Set(indices);
   const segments: { text: string; hit: boolean }[] = [];

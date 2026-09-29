@@ -20,9 +20,19 @@ interface SegmentedProps<T extends string> {
  * A segmented control built on native radio inputs (arrow keys, form
  * semantics and screen-reader grouping come for free) with a sliding light.
  */
-export function Segmented<T extends string>({ label, value, options, onChange, className, hideLabel }: SegmentedProps<T>) {
+export function Segmented<T extends string>({
+  label,
+  value,
+  options,
+  onChange,
+  className,
+  hideLabel,
+}: SegmentedProps<T>) {
   const name = useId();
-  const index = Math.max(0, options.findIndex((o) => o.value === value));
+  const index = Math.max(
+    0,
+    options.findIndex((o) => o.value === value),
+  );
   return (
     <fieldset className={`${styles.segmented} ${className ?? ''}`}>
       <legend className={hideLabel ? 'sr-only' : styles.label}>{label}</legend>

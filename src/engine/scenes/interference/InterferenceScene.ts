@@ -13,7 +13,14 @@ import { clamp, damp, TAU } from '../../../lib/math.ts';
 import { createRng } from '../../../lib/random.ts';
 import type { SceneParams } from '../../../stores/stage.ts';
 import { gauss, glsl, spectrum } from '../../shaders/chunks.ts';
-import type { FrameState, PostSettings, SceneFactory, StageContext, StageScene, Viewport } from '../../types.ts';
+import type {
+  FrameState,
+  PostSettings,
+  SceneFactory,
+  StageContext,
+  StageScene,
+  Viewport,
+} from '../../types.ts';
 import { Emitter as SceneEvents } from '../../util/Emitter.ts';
 
 export type InterferencePreset = 'slits' | 'ring' | 'array' | 'chaos';
@@ -107,7 +114,12 @@ const vertexShader = glsl`
 class InterferenceScene implements StageScene {
   readonly scene = new Scene();
   readonly camera = new OrthographicCamera(-1, 1, 1, -1, 0, 1);
-  readonly post: Partial<PostSettings> = { bloomIntensity: 0.9, bloomThreshold: 0.5, vignette: 0.35, aberration: 0.8 };
+  readonly post: Partial<PostSettings> = {
+    bloomIntensity: 0.9,
+    bloomThreshold: 0.5,
+    vignette: 0.35,
+    aberration: 0.8,
+  };
 
   /** Fraction in [0, 1] of how well the beam is locked on the target. */
   lock = 0;
@@ -352,7 +364,12 @@ class InterferenceScene implements StageScene {
 
     // A beam is "on target" when the time-averaged intensity there is near the coherent maximum.
     const targetOn = this.preset === 'array' ? 1 : 0;
-    (u.uTargetOn as { value: number }).value = damp((u.uTargetOn as { value: number }).value, targetOn, 4, raw);
+    (u.uTargetOn as { value: number }).value = damp(
+      (u.uTargetOn as { value: number }).value,
+      targetOn,
+      4,
+      raw,
+    );
     const relative = this.preset === 'array' ? this.relativeIntensityAt(this.target.x, this.target.y) : 0;
     const onTarget = relative > 0.72;
     this.lockHeld = onTarget ? this.lockHeld + raw : Math.max(0, this.lockHeld - raw * 2);

@@ -47,7 +47,8 @@ export const stories: readonly Story[] = [
     minutes: 6,
     translator: 'Translated by Jun Takeda-Mirza',
     layout: 'lamplighters',
-    excerpt: 'The guild had one rule, and it was engraved on every ring: no window dark that wants to be lit.',
+    excerpt:
+      'The guild had one rule, and it was engraved on every ring: no window dark that wants to be lit.',
     blocks: [
       {
         type: 'lead',
@@ -127,8 +128,17 @@ export const stories: readonly Story[] = [
         type: 'p',
         text: 'By the Age of Lanterns the Ithra had settled on the form the Institute calls the aperture. Every glyph is drawn inside a circle — the rim — with eight spokes and three radii: the core, the middle ring and the rim itself. A glyph is a handful of strokes on that lattice: an arc on the middle ring, a ray along a spoke, a chord across the rim, a single luminous dot.',
       },
-      { type: 'glyph', word: 'a', caption: 'A vowel. Vowels close the rim and light the core — they are the open, sounding letters.' },
-      { type: 'glyph', word: 'k', caption: 'A consonant. Consonants break the rim with a gap, and the gap’s position is part of the letter.' },
+      {
+        type: 'glyph',
+        word: 'a',
+        caption: 'A vowel. Vowels close the rim and light the core — they are the open, sounding letters.',
+      },
+      {
+        type: 'glyph',
+        word: 'k',
+        caption:
+          'A consonant. Consonants break the rim with a gap, and the gap’s position is part of the letter.',
+      },
       {
         type: 'p',
         text: 'The rim is the key to reading it. An unbroken rim is a vowel: a sound that is allowed to ring. A broken rim is a consonant: a sound that stops. The Ithra thought of speech as light that is either allowed out or held in, and their alphabet says so.',
@@ -138,12 +148,20 @@ export const stories: readonly Story[] = [
         type: 'p',
         text: 'Letters are strung along a thread of light to make words, the way lanterns were strung along the sea wall of the Senn Reach. Names, and anything sacred, are written instead as a rosette: the letters arranged around a circle, each facing outward, like a crowd around a fire.',
       },
-      { type: 'glyph', word: 'ithra', caption: '“Ithra”, in rosette form — their own name, which means those who keep the light.' },
+      {
+        type: 'glyph',
+        word: 'ithra',
+        caption: '“Ithra”, in rosette form — their own name, which means those who keep the light.',
+      },
       {
         type: 'p',
         text: 'We did not know any of this for forty-one years. What broke it open was the Accord of Dusk. The treaty that ended the Quiet Schism was inscribed twice, once by each faction, and the two factions wrote in slightly different styles. Two texts with the same meaning, in two hands: it was a Rosetta Stone the Ithra had built for their own reasons, and it was enough.',
       },
-      { type: 'quote', text: 'We read the Accord, and then we could read everything, and then we wished for a while that we could not.', cite: 'Imani Okoro-Vance' },
+      {
+        type: 'quote',
+        text: 'We read the Accord, and then we could read everything, and then we wished for a while that we could not.',
+        cite: 'Imani Okoro-Vance',
+      },
       { type: 'h', text: 'Try it' },
       {
         type: 'p',
@@ -168,9 +186,13 @@ export const stories: readonly Story[] = [
     minutes: 5,
     translator: 'Composite translation, Institute Choir Group',
     layout: 'choir',
-    excerpt: 'In the last turn the lanterns were brought up from every world and hung around the pole of Ennis.',
+    excerpt:
+      'In the last turn the lanterns were brought up from every world and hung around the pole of Ennis.',
     blocks: [
-      { type: 'lead', text: 'In the last turn, the lanterns were brought up from every world and hung around the pole of Ennis.' },
+      {
+        type: 'lead',
+        text: 'In the last turn, the lanterns were brought up from every world and hung around the pole of Ennis.',
+      },
       {
         type: 'p',
         text: 'There were not many Ithra left by then who had not been read into the Choir. The records give the number as four thousand and eleven. They were old, most of them, and they had chosen to be last on purpose: someone had to be awake at the end, to see that it was done properly.',
@@ -298,7 +320,8 @@ export const stories: readonly Story[] = [
     minutes: 4,
     translator: 'By the Director of the Phosphene Institute',
     layout: 'silence',
-    excerpt: 'Some of the silence we receive is not damage. It is refusal — and it is the most Ithran thing in the signal.',
+    excerpt:
+      'Some of the silence we receive is not damage. It is refusal — and it is the most Ithran thing in the signal.',
     blocks: [
       { type: 'lead', text: 'The stream has holes in it.' },
       {

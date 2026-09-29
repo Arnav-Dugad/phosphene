@@ -1,4 +1,13 @@
-import { DISH_COUNT, DISH_STATE_INFO, DISH_STATES, decoderLog, dishes, dishStates, lunarLight, telemetry } from '../../content/array.ts';
+import {
+  DISH_COUNT,
+  DISH_STATE_INFO,
+  DISH_STATES,
+  decoderLog,
+  dishes,
+  dishStates,
+  lunarLight,
+  telemetry,
+} from '../../content/array.ts';
 import { FRAGMENT_TOTAL, fragments } from '../../content/fragments.ts';
 import { places } from '../../content/routes.ts';
 import { world } from '../../content/world.ts';
@@ -63,7 +72,13 @@ const HELP: readonly [string, string][] = [
   ['history · clear · exit', ''],
 ];
 
-const PLACE_ALIASES: Record<string, string> = { home: '/', arrival: '/', zero: '/transmission-zero', tz: '/transmission-zero', lost: '/lost' };
+const PLACE_ALIASES: Record<string, string> = {
+  home: '/',
+  arrival: '/',
+  zero: '/transmission-zero',
+  tz: '/transmission-zero',
+  lost: '/lost',
+};
 
 function resolvePlace(name: string): string | null {
   const key = name.toLowerCase();
@@ -87,9 +102,13 @@ const commands: Record<string, Handler> = {
       out(`  receiving      ${t.tracking} of ${DISH_COUNT} dishes on source`),
       out(`  snr            ${fixed(t.snr, 1)} dB`),
       out(`  stream rate    ${fixed(t.bitsPerSecond / 1000, 2)} kbit/s`),
-      out(`  received       ${formatBytes(t.bytesReceived, 3)} · ${fixed(t.streamFraction * 100, 4)}% of the stream`),
+      out(
+        `  received       ${formatBytes(t.bytesReceived, 3)} · ${fixed(t.streamFraction * 100, 4)}% of the stream`,
+      ),
       out(`  next zero      ${clock(t.nextRepetition)} (repetition ${thousands(t.repetitions + 1)})`),
-      out(`  lunar ${moon.day ? 'day  ' : 'night'}    ${moon.nextEvent} in ${fixed(moon.nextEventHours, 1)} h · regolith ${fixed(moon.surfaceTemperature, 0)} °C`),
+      out(
+        `  lunar ${moon.day ? 'day  ' : 'night'}    ${moon.nextEvent} in ${fixed(moon.nextEventHours, 1)} h · regolith ${fixed(moon.surfaceTemperature, 0)} °C`,
+      ),
     ];
   },
 
@@ -104,19 +123,28 @@ const commands: Record<string, Handler> = {
       accent(`${DISH_COUNT} dishes`),
       ...lines,
       ...(unusual.length
-        ? [dim(`  off source: ${unusual.map((d) => `${d.id} (${DISH_STATE_INFO[states[d.index] ?? 'tracking'].label.toLowerCase()})`).join(', ')}`)]
+        ? [
+            dim(
+              `  off source: ${unusual.map((d) => `${d.id} (${DISH_STATE_INFO[states[d.index] ?? 'tracking'].label.toLowerCase()})`).join(', ')}`,
+            ),
+          ]
         : []),
     ];
   },
 
-  log: (_args, ctx) => [accent('decoder log'), ...decoderLog(ctx.now, 6).map((e) => out(`  ${e.clock}  ${e.text}`))],
+  log: (_args, ctx) => [
+    accent('decoder log'),
+    ...decoderLog(ctx.now, 6).map((e) => out(`  ${e.clock}  ${e.text}`)),
+  ],
 
   fragments: (_args, ctx) => {
     const decoded = fragments.filter((f) => ctx.progress.fragments[String(f.id)]);
     return [
       accent(`Transmission Zero · ${decoded.length} of ${FRAGMENT_TOTAL} decoded`),
       ...fragments.map((f) =>
-        ctx.progress.fragments[String(f.id)] ? out(`  ${f.numeral.padEnd(5)}${f.text}`) : dim(`  ${f.numeral.padEnd(5)}— ${f.hint}`),
+        ctx.progress.fragments[String(f.id)]
+          ? out(`  ${f.numeral.padEnd(5)}${f.text}`)
+          : dim(`  ${f.numeral.padEnd(5)}— ${f.hint}`),
       ),
     ];
   },
@@ -157,14 +185,16 @@ const commands: Record<string, Handler> = {
 
   motion: (args, ctx) => {
     const value = args[0] as MotionPreference | undefined;
-    if (!value || !['system', 'full', 'gentle', 'still'].includes(value)) return [error('motion system|full|gentle|still')];
+    if (!value || !['system', 'full', 'gentle', 'still'].includes(value))
+      return [error('motion system|full|gentle|still')];
     ctx.set('motion', value);
     return [out(`motion: ${value}`)];
   },
 
   quality: (args, ctx) => {
     const value = args[0] as QualityPreference | undefined;
-    if (!value || (value !== 'auto' && !QUALITY_TIERS.includes(value))) return [error('quality auto|ultra|high|balanced|eco')];
+    if (!value || (value !== 'auto' && !QUALITY_TIERS.includes(value)))
+      return [error('quality auto|ultra|high|balanced|eco')];
     ctx.set('quality', value);
     return [out(`quality: ${value}`)];
   },
@@ -205,7 +235,9 @@ const commands: Record<string, Handler> = {
   sudo: () => [error('the Accord does not recognise superusers.')],
   decode: (_args, ctx) => {
     const next = fragments.find((f) => !ctx.progress.fragments[String(f.id)]);
-    return next ? [out(`nearest undecoded line: ${next.numeral}`), dim(`  ${next.hint}`)] : [accent('every line is decoded. go to: goto zero')];
+    return next
+      ? [out(`nearest undecoded line: ${next.numeral}`), dim(`  ${next.hint}`)]
+      : [accent('every line is decoded. go to: goto zero')];
   },
 };
 

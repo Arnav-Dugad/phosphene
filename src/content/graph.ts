@@ -50,7 +50,14 @@ export const NODE_KIND_LABELS: Record<NodeKind, { one: string; many: string }> =
   instrument: { one: 'Instrument', many: 'Instruments' },
 };
 
-const SIZES: Record<NodeKind, number> = { place: 2.6, world: 1.8, era: 1.6, relic: 1.15, story: 1.6, instrument: 1.6 };
+const SIZES: Record<NodeKind, number> = {
+  place: 2.6,
+  world: 1.8,
+  era: 1.6,
+  relic: 1.15,
+  story: 1.6,
+  instrument: 1.6,
+};
 
 type Draft = Omit<ChartNode, 'index' | 'x' | 'y' | 'z' | 'size'> & { parent: string | null };
 
@@ -66,10 +73,28 @@ function drafts(): Draft[] {
     parent: p.id === 'arrival' ? null : 'place:arrival',
   }));
   for (const w of worlds) {
-    out.push({ id: `world:${w.id}`, kind: 'world', label: w.name, gloss: w.epithet, path: `/atlas/${w.id}`, line: w.line, hidden: false, parent: 'place:atlas' });
+    out.push({
+      id: `world:${w.id}`,
+      kind: 'world',
+      label: w.name,
+      gloss: w.epithet,
+      path: `/atlas/${w.id}`,
+      line: w.line,
+      hidden: false,
+      parent: 'place:atlas',
+    });
   }
   for (const e of eras) {
-    out.push({ id: `era:${e.id}`, kind: 'era', label: e.name, gloss: e.subtitle, path: `/chronicle#${e.id}`, line: e.line, hidden: false, parent: 'place:chronicle' });
+    out.push({
+      id: `era:${e.id}`,
+      kind: 'era',
+      label: e.name,
+      gloss: e.subtitle,
+      path: `/chronicle#${e.id}`,
+      line: e.line,
+      hidden: false,
+      parent: 'place:chronicle',
+    });
   }
   for (const r of relics) {
     out.push({
@@ -84,10 +109,28 @@ function drafts(): Draft[] {
     });
   }
   for (const s of stories) {
-    out.push({ id: `story:${s.slug}`, kind: 'story', label: s.title, gloss: s.subtitle, path: `/transmissions/${s.slug}`, line: s.line, hidden: false, parent: 'place:transmissions' });
+    out.push({
+      id: `story:${s.slug}`,
+      kind: 'story',
+      label: s.title,
+      gloss: s.subtitle,
+      path: `/transmissions/${s.slug}`,
+      line: s.line,
+      hidden: false,
+      parent: 'place:transmissions',
+    });
   }
   for (const i of instruments) {
-    out.push({ id: `instrument:${i.slug}`, kind: 'instrument', label: i.name, gloss: i.epithet, path: `/instruments/${i.slug}`, line: i.line, hidden: false, parent: 'place:instruments' });
+    out.push({
+      id: `instrument:${i.slug}`,
+      kind: 'instrument',
+      label: i.name,
+      gloss: i.epithet,
+      path: `/instruments/${i.slug}`,
+      line: i.line,
+      hidden: false,
+      parent: 'place:instruments',
+    });
   }
   return out;
 }
@@ -104,7 +147,8 @@ function buildEdges(list: Draft[], index: Map<string, number>): ChartEdge[] {
     seen.add(key);
     edges.push({ a, b, kind });
   };
-  for (const node of list) if (node.parent) link(node.parent, node.id, node.parent === 'place:arrival' ? 'spine' : 'branch');
+  for (const node of list)
+    if (node.parent) link(node.parent, node.id, node.parent === 'place:arrival' ? 'spine' : 'branch');
   // The ages form a timeline.
   eras.forEach((era, i) => {
     const next = eras[i + 1];
@@ -129,7 +173,19 @@ const STIFFNESS: Record<EdgeKind, number> = { spine: 0.02, branch: 0.06, referen
 const RING = 70;
 
 /** Ring order: families alternate with single places so no side of the chart crowds. */
-const RING_ORDER = ['atlas', 'array', 'chronicle', 'institute', 'archive', 'map', 'transmissions', 'settings', 'instruments', 'transmission-zero', 'credits'];
+const RING_ORDER = [
+  'atlas',
+  'array',
+  'chronicle',
+  'institute',
+  'archive',
+  'map',
+  'transmissions',
+  'settings',
+  'instruments',
+  'transmission-zero',
+  'credits',
+];
 
 /**
  * Seeds positions — places on a ring, each given an arc of the circle in
@@ -274,5 +330,7 @@ export const chartEdges: readonly ChartEdge[] = chart.edges;
 /** The node a pathname belongs to (a relic page → its relic; /chronicle → the Chronicle). */
 export function nodeForPath(pathname: string): ChartNode | undefined {
   const clean = pathname.split(/[?#]/)[0] ?? '/';
-  return chartNodes.find((n) => n.path === clean) ?? chartNodes.find((n) => n.kind === 'place' && n.path === clean);
+  return (
+    chartNodes.find((n) => n.path === clean) ?? chartNodes.find((n) => n.kind === 'place' && n.path === clean)
+  );
 }

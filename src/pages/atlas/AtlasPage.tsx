@@ -28,7 +28,15 @@ type Speed = (typeof SPEEDS)[number]['value'];
 const eraAtEpoch = (epoch: number): Era =>
   eras[Math.min(eras.length - 1, Math.floor(epoch * eras.length * 0.9999))] ?? (eras[0] as Era);
 
-function Labels({ scene, focus, onPick }: { scene: OrreryScene | null; focus: string | null; onPick: (id: string) => void }) {
+function Labels({
+  scene,
+  focus,
+  onPick,
+}: {
+  scene: OrreryScene | null;
+  focus: string | null;
+  onPick: (id: string) => void;
+}) {
   const refs = useRef(new Map<string, HTMLButtonElement>());
   useEffect(() => {
     if (!scene) return;
@@ -82,11 +90,7 @@ export default function AtlasPage() {
   const [speed, setSpeed] = useState<Speed>('1');
   const scene = useStageApi<OrreryScene>('orrery');
 
-  usePageMeta(
-    world
-      ? { title: `${world.name} — Atlas`, description: world.summary }
-      : 'atlas',
-  );
+  usePageMeta(world ? { title: `${world.name} — Atlas`, description: world.summary } : 'atlas');
   useStageScene('orrery', { focus, epoch, speed: Number(speed) });
 
   const pick = useCallback(
@@ -169,7 +173,11 @@ export default function AtlasPage() {
 
       <section className={styles.detail} aria-live="polite" data-open={Boolean(world)}>
         {world ? (
-          <article key={world.id} className={styles.card} style={{ '--world-line': `var(--line-${world.line})` } as CSSProperties}>
+          <article
+            key={world.id}
+            className={styles.card}
+            style={{ '--world-line': `var(--line-${world.line})` } as CSSProperties}
+          >
             <p className={styles.epithet}>{world.epithet}</p>
             <h2 className={styles.worldTitle}>{world.name}</h2>
             <p className={styles.summary}>{world.summary}</p>
@@ -218,8 +226,8 @@ export default function AtlasPage() {
         ) : (
           <div className={styles.overview}>
             <p className={styles.summary}>
-              A patient orange star, six worlds and a belt of rubble — reconstructed from the Atlas of Near Stars and
-              the records of the evacuation. Choose a world, or drag to look around.
+              A patient orange star, six worlds and a belt of rubble — reconstructed from the Atlas of Near
+              Stars and the records of the evacuation. Choose a world, or drag to look around.
             </p>
           </div>
         )}

@@ -56,7 +56,11 @@ export function Block({ block }: { block: StoryBlock }) {
       );
     case 'gap':
       return (
-        <div className={styles.gap} role="img" aria-label={`${block.label}: ${block.minutes} minutes without signal`}>
+        <div
+          className={styles.gap}
+          role="img"
+          aria-label={`${block.label}: ${block.minutes} minutes without signal`}
+        >
           <span className={styles.gapLine} aria-hidden="true" />
           <span className={styles.gapLabel} aria-hidden="true">
             {block.label} · {block.minutes} min

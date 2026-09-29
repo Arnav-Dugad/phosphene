@@ -64,7 +64,9 @@ const paths = {
     </>
   ),
   check: <path d="m5 12.5 4.5 4.5L19 7.5" />,
-  external: <path d="M14 4.5h5.5V10M19.5 4.5 11 13M17.5 14v5a.5.5 0 0 1-.5.5H5a.5.5 0 0 1-.5-.5V7a.5.5 0 0 1 .5-.5h5" />,
+  external: (
+    <path d="M14 4.5h5.5V10M19.5 4.5 11 13M17.5 14v5a.5.5 0 0 1-.5.5H5a.5.5 0 0 1-.5-.5V7a.5.5 0 0 1 .5-.5h5" />
+  ),
   chevronLeft: <path d="M14.5 6 8.5 12l6 6" />,
   chevronRight: <path d="m9.5 6 6 6-6 6" />,
   chevronDown: <path d="m6 9.5 6 6 6-6" />,
@@ -130,7 +132,9 @@ const paths = {
       <circle cx="12" cy="12" r="2.8" />
     </>
   ),
-  spark: <path d="M12 3v5M12 16v5M3 12h5M16 12h5M6.3 6.3l2.4 2.4M15.3 15.3l2.4 2.4M6.3 17.7l2.4-2.4M15.3 8.7l2.4-2.4" />,
+  spark: (
+    <path d="M12 3v5M12 16v5M3 12h5M16 12h5M6.3 6.3l2.4 2.4M15.3 15.3l2.4 2.4M6.3 17.7l2.4-2.4M15.3 8.7l2.4-2.4" />
+  ),
   microphone: (
     <>
       <rect x="9" y="3.5" width="6" height="11" rx="3" />

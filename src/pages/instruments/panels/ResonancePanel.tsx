@@ -58,7 +58,9 @@ function usePlateTone(m: number, n: number, enabled: boolean): void {
     const ctx = audio.context;
     const v = voice.current;
     if (!ctx || !v) return;
-    v.oscs.forEach((osc, i) => osc.frequency.setTargetAtTime(plateFrequency(m, n) * (i === 0 ? 1 : 2.76), ctx.currentTime, 0.25));
+    v.oscs.forEach((osc, i) =>
+      osc.frequency.setTargetAtTime(plateFrequency(m, n) * (i === 0 ? 1 : 2.76), ctx.currentTime, 0.25),
+    );
   }, [m, n]);
 }
 
@@ -82,7 +84,11 @@ export function ResonancePanel() {
   }, [scene]);
 
   const [lm, ln] = live.split(',').map(Number) as [number, number];
-  const name = CHORD.has(live) ? (chordFound ? 'The Ithran chord' : 'An unfamiliar figure…') : (NAMED[live] ?? 'Unnamed figure');
+  const name = CHORD.has(live)
+    ? chordFound
+      ? 'The Ithran chord'
+      : 'An unfamiliar figure…'
+    : (NAMED[live] ?? 'Unnamed figure');
 
   return (
     <>
@@ -96,14 +102,21 @@ export function ResonancePanel() {
       </div>
       <Slider label="Mode m" value={m} min={1} max={9} step={1} onChange={setM} format={(v) => String(v)} />
       <Slider label="Mode n" value={n} min={1} max={9} step={1} onChange={setN} format={(v) => String(v)} />
-      <Switch label="Sweep through modes" description="The plate walks through ten figures on its own." checked={sweep} onChange={setSweep} />
+      <Switch
+        label="Sweep through modes"
+        description="The plate walks through ten figures on its own."
+        checked={sweep}
+        onChange={setSweep}
+      />
       <ActionRow>
         <button type="button" onClick={() => scene?.scatterSand()}>
           Scatter the sand
         </button>
         {!sound && <span className={styles.hint}>Turn sound on to hear the plate.</span>}
       </ActionRow>
-      {m === n && <p className={styles.hint}>When m equals n the plate is perfectly still — try making them differ.</p>}
+      {m === n && (
+        <p className={styles.hint}>When m equals n the plate is perfectly still — try making them differ.</p>
+      )}
     </>
   );
 }

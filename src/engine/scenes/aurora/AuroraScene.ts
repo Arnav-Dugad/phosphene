@@ -18,7 +18,14 @@ import { clamp, TAU } from '../../../lib/math.ts';
 import { createRng } from '../../../lib/random.ts';
 import type { SceneParams } from '../../../stores/stage.ts';
 import { glsl, hash } from '../../shaders/chunks.ts';
-import type { FrameState, PostSettings, SceneFactory, StageContext, StageScene, Viewport } from '../../types.ts';
+import type {
+  FrameState,
+  PostSettings,
+  SceneFactory,
+  StageContext,
+  StageScene,
+  Viewport,
+} from '../../types.ts';
 import { Gpgpu, referenceUvs } from '../../util/gpgpu.ts';
 import { TrailBuffer } from '../../util/TrailBuffer.ts';
 
@@ -224,7 +231,10 @@ class AuroraScene implements StageScene {
     this.camera.setViewOffset(viewport.width, viewport.height, shift, 0, viewport.width, viewport.height);
     this.camera.updateProjectionMatrix();
     this.trails.resize(viewport);
-    (this.points.material.uniforms.uSize as { value: number }).value = Math.max(1, viewport.dpr * (viewport.height / 900) * 1.4);
+    (this.points.material.uniforms.uSize as { value: number }).value = Math.max(
+      1,
+      viewport.dpr * (viewport.height / 900) * 1.4,
+    );
   }
 
   prerender(renderer: WebGLRenderer, frame: FrameState): void {
@@ -237,7 +247,12 @@ class AuroraScene implements StageScene {
     (u.uTurbulence as { value: number }).value = this.turbulence;
     if (dt > 0) this.gpgpu.compute.compute();
     (this.points.material.uniforms.uState as { value: unknown }).value = this.gpgpu.current(this.variable);
-    this.trails.accumulate(renderer, this.pointScene, this.camera, frame.motion === 'still' ? 0.8 : this.persistence);
+    this.trails.accumulate(
+      renderer,
+      this.pointScene,
+      this.camera,
+      frame.motion === 'still' ? 0.8 : this.persistence,
+    );
   }
 
   update(): void {

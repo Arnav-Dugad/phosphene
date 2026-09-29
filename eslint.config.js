@@ -9,7 +9,11 @@ export default tseslint.config(
   { ignores: ['dist', 'coverage', 'node_modules', '.wrangler', '.vercel', 'public/sw.js'] },
   {
     files: ['**/*.{ts,tsx}'],
-    extends: [js.configs.recommended, ...tseslint.configs.recommendedTypeChecked, jsxA11y.configs.recommended],
+    extends: [
+      js.configs.recommended,
+      ...tseslint.configs.recommendedTypeChecked,
+      jsxA11y.configs.recommended,
+    ],
     languageOptions: {
       ecmaVersion: 2023,
       globals: globals.browser,

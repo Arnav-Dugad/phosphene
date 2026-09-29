@@ -19,7 +19,14 @@ import { createRng } from '../../../lib/random.ts';
 import type { SceneParams } from '../../../stores/stage.ts';
 import type { RelicFormRequest, RelicFormResponse } from '../../../workers/relicForm.worker.ts';
 import { gauss, glsl, hash, spectrum } from '../../shaders/chunks.ts';
-import type { FrameState, PostSettings, SceneFactory, StageContext, StageScene, Viewport } from '../../types.ts';
+import type {
+  FrameState,
+  PostSettings,
+  SceneFactory,
+  StageContext,
+  StageScene,
+  Viewport,
+} from '../../types.ts';
 import { OrbitRig } from '../../util/OrbitRig.ts';
 
 export type RelicViewMode = 'hologram' | 'engraving' | 'spectral';
@@ -148,7 +155,14 @@ class RelicScene implements StageScene {
   readonly post: Partial<PostSettings> = { bloomIntensity: 1.35, bloomThreshold: 0.18, vignette: 0.7 };
 
   private readonly ctx: StageContext;
-  private readonly rig = new OrbitRig({ distance: 7.4, minDistance: 3, maxDistance: 12, phi: 1.3, theta: 0.7, autoRotate: 0.18 });
+  private readonly rig = new OrbitRig({
+    distance: 7.4,
+    minDistance: 3,
+    maxDistance: 12,
+    phi: 1.3,
+    theta: 0.7,
+    autoRotate: 0.18,
+  });
   private readonly worker: Worker;
   private readonly color = new Color();
   private readonly targetColor = new Color();
@@ -169,7 +183,9 @@ class RelicScene implements StageScene {
 
   constructor(ctx: StageContext, params: SceneParams) {
     this.ctx = ctx;
-    this.worker = new Worker(new URL('../../../workers/relicForm.worker.ts', import.meta.url), { type: 'module' });
+    this.worker = new Worker(new URL('../../../workers/relicForm.worker.ts', import.meta.url), {
+      type: 'module',
+    });
     this.worker.onmessage = (event: MessageEvent<RelicFormResponse>) => this.receive(event.data);
 
     this.pointsMaterial = new ShaderMaterial({
@@ -222,7 +238,8 @@ class RelicScene implements StageScene {
   setParams(params: SceneParams): void {
     const id = typeof params.relic === 'string' ? params.relic : (relics[0]?.id ?? null);
     if (typeof params.decode === 'number') this.decodeTarget = clamp(params.decode);
-    if (typeof params.mode === 'string' && params.mode in MODE_INDEX) this.mode = params.mode as RelicViewMode;
+    if (typeof params.mode === 'string' && params.mode in MODE_INDEX)
+      this.mode = params.mode as RelicViewMode;
     if (id && id !== this.relicId) this.load(id);
   }
 
@@ -288,10 +305,18 @@ class RelicScene implements StageScene {
     // Frame the relic beside the text: to the left on wide screens, in the top band on narrow ones.
     this.offsetX = viewport.compact ? 0 : viewport.width * 0.2;
     this.offsetY = viewport.compact ? viewport.height * 0.2 : 0;
-    this.camera.setViewOffset(viewport.width, viewport.height, this.offsetX, this.offsetY, viewport.width, viewport.height);
+    this.camera.setViewOffset(
+      viewport.width,
+      viewport.height,
+      this.offsetX,
+      this.offsetY,
+      viewport.width,
+      viewport.height,
+    );
     this.camera.fov = viewport.compact ? 44 : 34;
     this.camera.updateProjectionMatrix();
-    (this.pointsMaterial.uniforms.uScale as { value: number }).value = viewport.dpr * (viewport.height / 900) * 1.4;
+    (this.pointsMaterial.uniforms.uScale as { value: number }).value =
+      viewport.dpr * (viewport.height / 900) * 1.4;
   }
 
   onPointerDown(x: number, y: number): void {

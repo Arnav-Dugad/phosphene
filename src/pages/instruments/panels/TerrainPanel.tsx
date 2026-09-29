@@ -21,14 +21,20 @@ const PALETTES = [
 ] as const;
 
 const micSupported = (): boolean =>
-  typeof navigator !== 'undefined' && navigator.mediaDevices !== undefined && 'getUserMedia' in navigator.mediaDevices;
+  typeof navigator !== 'undefined' &&
+  navigator.mediaDevices !== undefined &&
+  'getUserMedia' in navigator.mediaDevices;
 
 /**
  * Microphone audio is analysed locally: the stream feeds an AnalyserNode that
  * is never connected to the speakers or the network. `report` hears whether
  * the visitor granted access.
  */
-function useMicrophone(scene: TerrainScene | null, active: boolean, report: (state: 'live' | 'denied') => void): void {
+function useMicrophone(
+  scene: TerrainScene | null,
+  active: boolean,
+  report: (state: 'live' | 'denied') => void,
+): void {
   useEffect(() => {
     if (!active || !scene) return;
     let cancelled = false;
@@ -103,13 +109,34 @@ export function TerrainPanel() {
           {MIC_MESSAGES[mic]}
         </p>
       )}
-      <Slider label="Gain" value={gain} min={0.2} max={3} step={0.05} onChange={setGain} format={(v) => `${v.toFixed(2)}×`} />
-      <Slider label="Time" value={speed} min={5} max={90} step={1} onChange={setSpeed} format={(v) => `${v} rows/s`} />
+      <Slider
+        label="Gain"
+        value={gain}
+        min={0.2}
+        max={3}
+        step={0.05}
+        onChange={setGain}
+        format={(v) => `${v.toFixed(2)}×`}
+      />
+      <Slider
+        label="Time"
+        value={speed}
+        min={5}
+        max={90}
+        step={1}
+        onChange={setSpeed}
+        format={(v) => `${v} rows/s`}
+      />
       <Segmented label="Palette" value={palette} options={PALETTES} onChange={setPalette} />
-      <Switch label="Freeze the terrain" description="Hold this moment still to study it." checked={frozen} onChange={setFrozen} />
+      <Switch
+        label="Freeze the terrain"
+        description="Hold this moment still to study it."
+        checked={frozen}
+        onChange={setFrozen}
+      />
       <p className={styles.hint}>
-        The carrier is built from the seven spectral tones — each line’s light frequency, forty octaves down — with their
-        harmonics and bursts of data.
+        The carrier is built from the seven spectral tones — each line’s light frequency, forty octaves down —
+        with their harmonics and bursts of data.
       </p>
     </>
   );

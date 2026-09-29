@@ -154,7 +154,8 @@ function IntroSequence({ replay }: { replay: boolean }) {
 
   if (phase === 'done') return null;
 
-  const status = loadProgress < 0.45 ? 'Establishing link' : loadProgress < 1 ? 'Acquiring signal' : 'Signal locked';
+  const status =
+    loadProgress < 0.45 ? 'Establishing link' : loadProgress < 1 ? 'Acquiring signal' : 'Signal locked';
 
   return (
     <div ref={rootRef} className={styles.intro} data-phase={phase} data-variant={variant} aria-live="polite">
@@ -179,7 +180,9 @@ function IntroSequence({ replay }: { replay: boolean }) {
             <span className={styles.pos}>{world.definition.partOfSpeech}</span>
           </p>
           <p className={styles.sense}>{world.definition.sense}</p>
-          <p className={styles.coda}>What you are about to see left its source thirty-six thousand years ago.</p>
+          <p className={styles.coda}>
+            What you are about to see left its source thirty-six thousand years ago.
+          </p>
         </div>
       )}
 

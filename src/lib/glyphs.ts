@@ -126,7 +126,13 @@ export interface RenderedGlyph {
  * Renders a glyph definition at a position and scale.
  * `rotation` rotates the whole aperture (used by rosette layouts).
  */
-export function renderGlyph(def: GlyphDef, cx: number, cy: number, size: number, rotation = 0): RenderedGlyph {
+export function renderGlyph(
+  def: GlyphDef,
+  cx: number,
+  cy: number,
+  size: number,
+  rotation = 0,
+): RenderedGlyph {
   const s = size / 2;
   const parts: string[] = [];
   const dots: GlyphDot[] = [];
@@ -235,8 +241,9 @@ export function layoutWord(text: string, mode: WordLayoutMode = 'line', size = 4
   });
   const innerR = Math.max(0, orbit - size * 0.72);
   const threadR = orbit + size * 0.62;
-  const thread = innerR > size * 0.2
-    ? `${arcPath(c, c, innerR, 0, Math.PI)}${arcPath(c, c, innerR, Math.PI, TAU)}${arcPath(c, c, threadR, 0, Math.PI)}${arcPath(c, c, threadR, Math.PI, TAU)}`
-    : `${arcPath(c, c, threadR, 0, Math.PI)}${arcPath(c, c, threadR, Math.PI, TAU)}`;
+  const thread =
+    innerR > size * 0.2
+      ? `${arcPath(c, c, innerR, 0, Math.PI)}${arcPath(c, c, innerR, Math.PI, TAU)}${arcPath(c, c, threadR, 0, Math.PI)}${arcPath(c, c, threadR, Math.PI, TAU)}`
+      : `${arcPath(c, c, threadR, 0, Math.PI)}${arcPath(c, c, threadR, Math.PI, TAU)}`;
   return { width: extent * 2, height: extent * 2, glyphs, thread };
 }

@@ -35,7 +35,9 @@
   white-space: nowrap;
   pointer-events: auto;
   transform-origin: 50% 100%;
-  transition: color var(--dur-quick) var(--ease-out), opacity var(--dur-quick) var(--ease-out);
+  transition:
+    color var(--dur-quick) var(--ease-out),
+    opacity var(--dur-quick) var(--ease-out);
 }
 
 .label[data-visible='false'] {
@@ -102,7 +104,9 @@
   border-bottom: 1px solid var(--hairline);
   text-align: left;
   color: var(--bone-dim);
-  transition: color var(--dur-quick) var(--ease-out), padding var(--dur-nav) var(--ease-out);
+  transition:
+    color var(--dur-quick) var(--ease-out),
+    padding var(--dur-nav) var(--ease-out);
 }
 
 .worldButton:hover,

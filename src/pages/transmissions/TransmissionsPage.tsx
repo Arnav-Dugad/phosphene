@@ -20,7 +20,14 @@ export default function TransmissionsPage() {
   useGsap(
     () => {
       if (motion === 'still') return;
-      gsap.from('[data-row]', { opacity: 0, y: 50, stagger: 0.1, duration: 1.3, ease: 'phos.out', delay: 0.15 });
+      gsap.from('[data-row]', {
+        opacity: 0,
+        y: 50,
+        stagger: 0.1,
+        duration: 1.3,
+        ease: 'phos.out',
+        delay: 0.15,
+      });
     },
     ref,
     [motion],
@@ -34,8 +41,8 @@ export default function TransmissionsPage() {
           Stories <em>carried by light</em>
         </h1>
         <p className={styles.lead}>
-          Four translations from the stream, and one record kept by the people who received it. Confidence is the
-          translators’ own estimate of how much they got right.
+          Four translations from the stream, and one record kept by the people who received it. Confidence is
+          the translators’ own estimate of how much they got right.
         </p>
       </header>
 

@@ -34,7 +34,10 @@ function IntegrityBar({ value, line }: { value: number; line: string }) {
   return (
     <span className={styles.integrity} aria-label={`Integrity ${value} percent`}>
       <span className={styles.integrityTrack} aria-hidden="true">
-        <span className={styles.integrityFill} style={{ width: `${value}%`, background: `var(--line-${line})` }} />
+        <span
+          className={styles.integrityFill}
+          style={{ width: `${value}%`, background: `var(--line-${line})` }}
+        />
       </span>
       <span className={styles.integrityValue}>{value}%</span>
     </span>
@@ -125,13 +128,24 @@ export default function ArchivePage() {
         list.map((r) => ({
           relic: r,
           title: r.name,
-          keywords: [r.catalog, r.summary, r.material, r.ithran, RELIC_KIND_LABELS[r.kind], eraById(r.era)?.name ?? ''],
+          keywords: [
+            r.catalog,
+            r.summary,
+            r.material,
+            r.ithran,
+            RELIC_KIND_LABELS[r.kind],
+            eraById(r.era)?.name ?? '',
+          ],
         })),
       ).map((x) => x.item.relic);
     } else {
       const eraOrder = (r: Relic): number => eras.findIndex((e) => e.id === r.era);
       list = [...list].sort((a, b) =>
-        sort === 'integrity' ? b.integrity - a.integrity : sort === 'age' ? eraOrder(a) - eraOrder(b) : a.catalog.localeCompare(b.catalog),
+        sort === 'integrity'
+          ? b.integrity - a.integrity
+          : sort === 'age'
+            ? eraOrder(a) - eraOrder(b)
+            : a.catalog.localeCompare(b.catalog),
       );
     }
     return list;
@@ -148,7 +162,11 @@ export default function ArchivePage() {
       stagger: 0.015,
       absolute: true,
       onEnter: (els) =>
-        gsap.fromTo(els, { opacity: 0, scale: 0.94, filter: 'blur(6px)' }, { opacity: 1, scale: 1, filter: 'blur(0px)', duration: 0.7, ease: 'phos.out' }),
+        gsap.fromTo(
+          els,
+          { opacity: 0, scale: 0.94, filter: 'blur(6px)' },
+          { opacity: 1, scale: 1, filter: 'blur(0px)', duration: 0.7, ease: 'phos.out' },
+        ),
     });
   }, [results, view]);
 
@@ -175,8 +193,8 @@ export default function ArchivePage() {
           The Archive of <em>decoded relics</em>
         </h1>
         <p className={styles.lead}>
-          The Ithra sent no objects — only descriptions of objects, folded into light. Each relic here is rebuilt from
-          what survived the crossing. Integrity is how much of the description arrived.
+          The Ithra sent no objects — only descriptions of objects, folded into light. Each relic here is
+          rebuilt from what survived the crossing. Integrity is how much of the description arrived.
         </p>
         <dl className={styles.stats}>
           <div>
@@ -210,7 +228,12 @@ export default function ArchivePage() {
         </label>
 
         <div className={styles.filterRow} role="group" aria-label="Filter by age">
-          <button type="button" className={styles.chip} aria-pressed={!era} onClick={() => update('era', null)}>
+          <button
+            type="button"
+            className={styles.chip}
+            aria-pressed={!era}
+            onClick={() => update('era', null)}
+          >
             All ages
           </button>
           {eras.map((e) => (
@@ -240,11 +263,23 @@ export default function ArchivePage() {
               ))}
             </select>
           </label>
-          <Segmented label="Sort by" value={sort} options={SORTS} onChange={(v) => update('sort', v === 'catalog' ? null : v)} />
-          <Segmented label="View" value={view} options={VIEWS} onChange={(v) => update('view', v === 'plates' ? null : v)} />
+          <Segmented
+            label="Sort by"
+            value={sort}
+            options={SORTS}
+            onChange={(v) => update('sort', v === 'catalog' ? null : v)}
+          />
+          <Segmented
+            label="View"
+            value={view}
+            options={VIEWS}
+            onChange={(v) => update('view', v === 'plates' ? null : v)}
+          />
         </div>
         <p className={styles.count} role="status">
-          {results.length === relics.length ? `All ${relics.length} relics` : `${results.length} of ${relics.length} relics`}
+          {results.length === relics.length
+            ? `All ${relics.length} relics`
+            : `${results.length} of ${relics.length} relics`}
         </p>
       </section>
 

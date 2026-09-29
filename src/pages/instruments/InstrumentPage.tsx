@@ -15,7 +15,10 @@ import { ResonancePanel } from './panels/ResonancePanel.tsx';
 import { TerrainPanel } from './panels/TerrainPanel.tsx';
 import styles from './Instrument.module.css';
 
-const SURFACES: Record<string, { label: string; instructions: string; cursor: 'drag' | 'crosshair'; cursorLabel: string }> = {
+const SURFACES: Record<
+  string,
+  { label: string; instructions: string; cursor: 'drag' | 'crosshair'; cursorLabel: string }
+> = {
   interference: {
     label: 'Interference field',
     instructions:
@@ -25,13 +28,15 @@ const SURFACES: Record<string, { label: string; instructions: string; cursor: 'd
   },
   resonance: {
     label: 'Resonance plate',
-    instructions: 'Drag across the plate to bow it and add energy where you touch. Use the mode sliders in the panel to change the figure.',
+    instructions:
+      'Drag across the plate to bow it and add energy where you touch. Use the mode sliders in the panel to change the figure.',
     cursor: 'crosshair',
     cursorLabel: 'Bow',
   },
   gravity: {
     label: 'Gravity field',
-    instructions: 'Click to place a mass, drag a mass to move it, double-click a mass to remove it. Scroll or pinch to zoom.',
+    instructions:
+      'Click to place a mass, drag a mass to move it, double-click a mass to remove it. Scroll or pinch to zoom.',
     cursor: 'crosshair',
     cursorLabel: 'Place mass',
   },
@@ -99,7 +104,11 @@ export default function InstrumentPage() {
   if (!instrument) return <Missing />;
   return (
     <div className={styles.shell} data-instrument={instrument.slug}>
-      {instrument.slug === 'glyphs' ? <GlyphStudio instrument={instrument} /> : <SimulatedInstrument key={instrument.slug} instrument={instrument} />}
+      {instrument.slug === 'glyphs' ? (
+        <GlyphStudio instrument={instrument} />
+      ) : (
+        <SimulatedInstrument key={instrument.slug} instrument={instrument} />
+      )}
     </div>
   );
 }

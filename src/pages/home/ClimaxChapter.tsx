@@ -40,10 +40,24 @@ export function ClimaxChapter({ index }: { index: number }) {
           },
         },
       });
-      tl.fromTo('[data-climax-a]', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 1, ease: 'phos.out' }, 0)
+      tl.fromTo(
+        '[data-climax-a]',
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, duration: 1, ease: 'phos.out' },
+        0,
+      )
         .to('[data-climax-a]', { opacity: 0, y: -30, duration: 0.8, ease: 'phos.in' }, 1.6)
-        .fromTo('[data-climax-b]', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 1, ease: 'phos.out' }, 2.2)
-        .to('[data-climax-b]', { opacity: 0, scale: 1.08, filter: 'blur(12px)', duration: 0.9, ease: 'phos.in' }, 3.6)
+        .fromTo(
+          '[data-climax-b]',
+          { opacity: 0, y: 30 },
+          { opacity: 1, y: 0, duration: 1, ease: 'phos.out' },
+          2.2,
+        )
+        .to(
+          '[data-climax-b]',
+          { opacity: 0, scale: 1.08, filter: 'blur(12px)', duration: 0.9, ease: 'phos.in' },
+          3.6,
+        )
         .fromTo('[data-flash]', { opacity: 0 }, { opacity: 1, duration: 0.5, ease: 'phos.in' }, 4.0)
         .to('[data-flash]', { opacity: 0, duration: 1.4, ease: 'phos.out' }, 4.6)
         .fromTo(
@@ -52,7 +66,12 @@ export function ClimaxChapter({ index }: { index: number }) {
           { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1.4, ease: 'phos.out' },
           5.0,
         )
-        .fromTo('[data-climax-cta]', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 1, ease: 'phos.out' }, 5.6)
+        .fromTo(
+          '[data-climax-cta]',
+          { opacity: 0, y: 20 },
+          { opacity: 1, y: 0, duration: 1, ease: 'phos.out' },
+          5.6,
+        )
         .to({}, { duration: 1.2 });
     },
     ref,
@@ -60,7 +79,12 @@ export function ClimaxChapter({ index }: { index: number }) {
   );
 
   return (
-    <section ref={ref} className={styles.climax} aria-labelledby="climax-title" data-static={motion === 'still'}>
+    <section
+      ref={ref}
+      className={styles.climax}
+      aria-labelledby="climax-title"
+      data-static={motion === 'still'}
+    >
       <div className={styles.climaxInner}>
         <p className={styles.climaxLine} data-climax-a>
           They could not leave.

@@ -1,9 +1,25 @@
-import { BufferGeometry, Color, Float32BufferAttribute, Mesh, OrthographicCamera, Scene, ShaderMaterial, Vector2 } from 'three';
+import {
+  BufferGeometry,
+  Color,
+  Float32BufferAttribute,
+  Mesh,
+  OrthographicCamera,
+  Scene,
+  ShaderMaterial,
+  Vector2,
+} from 'three';
 import { spectralLines, spectralOrder } from '../../../design/tokens.ts';
 import { clamp, damp } from '../../../lib/math.ts';
 import type { SceneParams } from '../../../stores/stage.ts';
 import { gauss, glsl, hash } from '../../shaders/chunks.ts';
-import type { FrameState, PostSettings, SceneFactory, StageContext, StageScene, Viewport } from '../../types.ts';
+import type {
+  FrameState,
+  PostSettings,
+  SceneFactory,
+  StageContext,
+  StageScene,
+  Viewport,
+} from '../../types.ts';
 
 /**
  * Lost signal: receiver snow with a rolling vertical hold, and underneath it
@@ -81,7 +97,12 @@ const fragment = glsl`
 class StaticScene implements StageScene {
   readonly scene = new Scene();
   readonly camera = new OrthographicCamera(-1, 1, 1, -1, 0, 1);
-  readonly post: Partial<PostSettings> = { bloomIntensity: 1.2, bloomThreshold: 0.45, vignette: 0.9, aberration: 1.2 };
+  readonly post: Partial<PostSettings> = {
+    bloomIntensity: 1.2,
+    bloomThreshold: 0.45,
+    vignette: 0.9,
+    aberration: 1.2,
+  };
 
   private readonly mesh: Mesh<BufferGeometry, ShaderMaterial>;
   private clarity = 0;
@@ -118,7 +139,10 @@ class StaticScene implements StageScene {
   }
 
   resize(viewport: Readonly<Viewport>): void {
-    (this.mesh.material.uniforms.uResolution as { value: Vector2 }).value.set(viewport.width, viewport.height);
+    (this.mesh.material.uniforms.uResolution as { value: Vector2 }).value.set(
+      viewport.width,
+      viewport.height,
+    );
   }
 
   update(frame: FrameState): void {

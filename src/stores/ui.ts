@@ -47,9 +47,15 @@ export const useUi = create<UiStore>()((set) => ({
   setMenu: (menuOpen) => set({ menuOpen, paletteOpen: false }),
   setPalette: (paletteOpen) => set({ paletteOpen, menuOpen: false }),
   setTerminal: (terminalOpen) =>
-    set((s) => ({ terminalOpen, terminalMounted: s.terminalMounted || terminalOpen, paletteOpen: false, menuOpen: false })),
+    set((s) => ({
+      terminalOpen,
+      terminalMounted: s.terminalMounted || terminalOpen,
+      paletteOpen: false,
+      menuOpen: false,
+    })),
   setIntroPhase: (introPhase) => set({ introPhase }),
-  replayIntro: () => set((s) => ({ introRun: s.introRun + 1, introPhase: 'boot', menuOpen: false, paletteOpen: false })),
+  replayIntro: () =>
+    set((s) => ({ introRun: s.introRun + 1, introPhase: 'boot', menuOpen: false, paletteOpen: false })),
   toast: (toast) => {
     const id = ++toastId;
     set((s) => ({ toasts: [...s.toasts.slice(-3), { ttl: 5200, ...toast, id }] }));

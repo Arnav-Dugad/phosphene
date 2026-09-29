@@ -8,6 +8,6 @@
     // Unknown addresses get the lost-signal page, with a real 404 status.
     "not_found_handling": "404-page",
     // /archive/sr-0021 is served from archive/sr-0021.html.
-    "html_handling": "auto-trailing-slash"
-  }
+    "html_handling": "auto-trailing-slash",
+  },
 }

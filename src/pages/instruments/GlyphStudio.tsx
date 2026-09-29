@@ -21,7 +21,8 @@ const MODES = [
 function describe(strokes: readonly Stroke[]): string {
   const rim = strokes.find((s) => s.kind === 'rim');
   const parts: string[] = [];
-  if (rim && rim.kind === 'rim') parts.push(rim.gap === null ? 'closed rim (vowel)' : `rim broken at spoke ${rim.gap}`);
+  if (rim && rim.kind === 'rim')
+    parts.push(rim.gap === null ? 'closed rim (vowel)' : `rim broken at spoke ${rim.gap}`);
   const arcs = strokes.filter((s) => s.kind === 'arc').length;
   const rays = strokes.filter((s) => s.kind === 'ray').length;
   const dots = strokes.filter((s) => s.kind === 'dot').length;
@@ -56,7 +57,10 @@ export function GlyphStudio({ instrument }: { instrument: Instrument }) {
 
   const clean = text.replace(/[^a-z0-9 ]/gi, '').slice(0, 32);
   const letters = useMemo(
-    () => Array.from(clean.toLowerCase()).filter((c) => c !== ' ').map((c) => ({ char: c, info: describe(glyphFor(c).strokes) })),
+    () =>
+      Array.from(clean.toLowerCase())
+        .filter((c) => c !== ' ')
+        .map((c) => ({ char: c, info: describe(glyphFor(c).strokes) })),
     [clean],
   );
 
@@ -76,7 +80,11 @@ export function GlyphStudio({ instrument }: { instrument: Instrument }) {
 
   const exportSvg = (): void => {
     const markup = svgMarkup();
-    if (markup) download(new Blob([markup], { type: 'image/svg+xml' }), `ithran-${clean.trim().replace(/\s+/g, '-') || 'glyph'}.svg`);
+    if (markup)
+      download(
+        new Blob([markup], { type: 'image/svg+xml' }),
+        `ithran-${clean.trim().replace(/\s+/g, '-') || 'glyph'}.svg`,
+      );
   };
 
   const exportPng = (): void => {
@@ -95,7 +103,9 @@ export function GlyphStudio({ instrument }: { instrument: Instrument }) {
       ctx.fillStyle = '#040406';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
       ctx.drawImage(image, 128, 128, box.width * scale, box.height * scale);
-      canvas.toBlob((blob) => blob && download(blob, `ithran-${clean.trim().replace(/\s+/g, '-') || 'glyph'}.png`));
+      canvas.toBlob(
+        (blob) => blob && download(blob, `ithran-${clean.trim().replace(/\s+/g, '-') || 'glyph'}.png`),
+      );
     };
     image.src = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(markup)}`;
   };
@@ -137,7 +147,15 @@ export function GlyphStudio({ instrument }: { instrument: Instrument }) {
           />
         </div>
         <Segmented label="Form" value={mode} options={MODES} onChange={setMode} />
-        <Slider label="Stroke" value={weight} min={0.5} max={3} step={0.05} onChange={setWeight} format={(v) => `${v.toFixed(2)} px`} />
+        <Slider
+          label="Stroke"
+          value={weight}
+          min={0.5}
+          max={3}
+          step={0.05}
+          onChange={setWeight}
+          format={(v) => `${v.toFixed(2)} px`}
+        />
         <div className={styles.presets} role="radiogroup" aria-label="Colour">
           <p className={styles.groupLabel}>Colour</p>
           <div className={styles.swatches}>
@@ -171,7 +189,12 @@ export function GlyphStudio({ instrument }: { instrument: Instrument }) {
             disabled={!clean.trim()}
             onClick={() => {
               setSigil(clean);
-              toast({ tone: 'success', title: 'Sigil kept', body: `The observatory will remember “${clean.trim()}”.`, line });
+              toast({
+                tone: 'success',
+                title: 'Sigil kept',
+                body: `The observatory will remember “${clean.trim()}”.`,
+                line,
+              });
             }}
           >
             Keep as sigil

@@ -25,7 +25,12 @@ export class Gpgpu {
     return texture;
   }
 
-  variable(name: string, shader: string, initial: DataTexture, uniforms: Record<string, unknown> = {}): Variable {
+  variable(
+    name: string,
+    shader: string,
+    initial: DataTexture,
+    uniforms: Record<string, unknown> = {},
+  ): Variable {
     const variable = this.compute.addVariable(name, shader, initial);
     for (const [key, value] of Object.entries(uniforms)) variable.material.uniforms[key] = { value };
     return variable;

@@ -69,7 +69,17 @@ const TIER_NOTES: Record<string, string> = {
   eco: 'Minimal simulations, no post-processing, thirty frames a second.',
 };
 
-function Group({ id, title, note, children }: { id: string; title: string; note?: string; children: ReactNode }) {
+function Group({
+  id,
+  title,
+  note,
+  children,
+}: {
+  id: string;
+  title: string;
+  note?: string;
+  children: ReactNode;
+}) {
   return (
     <section className={styles.group} aria-labelledby={id}>
       <div className={styles.groupHead}>
@@ -110,7 +120,11 @@ export default function SettingsPage() {
   const forget = (): void => {
     progress.reset();
     setConfirming(null);
-    toast({ tone: 'info', title: 'Observations forgotten', body: 'Fragments, path and sigil have been cleared.' });
+    toast({
+      tone: 'info',
+      title: 'Observations forgotten',
+      body: 'Fragments, path and sigil have been cleared.',
+    });
   };
 
   const restore = (): void => {
@@ -125,7 +139,8 @@ export default function SettingsPage() {
         <p className="t-kicker">09 · Settings</p>
         <h1 className={styles.title}>Calibration</h1>
         <p className={styles.lede}>
-          Tune the observatory to you. Every choice is stored on this device only, and nothing here is ever sent anywhere.
+          Tune the observatory to you. Every choice is stored on this device only, and nothing here is ever
+          sent anywhere.
         </p>
       </header>
 
@@ -135,11 +150,25 @@ export default function SettingsPage() {
           title="Motion"
           note={`In effect now: ${resolved}. “System” follows your device’s reduced-motion setting.`}
         >
-          <Segmented<MotionPreference> label="Motion" value={settings.motion} options={MOTION} onChange={(v) => set('motion', v)} />
+          <Segmented<MotionPreference>
+            label="Motion"
+            value={settings.motion}
+            options={MOTION}
+            onChange={(v) => set('motion', v)}
+          />
         </Group>
 
-        <Group id="settings-quality" title="Graphics" note="Auto measures your device and adapts while you browse.">
-          <Segmented<QualityPreference> label="Quality" value={settings.quality} options={QUALITY} onChange={(v) => set('quality', v)} />
+        <Group
+          id="settings-quality"
+          title="Graphics"
+          note="Auto measures your device and adapts while you browse."
+        >
+          <Segmented<QualityPreference>
+            label="Quality"
+            value={settings.quality}
+            options={QUALITY}
+            onChange={(v) => set('quality', v)}
+          />
           <dl className={styles.readouts}>
             <Readout label="Rendering at" value={titleCase(stage.tier)} />
             <Readout label="Detected as" value={titleCase(stage.detectedTier)} />
@@ -150,7 +179,12 @@ export default function SettingsPage() {
         </Group>
 
         <Group id="settings-sound" title="Sound" note="Synthesised live. Nothing plays until you turn it on.">
-          <Switch label="Sound" description="Ambient drone and interface tones" checked={settings.sound} onChange={setSound} />
+          <Switch
+            label="Sound"
+            description="Ambient drone and interface tones"
+            checked={settings.sound}
+            onChange={setSound}
+          />
           <Slider
             label="Volume"
             value={settings.volume}
@@ -166,10 +200,30 @@ export default function SettingsPage() {
         </Group>
 
         <Group id="settings-appearance" title="Appearance">
-          <Segmented<ThemePreference> label="Theme" value={settings.theme} options={THEME} onChange={(v) => set('theme', v)} />
-          <Segmented<ContrastPreference> label="Contrast" value={settings.contrast} options={CONTRAST} onChange={(v) => set('contrast', v)} />
-          <Segmented<CursorPreference> label="Cursor" value={settings.cursor} options={CURSOR} onChange={(v) => set('cursor', v)} />
-          <Switch label="Film grain" description="A faint photographic texture over everything" checked={settings.grain} onChange={(v) => set('grain', v)} />
+          <Segmented<ThemePreference>
+            label="Theme"
+            value={settings.theme}
+            options={THEME}
+            onChange={(v) => set('theme', v)}
+          />
+          <Segmented<ContrastPreference>
+            label="Contrast"
+            value={settings.contrast}
+            options={CONTRAST}
+            onChange={(v) => set('contrast', v)}
+          />
+          <Segmented<CursorPreference>
+            label="Cursor"
+            value={settings.cursor}
+            options={CURSOR}
+            onChange={(v) => set('cursor', v)}
+          />
+          <Switch
+            label="Film grain"
+            description="A faint photographic texture over everything"
+            checked={settings.grain}
+            onChange={(v) => set('grain', v)}
+          />
           <Switch
             label="Spectral vision"
             description="Luminance becomes wavelength. There is also a key sequence for it."
@@ -179,7 +233,12 @@ export default function SettingsPage() {
         </Group>
 
         <Group id="settings-intro" title="Arrival sequence">
-          <Segmented<IntroPreference> label="Play the opening" value={settings.intro} options={INTRO} onChange={(v) => set('intro', v)} />
+          <Segmented<IntroPreference>
+            label="Play the opening"
+            value={settings.intro}
+            options={INTRO}
+            onChange={(v) => set('intro', v)}
+          />
           <div className={styles.actions}>
             <Button variant="ghost" icon="play" onClick={() => replayIntro()} line="na">
               Replay it now
@@ -187,16 +246,24 @@ export default function SettingsPage() {
           </div>
         </Group>
 
-        <Group id="settings-data" title="Your observations" note="Kept in this browser’s storage. Erasing them cannot be undone.">
+        <Group
+          id="settings-data"
+          title="Your observations"
+          note="Kept in this browser’s storage. Erasing them cannot be undone."
+        >
           <dl className={styles.readouts}>
-            <Readout label="Fragments decoded" value={`${fragmentCount(progress.fragments)} of ${FRAGMENT_TOTAL}`} />
+            <Readout
+              label="Fragments decoded"
+              value={`${fragmentCount(progress.fragments)} of ${FRAGMENT_TOTAL}`}
+            />
             <Readout label="Path traced" value={`${progress.path.length} steps`} />
             <Readout label="Relics examined" value={String(progress.relicsViewed.length)} />
             <Readout label="Visits" value={String(progress.visits)} />
           </dl>
           <p className={styles.hint}>
-            See what you have decoded in <TransitionLink to="/transmission-zero">Transmission Zero</TransitionLink>, and
-            your path on <TransitionLink to="/map">the Map</TransitionLink>.
+            See what you have decoded in{' '}
+            <TransitionLink to="/transmission-zero">Transmission Zero</TransitionLink>, and your path on{' '}
+            <TransitionLink to="/map">the Map</TransitionLink>.
           </p>
           <div className={styles.actions}>
             {confirming === 'progress' ? (
@@ -244,7 +311,10 @@ export default function SettingsPage() {
               <dt>
                 <kbd>G</kbd> then a letter
               </dt>
-              <dd>Jump to a place: A Atlas, C Chronicle, R Archive, T Transmissions, I Instruments, Y Array, M Map, U Institute</dd>
+              <dd>
+                Jump to a place: A Atlas, C Chronicle, R Archive, T Transmissions, I Instruments, Y Array, M
+                Map, U Institute
+              </dd>
             </div>
             <div>
               <dt>

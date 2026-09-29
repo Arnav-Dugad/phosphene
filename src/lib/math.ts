@@ -9,8 +9,13 @@ export const invLerp = (a: number, b: number, v: number): number => (a === b ? 0
 export const remap = (v: number, inMin: number, inMax: number, outMin: number, outMax: number): number =>
   lerp(outMin, outMax, invLerp(inMin, inMax, v));
 
-export const clampedRemap = (v: number, inMin: number, inMax: number, outMin: number, outMax: number): number =>
-  lerp(outMin, outMax, clamp(invLerp(inMin, inMax, v)));
+export const clampedRemap = (
+  v: number,
+  inMin: number,
+  inMax: number,
+  outMin: number,
+  outMax: number,
+): number => lerp(outMin, outMax, clamp(invLerp(inMin, inMax, v)));
 
 export const smoothstep = (edge0: number, edge1: number, x: number): number => {
   const t = clamp((x - edge0) / (edge1 - edge0));

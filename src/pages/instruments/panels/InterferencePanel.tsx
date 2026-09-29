@@ -66,7 +66,9 @@ export function InterferencePanel() {
             <span style={{ width: `${lock * 100}%` }} />
           </div>
           <p className={styles.hint}>
-            {lock >= 1 ? 'Locked. The beam holds the target.' : 'Shift the phases until the beam finds the target ring.'}
+            {lock >= 1
+              ? 'Locked. The beam holds the target.'
+              : 'Shift the phases until the beam finds the target ring.'}
           </p>
         </div>
       )}
@@ -79,7 +81,15 @@ export function InterferencePanel() {
         onChange={setWavelength}
         format={(v) => `${Math.round(v * 1000)} mλ`}
       />
-      <Slider label="Wave speed" value={speed} min={0} max={3} step={0.05} onChange={setSpeed} format={(v) => `${v.toFixed(2)}×`} />
+      <Slider
+        label="Wave speed"
+        value={speed}
+        min={0}
+        max={3}
+        step={0.05}
+        onChange={setSpeed}
+        format={(v) => `${v.toFixed(2)}×`}
+      />
       <Segmented label="Display" value={display} options={DISPLAYS} onChange={setDisplay} />
       <ActionRow>
         <button type="button" onClick={() => scene?.reset()}>

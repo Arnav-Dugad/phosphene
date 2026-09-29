@@ -15,12 +15,18 @@
   var mq = function (q) {
     return window.matchMedia && window.matchMedia(q).matches;
   };
-  var motion = settings.motion && settings.motion !== 'system'
-    ? settings.motion
-    : mq('(prefers-reduced-motion: reduce)') ? 'still' : 'full';
-  var contrast = settings.contrast && settings.contrast !== 'system'
-    ? settings.contrast
-    : mq('(prefers-contrast: more)') ? 'high' : 'standard';
+  var motion =
+    settings.motion && settings.motion !== 'system'
+      ? settings.motion
+      : mq('(prefers-reduced-motion: reduce)')
+        ? 'still'
+        : 'full';
+  var contrast =
+    settings.contrast && settings.contrast !== 'system'
+      ? settings.contrast
+      : mq('(prefers-contrast: more)')
+        ? 'high'
+        : 'standard';
   root.dataset.theme = settings.theme === 'plate' ? 'plate' : 'nocturne';
   root.dataset.motion = motion;
   root.dataset.contrast = contrast;

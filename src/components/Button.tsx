@@ -54,7 +54,15 @@ export function Button(props: ButtonProps) {
   if ('to' in rest && typeof rest.to === 'string') {
     const { to, ...anchor } = rest;
     return (
-      <TransitionLink to={to} className={classes} style={style} onPointerMove={trackGlow} data-magnetic data-cursor-label={cursorLabel} {...anchor}>
+      <TransitionLink
+        to={to}
+        className={classes}
+        style={style}
+        onPointerMove={trackGlow}
+        data-magnetic
+        data-cursor-label={cursorLabel}
+        {...anchor}
+      >
         {inner}
       </TransitionLink>
     );
@@ -62,7 +70,15 @@ export function Button(props: ButtonProps) {
   if ('href' in rest && typeof rest.href === 'string') {
     const { href, ...anchor } = rest;
     return (
-      <a href={href} className={classes} style={style} onPointerMove={trackGlow} data-magnetic data-cursor-label={cursorLabel} {...anchor}>
+      <a
+        href={href}
+        className={classes}
+        style={style}
+        onPointerMove={trackGlow}
+        data-magnetic
+        data-cursor-label={cursorLabel}
+        {...anchor}
+      >
         {inner}
       </a>
     );

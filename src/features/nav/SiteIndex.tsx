@@ -83,7 +83,12 @@ export function SiteIndex() {
           <TransitionLink to="/" className={styles.brand} aria-label="PHOSPHENE — Arrival">
             <Wordmark />
           </TransitionLink>
-          <button type="button" className={styles.close} onClick={() => setMenu(false)} data-cursor-label="Close">
+          <button
+            type="button"
+            className={styles.close}
+            onClick={() => setMenu(false)}
+            data-cursor-label="Close"
+          >
             <span className={styles.closeLabel}>Close</span>
             <Icon name="close" size={18} />
           </button>
@@ -157,7 +162,9 @@ export function SiteIndex() {
                 type="button"
                 className={styles.theme}
                 onClick={() => setSetting('theme', theme === 'plate' ? 'nocturne' : 'plate')}
-                aria-label={theme === 'plate' ? 'Switch to Nocturne (dark) theme' : 'Switch to Plate (light) theme'}
+                aria-label={
+                  theme === 'plate' ? 'Switch to Nocturne (dark) theme' : 'Switch to Plate (light) theme'
+                }
               >
                 <Icon name={theme === 'plate' ? 'nocturne' : 'plate'} size={16} />
                 {theme === 'plate' ? 'Nocturne' : 'Plate'}

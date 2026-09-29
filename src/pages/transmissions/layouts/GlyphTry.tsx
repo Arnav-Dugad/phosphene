@@ -31,7 +31,9 @@ export function GlyphTry() {
         {clean.trim() ? (
           <IthranText text={clean} size={30} weight={1.1} />
         ) : (
-          <span className={styles.tryEmpty}>Letters and numbers only — the aperture has no glyphs for punctuation.</span>
+          <span className={styles.tryEmpty}>
+            Letters and numbers only — the aperture has no glyphs for punctuation.
+          </span>
         )}
       </div>
       <div className={styles.tryActions}>
@@ -41,7 +43,12 @@ export function GlyphTry() {
           disabled={!clean.trim()}
           onClick={() => {
             setSigil(clean);
-            toast({ tone: 'success', title: 'Sigil kept', body: `The observatory will remember “${clean.trim()}”.`, line: 'hb' });
+            toast({
+              tone: 'success',
+              title: 'Sigil kept',
+              body: `The observatory will remember “${clean.trim()}”.`,
+              line: 'hb',
+            });
           }}
         >
           Keep as my sigil

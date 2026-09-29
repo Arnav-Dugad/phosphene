@@ -246,7 +246,11 @@
   aspect-ratio: 1;
   display: grid;
   place-items: center;
-  background: radial-gradient(circle at 50% 45%, color-mix(in oklab, var(--relic-line) 12%, transparent), transparent 65%);
+  background: radial-gradient(
+    circle at 50% 45%,
+    color-mix(in oklab, var(--relic-line) 12%, transparent),
+    transparent 65%
+  );
 }
 
 .cardPlate :global(svg) {
@@ -365,7 +369,11 @@
 .row:hover,
 .row:focus-visible {
   color: var(--bone);
-  background: linear-gradient(90deg, color-mix(in oklab, var(--relic-line) 12%, transparent), transparent 60%);
+  background: linear-gradient(
+    90deg,
+    color-mix(in oklab, var(--relic-line) 12%, transparent),
+    transparent 60%
+  );
   padding-left: 1rem;
 }
 

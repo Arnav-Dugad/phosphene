@@ -91,7 +91,12 @@ function DishDetail({ dish, date, onClose }: { dish: Dish; date: Date; onClose: 
           {dish.id}
           {dish.name && <span className={styles.dishName}> “{dish.name}”</span>}
         </p>
-        <button type="button" className={styles.iconButton} onClick={onClose} aria-label="Back to the whole array">
+        <button
+          type="button"
+          className={styles.iconButton}
+          onClick={onClose}
+          aria-label="Back to the whole array"
+        >
           <Icon name="close" size={14} />
         </button>
       </div>
@@ -129,8 +134,8 @@ function DishDetail({ dish, date, onClose }: { dish: Dish; date: Date; onClose: 
       </dl>
       {dish.name === 'Aster' && (
         <p className={styles.note}>
-          Named for Dr. Aster Halden, who heard the first repetition through this dish in 2236. It has never been taken
-          out of the array.
+          Named for Dr. Aster Halden, who heard the first repetition through this dish in 2236. It has never
+          been taken out of the array.
         </p>
       )}
     </div>
@@ -240,8 +245,8 @@ export default function ArrayPage() {
       {wide && surface}
       {wide && <SourceMarker scene={scene} />}
       <p className="sr-only">
-        A live rendering of the Array: sixty-four light-gathering dishes on the floor of {world.arraySite}, tracking the Lacuna low
-        in the north-western sky, with the rim of the crater on the horizon.
+        A live rendering of the Array: sixty-four light-gathering dishes on the floor of {world.arraySite},
+        tracking the Lacuna low in the north-western sky, with the rim of the crater on the horizon.
       </p>
 
       <div className={styles.hud}>
@@ -250,8 +255,8 @@ export default function ArrayPage() {
             <p className="t-kicker">06 · Array · Daedalus Crater</p>
             <h1 className={styles.title}>The Halden Deep Array</h1>
             <p className={styles.lede}>
-              Sixty-four dishes on the far side of the Moon, listening to the Lacuna now. Everything here is computed from
-              the present moment — anyone watching sees the same sky.
+              Sixty-four dishes on the far side of the Moon, listening to the Lacuna now. Everything here is
+              computed from the present moment — anyone watching sees the same sky.
             </p>
             <div className={styles.status}>
               <span className={styles.liveDot} data-live={!paused} aria-hidden="true" />
@@ -277,7 +282,12 @@ export default function ArrayPage() {
                 </span>
                 {listening ? 'Listening to the carrier' : 'Listen to the carrier'}
               </button>
-              <button type="button" className={styles.textButton} onClick={togglePaused} aria-pressed={paused}>
+              <button
+                type="button"
+                className={styles.textButton}
+                onClick={togglePaused}
+                aria-pressed={paused}
+              >
                 <Icon name={paused ? 'play' : 'pause'} size={12} />
                 {paused ? 'Resume feed' : 'Pause feed'}
               </button>
@@ -325,7 +335,9 @@ export default function ArrayPage() {
               </div>
               <div>
                 <dt>Transmission Zero</dt>
-                <dd title={`Repetition ${thousands(data.repetitions + 1)}`}>in {clock(data.nextRepetition)}</dd>
+                <dd title={`Repetition ${thousands(data.repetitions + 1)}`}>
+                  in {clock(data.nextRepetition)}
+                </dd>
               </div>
             </dl>
             <div className={styles.stream}>
@@ -333,7 +345,8 @@ export default function ArrayPage() {
                 <span style={{ width: `${(data.streamFraction * 100).toFixed(3)}%` }} />
               </div>
               <p className={styles.streamText}>
-                {fixed(data.streamFraction * 100, 4)}% of an estimated {thousands(world.streamYearsTotal)}-year stream
+                {fixed(data.streamFraction * 100, 4)}% of an estimated {thousands(world.streamYearsTotal)}
+                -year stream
               </p>
             </div>
           </section>
@@ -406,8 +419,8 @@ export default function ArrayPage() {
             </dl>
             <Segmented label="Light in the view" value={light} options={LIGHTS} onChange={setLight} />
             <p className={styles.note}>
-              Day and night follow the real Moon: noon here falls at new Moon. The far side never faces Earth — no
-              earthlight, no radio chatter, nothing between the Array and the dark.
+              Day and night follow the real Moon: noon here falls at new Moon. The far side never faces Earth
+              — no earthlight, no radio chatter, nothing between the Array and the dark.
             </p>
           </section>
         </div>
@@ -421,7 +434,11 @@ export default function ArrayPage() {
           </div>
           <ol className={styles.log}>
             {log.map((entry) => (
-              <li key={entry.id} data-tone={entry.tone} style={{ '--entry-line': `var(--line-${entry.line})` } as CSSProperties}>
+              <li
+                key={entry.id}
+                data-tone={entry.tone}
+                style={{ '--entry-line': `var(--line-${entry.line})` } as CSSProperties}
+              >
                 <time dateTime={entry.time.toISOString()}>{entry.clock}</time>
                 <span>{entry.text}</span>
               </li>

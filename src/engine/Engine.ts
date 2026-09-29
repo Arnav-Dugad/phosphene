@@ -443,4 +443,3 @@ export class Engine implements StageContext, EngineHandle {
     this.renderer.dispose();
   }
 }
-

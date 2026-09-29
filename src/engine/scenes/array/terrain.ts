@@ -314,7 +314,11 @@ export function buildSiteMap(): Uint8Array {
     const cz = toTexel(dish.z);
     const radius = Math.ceil(10 / texel);
     for (let j = Math.max(0, Math.floor(cz - radius)); j < Math.min(SITE_SIZE, Math.ceil(cz + radius)); j++) {
-      for (let i = Math.max(0, Math.floor(cx - radius)); i < Math.min(SITE_SIZE, Math.ceil(cx + radius)); i++) {
+      for (
+        let i = Math.max(0, Math.floor(cx - radius));
+        i < Math.min(SITE_SIZE, Math.ceil(cx + radius));
+        i++
+      ) {
         const d = Math.hypot(toWorld(i) - dish.x, toWorld(j) - dish.z);
         const k = j * SITE_SIZE + i;
         lamp[k] = (lamp[k] as number) + Math.exp(-(d * d) / 3.2) * 0.95 + Math.exp(-(d * d) / 16) * 0.14;

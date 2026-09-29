@@ -184,7 +184,9 @@ export class Motes {
     const mirrorMaterial = material.clone();
     // Share the live uniform objects so both draws stay in lockstep…
     for (const key of Object.keys(uniforms)) {
-      mirrorMaterial.uniforms[key] = (uniforms as Record<string, { value: unknown }>)[key] as { value: unknown };
+      mirrorMaterial.uniforms[key] = (uniforms as Record<string, { value: unknown }>)[key] as {
+        value: unknown;
+      };
     }
     // …except the mirror flag.
     mirrorMaterial.uniforms.uMirror = { value: 1 };

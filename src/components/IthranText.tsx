@@ -19,7 +19,15 @@ interface IthranTextProps {
  * Renders Latin text in the Ithran script as inline SVG. The glyphs are
  * decorative writing; assistive technology receives the Latin text.
  */
-export function IthranText({ text, size = 18, mode = 'line', className, weight = 1, label, draw = false }: IthranTextProps) {
+export function IthranText({
+  text,
+  size = 18,
+  mode = 'line',
+  className,
+  weight = 1,
+  label,
+  draw = false,
+}: IthranTextProps) {
   const layout = useMemo(() => layoutWord(text, mode, size), [text, mode, size]);
   const pad = weight * 2;
   return (

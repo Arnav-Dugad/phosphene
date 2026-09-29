@@ -37,16 +37,20 @@ export function Hero({ index }: { index: number }) {
   const motion = useResolvedMotion();
   const years = Math.floor(yearsListening());
 
-  useGsap(() => {
-    chapterTrigger(ref, index);
-    if (motion === 'still') return;
-    gsap.to('[data-hero-fade]', {
-      yPercent: -18,
-      opacity: 0,
-      ease: 'none',
-      scrollTrigger: { trigger: ref.current, start: 'top top', end: '70% top', scrub: true },
-    });
-  }, ref, [motion]);
+  useGsap(
+    () => {
+      chapterTrigger(ref, index);
+      if (motion === 'still') return;
+      gsap.to('[data-hero-fade]', {
+        yPercent: -18,
+        opacity: 0,
+        ease: 'none',
+        scrollTrigger: { trigger: ref.current, start: 'top top', end: '70% top', scrub: true },
+      });
+    },
+    ref,
+    [motion],
+  );
 
   useGsap(
     () => {
@@ -61,7 +65,13 @@ export function Hero({ index }: { index: number }) {
         mask: 'lines',
         autoSplit: true,
         onSplit: splitAnimation((self) =>
-          gsap.from(self.lines, { yPercent: 115, duration: 1.8, stagger: 0.14, ease: 'phos.out', delay: 0.15 }),
+          gsap.from(self.lines, {
+            yPercent: 115,
+            duration: 1.8,
+            stagger: 0.14,
+            ease: 'phos.out',
+            delay: 0.15,
+          }),
         ),
       });
       gsap.fromTo(
@@ -89,8 +99,9 @@ export function Hero({ index }: { index: number }) {
         </h1>
         <div className={styles.heroFoot}>
           <p className={styles.heroLead} data-hero-reveal>
-            {capitalize(`for ${numberToWords(years)} years`)} we have been receiving the memory of a civilization that
-            ended thirty-six thousand years ago. This is the observatory where it is decoded.
+            {capitalize(`for ${numberToWords(years)} years`)} we have been receiving the memory of a
+            civilization that ended thirty-six thousand years ago. This is the observatory where it is
+            decoded.
           </p>
           <div className={styles.heroActions} data-hero-reveal>
             <Button

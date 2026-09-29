@@ -25,7 +25,10 @@ const REELS: readonly Reel[] = [
     credits: [
       { role: 'The memory of', names: ['The Ithra of Vael, all of them'] },
       { role: 'Read into the Choir on the last night', names: ['Four thousand and eleven voices'] },
-      { role: 'The Accord of Dusk', names: ['Everyone who chose to be remembered', 'Everyone who chose to fade'] },
+      {
+        role: 'The Accord of Dusk',
+        names: ['Everyone who chose to be remembered', 'Everyone who chose to fade'],
+      },
     ],
   },
   {
@@ -57,7 +60,10 @@ const REELS: readonly Reel[] = [
   {
     title: 'Light and sound',
     credits: [
-      { role: 'Every colour', names: ['Seven spectral lines of hydrogen, sodium, magnesium, oxygen, helium and calcium'] },
+      {
+        role: 'Every colour',
+        names: ['Seven spectral lines of hydrogen, sodium, magnesium, oxygen, helium and calcium'],
+      },
       { role: 'Every sound', names: ['Those same lines, forty octaves down'] },
       { role: 'Every star, relic and world', names: ['Generated in your browser, just now'] },
     ],
@@ -75,12 +81,22 @@ export default function CreditsPage() {
     <div className={styles.page} data-rolling={rolling} data-paused={paused}>
       <div className={styles.controls}>
         {rolling && (
-          <button type="button" className={styles.control} onClick={() => setPaused((p) => !p)} aria-pressed={paused}>
+          <button
+            type="button"
+            className={styles.control}
+            onClick={() => setPaused((p) => !p)}
+            aria-pressed={paused}
+          >
             <Icon name={paused ? 'play' : 'pause'} size={13} />
             {paused ? 'Resume' : 'Pause'}
           </button>
         )}
-        <button type="button" className={styles.control} onClick={() => setRolling((r) => !r)} aria-pressed={!rolling}>
+        <button
+          type="button"
+          className={styles.control}
+          onClick={() => setRolling((r) => !r)}
+          aria-pressed={!rolling}
+        >
           <Icon name={rolling ? 'list' : 'play'} size={13} />
           {rolling ? 'Read at my own pace' : 'Roll the credits'}
         </button>
@@ -123,8 +139,8 @@ export default function CreditsPage() {
             <p className={styles.closingLine}>We were here. You are here.</p>
             <p className={styles.closingLine}>For a moment, the light connects us.</p>
             <p className={styles.fiction}>
-              {world.name} is a work of fiction. The Ithra, the Institute and the Serein Signal are invented; the sky they
-              live in is real.
+              {world.name} is a work of fiction. The Ithra, the Institute and the Serein Signal are invented;
+              the sky they live in is real.
             </p>
             <TransitionLink to="/" className={styles.home} line="na">
               Return to Arrival <Icon name="arrowRight" size={16} />

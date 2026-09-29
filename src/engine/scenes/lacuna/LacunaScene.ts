@@ -6,7 +6,14 @@ import { clamp, damp, smoothstep } from '../../../lib/math.ts';
 import type { SceneParams } from '../../../stores/stage.ts';
 import { getChannel, stageInput } from '../../input.ts';
 import type { QualityProfile } from '../../quality.ts';
-import type { FrameState, PostSettings, SceneFactory, StageContext, StageScene, Viewport } from '../../types.ts';
+import type {
+  FrameState,
+  PostSettings,
+  SceneFactory,
+  StageContext,
+  StageScene,
+  Viewport,
+} from '../../types.ts';
 import { HOME_PATH, MODE_POSES, samplePath, type Pose } from './cameraPath.ts';
 import { Environment } from './environment.ts';
 import { ERA_FORMATIONS, RING, type FormationKey } from './formations.ts';
@@ -26,7 +33,16 @@ interface Look {
 }
 
 const LOOKS: Record<LacunaMode, Look> = {
-  home: { ringIntensity: 1, stars: 1, seaRough: 1, brightness: 1, turbulence: 0.12, orbitSpeed: 0.05, tintMix: 0, post: {} },
+  home: {
+    ringIntensity: 1,
+    stars: 1,
+    seaRough: 1,
+    brightness: 1,
+    turbulence: 0.12,
+    orbitSpeed: 0.05,
+    tintMix: 0,
+    post: {},
+  },
   ambient: {
     ringIntensity: 0.8,
     stars: 1,
@@ -233,7 +249,9 @@ class LacunaScene implements StageScene {
 
     // ── Camera ─────────────────────────────────────────────────────────────
     const pose =
-      this.mode === 'home' ? samplePath(HOME_PATH, chapter, this.pose) : MODE_POSES[this.mode] ?? MODE_POSES.ambient;
+      this.mode === 'home'
+        ? samplePath(HOME_PATH, chapter, this.pose)
+        : (MODE_POSES[this.mode] ?? MODE_POSES.ambient);
     const time = frame.time;
     let [px, py, pz] = pose.pos;
     if (this.mode === 'credits') {
@@ -287,7 +305,11 @@ class LacunaScene implements StageScene {
 
     // ── Pointer: gravity well for motes, ripples on the sea ───────────────
     this.ray.origin.copy(this.camera.position);
-    this.ray.direction.set(pointer.x, pointer.y, 0.5).unproject(this.camera).sub(this.camera.position).normalize();
+    this.ray.direction
+      .set(pointer.x, pointer.y, 0.5)
+      .unproject(this.camera)
+      .sub(this.camera.position)
+      .normalize();
     const reach = this.camera.position.distanceTo(this.camLook) * 0.55;
     this.pointerWorld.copy(this.ray.origin).addScaledVector(this.ray.direction, reach);
     const speed = Math.hypot(pointer.vx, pointer.vy);
@@ -314,11 +336,16 @@ class LacunaScene implements StageScene {
     // ── Uniforms ───────────────────────────────────────────────────────────
     this.orbit += dt * l.orbitSpeed;
     const introRadius = easing.out(reveal);
-    const pulse = this.mode === 'home' && chapter > 1 && chapter < 2 ? Math.pow(Math.max(0, Math.sin(time * 2.4)), 18) : 0;
+    const pulse =
+      this.mode === 'home' && chapter > 1 && chapter < 2
+        ? Math.pow(Math.max(0, Math.sin(time * 2.4)), 18)
+        : 0;
     this.haloColor.copy(colorOf('na')).lerp(this.tint, l.tintMix * 0.6);
     // History plays out in the motes during the Seven Ages; the ring steps back so text stays legible.
     const agesDim =
-      this.mode === 'home' ? 1 - 0.62 * smoothstep(1.92, 2.12, chapter) * (1 - smoothstep(2.9, 3.25, chapter)) : 1;
+      this.mode === 'home'
+        ? 1 - 0.62 * smoothstep(1.92, 2.12, chapter) * (1 - smoothstep(2.9, 3.25, chapter))
+        : 1;
     this.env.sync(this.camera, time, {
       ringRadius: RING.radius * (0.04 + 0.96 * introRadius),
       ringIntensity: l.ringIntensity * agesDim * (0.2 + 0.8 * reveal),
@@ -347,7 +374,7 @@ class LacunaScene implements StageScene {
       orbitMix: this.motes.formation === 'drift' ? 1 : 0.15,
       tint: this.tint,
       tintMix: l.tintMix,
-      scale: this.ctx.viewport.height * this.ctx.viewport.dpr / 1000,
+      scale: (this.ctx.viewport.height * this.ctx.viewport.dpr) / 1000,
     });
   }
 

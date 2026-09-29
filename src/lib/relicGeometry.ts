@@ -48,7 +48,8 @@ function smoothProfile(keys: Profile, steps = 64): Profile {
     const p2 = keys[Math.min(keys.length - 1, k + 1)] as [number, number];
     const p3 = keys[Math.min(keys.length - 1, k + 2)] as [number, number];
     const cr = (a: number, b: number, c: number, d: number): number =>
-      0.5 * (2 * b + (-a + c) * f + (2 * a - 5 * b + 4 * c - d) * f * f + (-a + 3 * b - 3 * c + d) * f * f * f);
+      0.5 *
+      (2 * b + (-a + c) * f + (2 * a - 5 * b + 4 * c - d) * f * f + (-a + 3 * b - 3 * c + d) * f * f * f);
     out.push([Math.max(0, cr(p0[0], p1[0], p2[0], p3[0])), cr(p0[1], p1[1], p2[1], p3[1])]);
   }
   return out;
@@ -167,7 +168,11 @@ class FormBuilder {
   }
 
   build(): RelicForm {
-    return { polylines: this.polylines, points: new Float32Array(this.pts), weights: new Float32Array(this.w) };
+    return {
+      polylines: this.polylines,
+      points: new Float32Array(this.pts),
+      weights: new Float32Array(this.w),
+    };
   }
 }
 
@@ -189,7 +194,14 @@ function circle(r: number, y: number, segments = 64, tilt = 0, yaw = 0): number[
   return out;
 }
 
-function lathe(b: FormBuilder, profile: Profile, rng: Rng, surface: number, meridians: number, parallels: number): void {
+function lathe(
+  b: FormBuilder,
+  profile: Profile,
+  rng: Rng,
+  surface: number,
+  meridians: number,
+  parallels: number,
+): void {
   for (let m = 0; m < meridians; m++) {
     const a = (m / meridians) * TAU;
     b.line(profile.flatMap(([r, y]) => [Math.cos(a) * r, y, Math.sin(a) * r]));
@@ -280,7 +292,12 @@ function buildKind(kind: RelicKind, b: FormBuilder, rng: Rng, surface: number): 
       for (let i = 0; i < surface; i++) {
         const u = rng.next() * TAU;
         const v = rng.next() * TAU;
-        b.point((R + r * Math.cos(v)) * Math.cos(u), r * Math.sin(v), (R + r * Math.cos(v)) * Math.sin(u), 0.3);
+        b.point(
+          (R + r * Math.cos(v)) * Math.cos(u),
+          r * Math.sin(v),
+          (R + r * Math.cos(v)) * Math.sin(u),
+          0.3,
+        );
       }
       break;
     }
@@ -309,7 +326,8 @@ function buildKind(kind: RelicKind, b: FormBuilder, rng: Rng, surface: number): 
         }
       }
       for (const [x, y, z] of nodes) {
-        for (let i = 0; i < 6; i++) b.point(x + rng.gaussian(0, 0.01), y + rng.gaussian(0, 0.01), z + rng.gaussian(0, 0.01), 1);
+        for (let i = 0; i < 6; i++)
+          b.point(x + rng.gaussian(0, 0.01), y + rng.gaussian(0, 0.01), z + rng.gaussian(0, 0.01), 1);
       }
       for (let i = 0; i < surface * 0.4; i++) {
         const [x, y, z] = rng.onSphere();
@@ -331,7 +349,13 @@ function buildKind(kind: RelicKind, b: FormBuilder, rng: Rng, surface: number): 
         const x = Math.cos(a) * r * 0.78;
         const z = Math.sin(a) * r * 0.78;
         spiral.push(x, y * elong * 0.8, z);
-        for (let k = 0; k < 10; k++) b.point(x + rng.gaussian(0, 0.012), y * elong * 0.8 + rng.gaussian(0, 0.012), z + rng.gaussian(0, 0.012), 0.95);
+        for (let k = 0; k < 10; k++)
+          b.point(
+            x + rng.gaussian(0, 0.012),
+            y * elong * 0.8 + rng.gaussian(0, 0.012),
+            z + rng.gaussian(0, 0.012),
+            0.95,
+          );
       }
       b.line(spiral);
       for (let m = 0; m < 8; m++) {

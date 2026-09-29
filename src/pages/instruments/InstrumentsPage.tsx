@@ -40,10 +40,22 @@ function Diagram({ instrument }: { instrument: Instrument }) {
       return (
         <svg viewBox="0 0 200 200" aria-hidden="true" className={styles.waves}>
           {Array.from({ length: 8 }, (_, i) => (
-            <circle key={`a${i}`} cx="75" cy="120" r={10 + i * 14} style={{ animationDelay: `${i * -0.35}s` }} />
+            <circle
+              key={`a${i}`}
+              cx="75"
+              cy="120"
+              r={10 + i * 14}
+              style={{ animationDelay: `${i * -0.35}s` }}
+            />
           ))}
           {Array.from({ length: 8 }, (_, i) => (
-            <circle key={`b${i}`} cx="125" cy="120" r={10 + i * 14} style={{ animationDelay: `${i * -0.35}s` }} />
+            <circle
+              key={`b${i}`}
+              cx="125"
+              cy="120"
+              r={10 + i * 14}
+              style={{ animationDelay: `${i * -0.35}s` }}
+            />
           ))}
         </svg>
       );
@@ -64,7 +76,13 @@ function Diagram({ instrument }: { instrument: Instrument }) {
     case 'glyphs':
       return (
         <div className={styles.glyphDiagram}>
-          <IthranText text="light" mode="rosette" size={30} weight={1.1} label="The word light in Ithran script" />
+          <IthranText
+            text="light"
+            mode="rosette"
+            size={30}
+            weight={1.1}
+            label="The word light in Ithran script"
+          />
         </div>
       );
     case 'terrain':
@@ -74,7 +92,9 @@ function Diagram({ instrument }: { instrument: Instrument }) {
             const y = 60 + row * 10;
             let d = `M20 ${y}`;
             for (let x = 20; x <= 180; x += 4) {
-              const h = Math.max(0, Math.sin(x * 0.07 + row * 0.9)) ** 3 * (18 - row) + Math.sin(x * 0.31 + row) * 1.5;
+              const h =
+                Math.max(0, Math.sin(x * 0.07 + row * 0.9)) ** 3 * (18 - row) +
+                Math.sin(x * 0.31 + row) * 1.5;
               d += ` L${x} ${y - h}`;
             }
             return <path key={row} d={d} style={{ opacity: 0.25 + (row / 12) * 0.75 }} />;
@@ -106,7 +126,14 @@ export default function InstrumentsPage() {
   useGsap(
     () => {
       if (motion === 'still') return;
-      gsap.from('[data-card]', { opacity: 0, y: 60, stagger: 0.09, duration: 1.3, ease: 'phos.out', delay: 0.1 });
+      gsap.from('[data-card]', {
+        opacity: 0,
+        y: 60,
+        stagger: 0.09,
+        duration: 1.3,
+        ease: 'phos.out',
+        delay: 0.1,
+      });
     },
     ref,
     [motion],
@@ -120,8 +147,8 @@ export default function InstrumentsPage() {
           The tools <em>of listening</em>
         </h1>
         <p className={styles.lead}>
-          Six working instruments from the Institute’s bench. Each one runs a real simulation — on your graphics card,
-          in your browser — and each is part of how the Serein Signal was decoded.
+          Six working instruments from the Institute’s bench. Each one runs a real simulation — on your
+          graphics card, in your browser — and each is part of how the Serein Signal was decoded.
         </p>
       </header>
 

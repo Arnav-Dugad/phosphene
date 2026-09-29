@@ -55,7 +55,8 @@ export const worlds: readonly World[] = [
       { label: 'Age at Encoding', value: '10.4 billion years' },
       { label: 'Radius at Encoding', value: '31 solar' },
     ],
-    summary: 'An old orange star that swelled into a red giant over the Reddening, boiling Ithris and swallowing Carrow.',
+    summary:
+      'An old orange star that swelled into a red giant over the Reddening, boiling Ithris and swallowing Carrow.',
     body: [
       'For most of Ithran history Vael was a steady orange sun, a little smaller and a little older than ours. The Ithra called it the patient star, because it never flared and never changed.',
       'Then it changed. Over three thousand turns it left its long middle age and began to swell. By the Encoding it was thirty times its old size and a deep, tired red. The Choir drew its power from that light.',

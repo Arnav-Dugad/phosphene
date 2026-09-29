@@ -90,7 +90,12 @@ export function PresetRow<T extends string>({
       <p className={styles.groupLabel}>{label}</p>
       <div className={styles.presetButtons}>
         {options.map((o) => (
-          <button key={o.value} type="button" aria-pressed={o.value === value} onClick={() => onChange(o.value)}>
+          <button
+            key={o.value}
+            type="button"
+            aria-pressed={o.value === value}
+            onClick={() => onChange(o.value)}
+          >
             {o.label}
           </button>
         ))}

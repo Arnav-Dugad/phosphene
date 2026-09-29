@@ -209,7 +209,9 @@
   text-align: center;
   text-wrap: balance;
   opacity: 0;
-  text-shadow: 0 0 40px var(--void), 0 0 12px var(--void);
+  text-shadow:
+    0 0 40px var(--void),
+    0 0 12px var(--void);
 }
 
 .signalLine {
@@ -341,7 +343,11 @@
   position: absolute;
   inset: 10% -10% 10% 0;
   z-index: -1;
-  background: radial-gradient(ellipse at 35% 50%, color-mix(in oklab, var(--void) 62%, transparent), transparent 72%);
+  background: radial-gradient(
+    ellipse at 35% 50%,
+    color-mix(in oklab, var(--void) 62%, transparent),
+    transparent 72%
+  );
   pointer-events: none;
 }
 
@@ -473,7 +479,16 @@
   top: -0.5px;
   height: 2px;
   width: 100%;
-  background: linear-gradient(90deg, var(--line-o3), var(--line-na), var(--line-hb), var(--line-he), var(--line-mg), var(--line-ha), var(--line-ca));
+  background: linear-gradient(
+    90deg,
+    var(--line-o3),
+    var(--line-na),
+    var(--line-hb),
+    var(--line-he),
+    var(--line-mg),
+    var(--line-ha),
+    var(--line-ca)
+  );
   transform-origin: left;
   scale: var(--p) 1;
 }
@@ -557,7 +572,11 @@
   padding: 1rem;
   border: 1px solid var(--hairline);
   background:
-    radial-gradient(circle at 50% 45%, color-mix(in oklab, var(--relic-line) 10%, transparent), transparent 65%),
+    radial-gradient(
+      circle at 50% 45%,
+      color-mix(in oklab, var(--relic-line) 10%, transparent),
+      transparent 65%
+    ),
     color-mix(in oklab, var(--ink-1) 60%, transparent);
   transition:
     border-color var(--dur-quick) var(--ease-out),
@@ -820,7 +839,12 @@
 .flash {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 50% 42%, #fff8ec 0%, color-mix(in oklab, var(--ember) 40%, #fff) 30%, transparent 75%);
+  background: radial-gradient(
+    circle at 50% 42%,
+    #fff8ec 0%,
+    color-mix(in oklab, var(--ember) 40%, #fff) 30%,
+    transparent 75%
+  );
   mix-blend-mode: screen;
   opacity: 0;
   pointer-events: none;

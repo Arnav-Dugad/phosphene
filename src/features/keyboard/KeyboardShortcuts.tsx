@@ -18,7 +18,18 @@ const JUMPS: Record<string, string> = {
   s: '/settings',
 };
 
-const KONAMI = ['arrowup', 'arrowup', 'arrowdown', 'arrowdown', 'arrowleft', 'arrowright', 'arrowleft', 'arrowright', 'b', 'a'];
+const KONAMI = [
+  'arrowup',
+  'arrowup',
+  'arrowdown',
+  'arrowdown',
+  'arrowleft',
+  'arrowright',
+  'arrowleft',
+  'arrowright',
+  'b',
+  'a',
+];
 
 const isTyping = (target: EventTarget | null): boolean =>
   target instanceof HTMLElement &&
@@ -52,7 +63,9 @@ export function KeyboardShortcuts() {
         toast({
           tone: 'info',
           title: settings.spectral ? 'Spectral vision released' : 'Spectral vision engaged',
-          body: settings.spectral ? undefined : 'Luminance is now wavelength. Enter the sequence again to return.',
+          body: settings.spectral
+            ? undefined
+            : 'Luminance is now wavelength. Enter the sequence again to return.',
           line: 'o3',
         });
         return;

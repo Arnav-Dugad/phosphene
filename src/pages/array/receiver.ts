@@ -31,7 +31,9 @@ export const ROWS_PER_SECOND = 20;
  */
 export function useReceiver(hub: RowHub, live: boolean, snapshotRows: number): void {
   useEffect(() => {
-    const worker = new Worker(new URL('../../workers/receiver.worker.ts', import.meta.url), { type: 'module' });
+    const worker = new Worker(new URL('../../workers/receiver.worker.ts', import.meta.url), {
+      type: 'module',
+    });
     const send = (command: ReceiverCommand): void => worker.postMessage(command);
     worker.onmessage = (event: MessageEvent<ReceiverRow>) => hub.emit(event.data);
     if (live) send({ type: 'start', rate: ROWS_PER_SECOND });

@@ -26,7 +26,8 @@ function columnTints(): Float32Array {
         rgb = hexToRgb(spectralLines[channel.key].nocturne);
       }
     }
-    for (let c = 0; c < 3; c++) tints[b * 3 + c] = (neutral[c] as number) * (1 - best) + (rgb[c] as number) * best;
+    for (let c = 0; c < 3; c++)
+      tints[b * 3 + c] = (neutral[c] as number) * (1 - best) + (rgb[c] as number) * best;
   }
   return tints;
 }
@@ -44,7 +45,17 @@ export function Spectrogram({ hub, label }: { hub: RowHub; label: string }) {
     const tints = columnTints();
     const line = ctx.createImageData(RECEIVER_BINS, 1);
     return hub.subscribe(({ row }) => {
-      ctx.drawImage(canvas, 0, 0, RECEIVER_BINS, SPECTROGRAM_ROWS - 1, 0, 1, RECEIVER_BINS, SPECTROGRAM_ROWS - 1);
+      ctx.drawImage(
+        canvas,
+        0,
+        0,
+        RECEIVER_BINS,
+        SPECTROGRAM_ROWS - 1,
+        0,
+        1,
+        RECEIVER_BINS,
+        SPECTROGRAM_ROWS - 1,
+      );
       for (let b = 0; b < RECEIVER_BINS; b++) {
         const v = row[b] ?? 0;
         const energy = Math.pow(v, 1.7);

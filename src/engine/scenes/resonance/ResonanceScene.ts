@@ -22,7 +22,14 @@ import { clamp, damp } from '../../../lib/math.ts';
 import { createRng } from '../../../lib/random.ts';
 import type { SceneParams } from '../../../stores/stage.ts';
 import { glsl, hash } from '../../shaders/chunks.ts';
-import type { FrameState, PostSettings, SceneFactory, StageContext, StageScene, Viewport } from '../../types.ts';
+import type {
+  FrameState,
+  PostSettings,
+  SceneFactory,
+  StageContext,
+  StageScene,
+  Viewport,
+} from '../../types.ts';
 import { Emitter } from '../../util/Emitter.ts';
 import { Gpgpu, referenceUvs } from '../../util/gpgpu.ts';
 
@@ -232,8 +239,14 @@ class ResonanceScene implements StageScene {
     this.plate = new Mesh(new PlaneGeometry(2, 2, 160, 160), plateMaterial);
 
     const frameGeometry = new BufferGeometry();
-    frameGeometry.setAttribute('position', new Float32BufferAttribute([-1.02, -1.02, 0, 1.02, -1.02, 0, 1.02, 1.02, 0, -1.02, 1.02, 0], 3));
-    this.frame = new LineLoop(frameGeometry, new LineBasicMaterial({ color: new Color('#62c9ff'), transparent: true, opacity: 0.5 }));
+    frameGeometry.setAttribute(
+      'position',
+      new Float32BufferAttribute([-1.02, -1.02, 0, 1.02, -1.02, 0, 1.02, 1.02, 0, -1.02, 1.02, 0], 3),
+    );
+    this.frame = new LineLoop(
+      frameGeometry,
+      new LineBasicMaterial({ color: new Color('#62c9ff'), transparent: true, opacity: 0.5 }),
+    );
 
     const group = [this.plate, this.grains, this.frame];
     for (const object of group) {
@@ -244,7 +257,6 @@ class ResonanceScene implements StageScene {
     this.camera.lookAt(0, -0.1, 0);
     this.setParams(params);
   }
-
 
   setParams(params: SceneParams): void {
     if (typeof params.sweep === 'boolean') this.sweep = params.sweep;
@@ -279,9 +291,19 @@ class ResonanceScene implements StageScene {
     this.camera.fov = viewport.aspect < 1 ? 32 / Math.max(0.55, viewport.aspect) : 32;
     // On wide screens, slide the plate left to leave room for the panel.
     const shift = viewport.compact ? 0 : viewport.width * 0.12;
-    this.camera.setViewOffset(viewport.width, viewport.height, shift, viewport.compact ? viewport.height * 0.08 : 0, viewport.width, viewport.height);
+    this.camera.setViewOffset(
+      viewport.width,
+      viewport.height,
+      shift,
+      viewport.compact ? viewport.height * 0.08 : 0,
+      viewport.width,
+      viewport.height,
+    );
     this.camera.updateProjectionMatrix();
-    (this.grains.material.uniforms.uSize as { value: number }).value = Math.max(1, viewport.dpr * (viewport.height / 900) * 1.5);
+    (this.grains.material.uniforms.uSize as { value: number }).value = Math.max(
+      1,
+      viewport.dpr * (viewport.height / 900) * 1.5,
+    );
   }
 
   private plateHit(x: number, y: number): boolean {

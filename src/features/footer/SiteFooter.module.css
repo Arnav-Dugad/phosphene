@@ -2,7 +2,12 @@
   position: relative;
   z-index: var(--z-content);
   padding: clamp(5rem, 12vw, 10rem) 0 calc(var(--safe-bottom) + 2.5rem);
-  background: linear-gradient(to bottom, transparent, color-mix(in oklab, var(--void) 88%, transparent) 26%, var(--void));
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    color-mix(in oklab, var(--void) 88%, transparent) 26%,
+    var(--void)
+  );
 }
 
 .inner {

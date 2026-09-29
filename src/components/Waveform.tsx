@@ -29,7 +29,9 @@ export const Waveform = memo(function Waveform({
       const burst = Math.max(0, Math.sin(t * Math.PI * bursts + phase)) ** 4;
       const y =
         height / 2 -
-        (Math.sin(t * f1 + phase) * 0.3 + Math.sin(t * f2) * (0.12 + burst * 0.5) + (rng.next() - 0.5) * 0.08) *
+        (Math.sin(t * f1 + phase) * 0.3 +
+          Math.sin(t * f2) * (0.12 + burst * 0.5) +
+          (rng.next() - 0.5) * 0.08) *
           env *
           (height * 0.45);
       pts.push(`${x === 0 ? 'M' : 'L'}${x} ${y.toFixed(1)}`);
@@ -38,7 +40,12 @@ export const Waveform = memo(function Waveform({
   }, [seed, width, height]);
 
   return (
-    <svg className={className} viewBox={`0 0 ${width} ${height}`} preserveAspectRatio="none" aria-hidden="true">
+    <svg
+      className={className}
+      viewBox={`0 0 ${width} ${height}`}
+      preserveAspectRatio="none"
+      aria-hidden="true"
+    >
       <path d={d} pathLength={1} fill="none" stroke="currentColor" vectorEffect="non-scaling-stroke" />
     </svg>
   );

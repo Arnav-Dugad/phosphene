@@ -17,7 +17,13 @@
   inset: 0 auto auto 0;
   width: min(52rem, 70vw);
   height: min(46rem, 85vh);
-  background: radial-gradient(ellipse at 0% 0%, rgb(4 4 6 / 0.9), rgb(4 4 6 / 0.78) 40%, rgb(4 4 6 / 0.35) 62%, transparent 80%);
+  background: radial-gradient(
+    ellipse at 0% 0%,
+    rgb(4 4 6 / 0.9),
+    rgb(4 4 6 / 0.78) 40%,
+    rgb(4 4 6 / 0.35) 62%,
+    transparent 80%
+  );
 }
 
 .page::after {

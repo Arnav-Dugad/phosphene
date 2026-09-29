@@ -78,7 +78,11 @@ export function SignalChapter({ index }: { index: number }) {
           at,
         );
         if (i < lines.length - 1) {
-          tl.to(line, { opacity: 0, y: -40, filter: 'blur(8px)', duration: 0.45, ease: 'phos.in' }, at + 0.95);
+          tl.to(
+            line,
+            { opacity: 0, y: -40, filter: 'blur(8px)', duration: 0.45, ease: 'phos.in' },
+            at + 0.95,
+          );
         }
       });
       tl.fromTo('[data-glyphs]', { opacity: 0 }, { opacity: 1, duration: 0.8 }, 5.2);
@@ -89,7 +93,12 @@ export function SignalChapter({ index }: { index: number }) {
   );
 
   return (
-    <section ref={ref} className={styles.signal} aria-labelledby="signal-title" data-static={motion === 'still'}>
+    <section
+      ref={ref}
+      className={styles.signal}
+      aria-labelledby="signal-title"
+      data-static={motion === 'still'}
+    >
       <div className={styles.signalInner}>
         <p className={`t-kicker ${styles.chapterKicker}`}>
           <span className={styles.numeral}>I</span> The Signal
@@ -107,11 +116,7 @@ export function SignalChapter({ index }: { index: number }) {
 
         <div className={styles.signalLines}>
           {LINES.map((line, i) => (
-            <p
-              key={i}
-              className={line.emphasis ? styles.signalEmphasis : styles.signalLine}
-              data-signal-line
-            >
+            <p key={i} className={line.emphasis ? styles.signalEmphasis : styles.signalLine} data-signal-line>
               {line.text}
             </p>
           ))}
@@ -119,7 +124,9 @@ export function SignalChapter({ index }: { index: number }) {
 
         <div className={styles.signalGlyphs} data-glyphs>
           <IthranText text="we were here" size={26} label="“We were here”, in Ithran script" />
-          <p className={styles.glyphCaption}>The first phrase the Institute learned to read: “we were here”.</p>
+          <p className={styles.glyphCaption}>
+            The first phrase the Institute learned to read: “we were here”.
+          </p>
         </div>
       </div>
     </section>

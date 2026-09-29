@@ -40,7 +40,11 @@
   z-index: -1;
   border: 1px solid var(--hairline-strong);
   background:
-    radial-gradient(160px circle at var(--gx) var(--gy), color-mix(in oklab, var(--btn-line) 16%, transparent), transparent 70%)
+    radial-gradient(
+        160px circle at var(--gx) var(--gy),
+        color-mix(in oklab, var(--btn-line) 16%, transparent),
+        transparent 70%
+      )
       padding-box,
     transparent;
   transition:

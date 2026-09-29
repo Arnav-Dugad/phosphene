@@ -84,7 +84,10 @@ function useReceiverSound(clarity: number, line: SpectralKey, enabled: boolean):
 
 export default function NotFoundPage() {
   const location = useLocation();
-  usePageMeta({ title: 'Signal lost', description: 'Nothing in the observatory answers to this address — but something is on the frequency.' });
+  usePageMeta({
+    title: 'Signal lost',
+    description: 'Nothing in the observatory answers to this address — but something is on the frequency.',
+  });
   const motion = useResolvedMotion();
   const soundOn = useSettings((s) => s.sound);
   const found = useProgress((s) => Boolean(s.fragments['11']));
@@ -135,8 +138,8 @@ export default function NotFoundPage() {
         <p className="t-kicker">Signal lost · 404</p>
         <h1 className={styles.title}>Off the chart</h1>
         <p className={styles.lede}>
-          Nothing in the observatory answers to <code className={styles.path}>{location.pathname}</code>. But there is
-          something faint on this frequency.
+          Nothing in the observatory answers to <code className={styles.path}>{location.pathname}</code>. But
+          there is something faint on this frequency.
         </p>
 
         <div className={styles.tuner} style={{ '--pct': `${pct}%` } as CSSProperties}>
@@ -178,7 +181,11 @@ export default function NotFoundPage() {
               <span style={{ width: `${Math.round(clarity * 100)}%` }} />
             </span>
             <span className={styles.status} role="status">
-              {locked ? 'Signal found — hold it there' : clarity > 0.25 ? 'Something is coming through…' : 'Static'}
+              {locked
+                ? 'Signal found — hold it there'
+                : clarity > 0.25
+                  ? 'Something is coming through…'
+                  : 'Static'}
             </span>
             <button type="button" className={styles.scan} onClick={scanTo}>
               <Icon name="signal" size={14} /> Scan the band

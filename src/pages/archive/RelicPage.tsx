@@ -42,7 +42,10 @@ function RelicView({ id }: { id: string }) {
       ? { title: `${relic.name} (${relic.catalog}) — Archive`, description: relic.summary }
       : { title: 'Relic not found — Archive', description: 'This catalogue number is not in the Archive.' },
   );
-  useStageScene(relic ? 'relic' : 'lacuna', relic ? { relic: relic.id, mode, decode } : { mode: 'dusk', tint: 'hb' });
+  useStageScene(
+    relic ? 'relic' : 'lacuna',
+    relic ? { relic: relic.id, mode, decode } : { mode: 'dusk', tint: 'hb' },
+  );
 
   useEffect(() => {
     if (!relic) return;
@@ -56,7 +59,9 @@ function RelicView({ id }: { id: string }) {
       <div className={`container ${styles.missing}`}>
         <p className="t-kicker">03 · Archive</p>
         <h1 className={styles.name}>No relic answers to “{id}”.</h1>
-        <p className={styles.summary}>The catalogue has no entry with that number. It may not have arrived yet.</p>
+        <p className={styles.summary}>
+          The catalogue has no entry with that number. It may not have arrived yet.
+        </p>
         <TransitionLink to="/archive" className={styles.back}>
           <Icon name="arrowLeft" size={15} /> Return to the Archive
         </TransitionLink>
@@ -193,7 +198,11 @@ function RelicView({ id }: { id: string }) {
             </TransitionLink>
           )}
           {next && (
-            <TransitionLink to={`/archive/${next.id}`} className={`${styles.pagerLink} ${styles.pagerNext}`} line={next.line}>
+            <TransitionLink
+              to={`/archive/${next.id}`}
+              className={`${styles.pagerLink} ${styles.pagerNext}`}
+              line={next.line}
+            >
               <span>
                 <span className={styles.pagerLabel}>Next</span>
                 {next.name}

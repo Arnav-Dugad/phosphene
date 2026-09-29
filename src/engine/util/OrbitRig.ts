@@ -97,7 +97,8 @@ export class OrbitRig {
 
   flyTo(target: Vector3, distance?: number): void {
     this.targetGoal.copy(target);
-    if (distance !== undefined) this.distanceGoal = clamp(distance, this.options.minDistance, this.options.maxDistance);
+    if (distance !== undefined)
+      this.distanceGoal = clamp(distance, this.options.minDistance, this.options.maxDistance);
   }
 
   /** Eases the polar angle to `phi` — e.g. a higher vantage for a close subject. Dragging cancels it. */
@@ -132,7 +133,8 @@ export class OrbitRig {
         this.phi = damp(this.phi, this.phiGoal, still ? 1000 : 2.4, dt);
         if (Math.abs(this.phi - this.phiGoal) < 1e-3) this.phiGoal = null;
       }
-      if (!still && this.idleFor > 2.5) this.theta += this.options.autoRotate * dt * Math.min(1, (this.idleFor - 2.5) / 3);
+      if (!still && this.idleFor > 2.5)
+        this.theta += this.options.autoRotate * dt * Math.min(1, (this.idleFor - 2.5) / 3);
     }
     const k = still ? 1000 : 3.2;
     this.target.x = damp(this.target.x, this.targetGoal.x, k, dt);

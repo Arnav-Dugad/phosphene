@@ -18,7 +18,14 @@ import { clamp, damp } from '../../../lib/math.ts';
 import { createRng } from '../../../lib/random.ts';
 import type { SceneParams } from '../../../stores/stage.ts';
 import { glsl } from '../../shaders/chunks.ts';
-import type { FrameState, PostSettings, SceneFactory, StageContext, StageScene, Viewport } from '../../types.ts';
+import type {
+  FrameState,
+  PostSettings,
+  SceneFactory,
+  StageContext,
+  StageScene,
+  Viewport,
+} from '../../types.ts';
 import { Emitter } from '../../util/Emitter.ts';
 
 /** Where a node sits on screen, for the page's DOM labels. */
@@ -157,7 +164,13 @@ type Uniform<T> = { value: T };
 class ConstellationScene implements StageScene {
   readonly scene = new Scene();
   readonly camera = new PerspectiveCamera(50, 1, 1, 2000);
-  readonly post: Partial<PostSettings> = { bloomIntensity: 1.05, bloomThreshold: 0.2, bloomRadius: 0.7, vignette: 0.7, aberration: 0.35 };
+  readonly post: Partial<PostSettings> = {
+    bloomIntensity: 1.05,
+    bloomThreshold: 0.2,
+    bloomRadius: 0.7,
+    vignette: 0.7,
+    aberration: 0.35,
+  };
   /** Screen anchors for every node, refreshed each frame (allocation-free). */
   readonly anchors: NodeAnchor[] = chartNodes.map(() => ({ x: 0, y: 0, visible: false, detail: 0 }));
   /** `hover` fires when the star under the pointer changes; `pick` when one is clicked. */
@@ -324,7 +337,9 @@ class ConstellationScene implements StageScene {
     state.needsUpdate = true;
 
     const visited = Array.isArray(params.visited) ? (params.visited as number[]) : [];
-    this.setPath(visited.filter((i) => chartNodes[i] && !filtered.has((chartNodes[i] as { kind: NodeKind }).kind)));
+    this.setPath(
+      visited.filter((i) => chartNodes[i] && !filtered.has((chartNodes[i] as { kind: NodeKind }).kind)),
+    );
 
     if (typeof params.focus === 'number' && params.focus !== this.focus) {
       this.focus = params.focus;
@@ -354,8 +369,14 @@ class ConstellationScene implements StageScene {
       previous = p;
     }
     const geometry = this.path.geometry;
-    geometry.setAttribute('position', new BufferAttribute(new Float32Array(points.length ? points : [0, 0, 0]), 3));
-    geometry.setAttribute('aDistance', new BufferAttribute(new Float32Array(distances.length ? distances : [0]), 1));
+    geometry.setAttribute(
+      'position',
+      new BufferAttribute(new Float32Array(points.length ? points : [0, 0, 0]), 3),
+    );
+    geometry.setAttribute(
+      'aDistance',
+      new BufferAttribute(new Float32Array(distances.length ? distances : [0]), 1),
+    );
     geometry.setDrawRange(0, points.length >= 6 ? points.length / 3 : 0);
     (this.path.material.uniforms.uLength as Uniform<number>).value = total;
   }
@@ -511,11 +532,7 @@ class ConstellationScene implements StageScene {
     // A gentle parallax lean from the pointer keeps the chart feeling three-dimensional.
     const lean = still ? 0 : 1;
     const p = frame.pointer;
-    this.camera.position.set(
-      this.center.x + p.x * 6 * lean,
-      this.center.y + p.y * 4 * lean,
-      this.distance,
-    );
+    this.camera.position.set(this.center.x + p.x * 6 * lean, this.center.y + p.y * 4 * lean, this.distance);
     this.camera.lookAt(this.center.x, this.center.y, 0);
     this.camera.updateMatrixWorld();
 
@@ -557,7 +574,6 @@ class ConstellationScene implements StageScene {
     this.scene.clear();
   }
 }
-
 
 const create: SceneFactory = (ctx, params) => new ConstellationScene(ctx, params);
 export default create;

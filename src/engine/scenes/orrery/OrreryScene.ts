@@ -30,7 +30,14 @@ import { clamp, damp, TAU } from '../../../lib/math.ts';
 import { createRng } from '../../../lib/random.ts';
 import type { SceneParams } from '../../../stores/stage.ts';
 import type { QualityProfile } from '../../quality.ts';
-import type { FrameState, PostSettings, SceneFactory, StageContext, StageScene, Viewport } from '../../types.ts';
+import type {
+  FrameState,
+  PostSettings,
+  SceneFactory,
+  StageContext,
+  StageScene,
+  Viewport,
+} from '../../types.ts';
 import { Emitter } from '../../util/Emitter.ts';
 import { OrbitRig } from '../../util/OrbitRig.ts';
 import {
@@ -315,7 +322,8 @@ class OrreryScene implements StageScene {
         this.rig.flyTo(new Vector3(0, 0, 0), focus === 'vael' ? 30 : 78);
       } else {
         const body = this.bodies.find((b) => b.world.id === focus);
-        if (body) this.rig.flyTo(body.group.position, Math.max(4, body.world.size * 8 + (body.world.rings ? 6 : 0)));
+        if (body)
+          this.rig.flyTo(body.group.position, Math.max(4, body.world.size * 8 + (body.world.rings ? 6 : 0)));
       }
     }
   }
@@ -324,7 +332,8 @@ class OrreryScene implements StageScene {
     this.camera.aspect = viewport.aspect;
     this.camera.fov = viewport.aspect < 1 ? 52 : 40;
     this.camera.updateProjectionMatrix();
-    (this.starfield.material.uniforms.uScale as { value: number }).value = viewport.dpr * (viewport.height / 900);
+    (this.starfield.material.uniforms.uScale as { value: number }).value =
+      viewport.dpr * (viewport.height / 900);
   }
 
   onPointerDown(x: number, y: number): void {
@@ -435,7 +444,8 @@ class OrreryScene implements StageScene {
     for (const label of this.labels) {
       const body = label.id === 'vael' ? null : this.bodies.find((b) => b.world.id === label.id);
       if (label.id === 'vael') this.tmp.set(0, vaelSize * 1.05, 0);
-      else if (body) this.tmp.copy(body.group.position).setY(body.group.position.y + body.world.size * 1.25 + 0.2);
+      else if (body)
+        this.tmp.copy(body.group.position).setY(body.group.position.y + body.world.size * 1.25 + 0.2);
       else continue;
       const inFront = this.toLabel.copy(this.tmp).sub(this.camera.position).dot(this.viewDir) > 0;
       const distance = this.camera.position.distanceTo(body ? body.group.position : this.origin);
@@ -443,7 +453,10 @@ class OrreryScene implements StageScene {
       label.x = (this.tmp.x * 0.5 + 0.5) * width;
       label.y = (-this.tmp.y * 0.5 + 0.5) * height;
       label.visible =
-        inFront && Math.abs(this.tmp.x) < 1.05 && Math.abs(this.tmp.y) < 1.05 && (body ? body.fade > 0.3 : true);
+        inFront &&
+        Math.abs(this.tmp.x) < 1.05 &&
+        Math.abs(this.tmp.y) < 1.05 &&
+        (body ? body.fade > 0.3 : true);
       label.scale = clamp(1 - distance / 220, 0.5, 1);
     }
   }

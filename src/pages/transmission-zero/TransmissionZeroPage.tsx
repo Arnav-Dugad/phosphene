@@ -54,7 +54,12 @@ function Line({ fragment, decodedAt }: { fragment: Fragment; decodedAt: number |
       <span className={styles.numeral}>{fragment.numeral}</span>
       <p className={styles.glyphs} aria-hidden="true">
         {fragment.text.split(' ').map((word, i) => (
-          <IthranText key={`${word}-${i}`} text={word.replace(/[^a-zA-Z]/g, '') || 'a'} size={13} weight={0.9} />
+          <IthranText
+            key={`${word}-${i}`}
+            text={word.replace(/[^a-zA-Z]/g, '') || 'a'}
+            size={13}
+            weight={0.9}
+          />
         ))}
       </p>
       <p className="sr-only">Received in the aperture script; not yet decoded.</p>
@@ -80,9 +85,23 @@ export default function TransmissionZeroPage() {
   useGsap(
     () => {
       if (motion === 'still') return;
-      gsap.from('[data-hero]', { opacity: 0, y: 30, filter: 'blur(8px)', stagger: 0.14, duration: 1.6, ease: 'phos.out', delay: 0.1 });
+      gsap.from('[data-hero]', {
+        opacity: 0,
+        y: 30,
+        filter: 'blur(8px)',
+        stagger: 0.14,
+        duration: 1.6,
+        ease: 'phos.out',
+        delay: 0.1,
+      });
       for (const el of gsap.utils.toArray<HTMLElement>('[data-reveal]')) {
-        gsap.from(el, { opacity: 0, y: 24, duration: 1.1, ease: 'phos.out', scrollTrigger: { trigger: el, start: 'top 90%', once: true } });
+        gsap.from(el, {
+          opacity: 0,
+          y: 24,
+          duration: 1.1,
+          ease: 'phos.out',
+          scrollTrigger: { trigger: el, start: 'top 90%', once: true },
+        });
       }
     },
     ref,
@@ -106,7 +125,11 @@ export default function TransmissionZeroPage() {
         <div className={styles.status} data-hero>
           <span className={styles.meter} aria-hidden="true">
             {fragments.map((f) => (
-              <span key={f.id} data-on={Boolean(decoded[String(f.id)])} style={{ '--fragment-line': `var(--line-${f.line})` } as CSSProperties} />
+              <span
+                key={f.id}
+                data-on={Boolean(decoded[String(f.id)])}
+                style={{ '--fragment-line': `var(--line-${f.line})` } as CSSProperties}
+              />
             ))}
           </span>
           <span>
@@ -130,11 +153,17 @@ export default function TransmissionZeroPage() {
             The light connects us
           </h2>
           <p className={styles.finaleText}>
-            You found every line. The Institute would like to add your name to the logbook — in the only script the
-            message was ever written in.
+            You found every line. The Institute would like to add your name to the logbook — in the only
+            script the message was ever written in.
           </p>
           <div className={styles.sigil}>
-            <IthranText text={sigil ?? 'observer'} size={46} mode="rosette" weight={1.4} draw={motion !== 'still'} />
+            <IthranText
+              text={sigil ?? 'observer'}
+              size={46}
+              mode="rosette"
+              weight={1.4}
+              draw={motion !== 'still'}
+            />
             <p className={styles.sigilCaption}>
               {sigil ? `“${sigil}”, signed in light` : 'Inscribe your own sigil in the Glyph Synthesizer'}
             </p>

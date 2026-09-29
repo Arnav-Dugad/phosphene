@@ -1,7 +1,9 @@
 /** Feature and preference detection. All functions are safe to call during SSR-less boot. */
 
 const media = (query: string): boolean =>
-  typeof window !== 'undefined' && typeof window.matchMedia === 'function' && window.matchMedia(query).matches;
+  typeof window !== 'undefined' &&
+  typeof window.matchMedia === 'function' &&
+  window.matchMedia(query).matches;
 
 export const prefersReducedMotion = (): boolean => media('(prefers-reduced-motion: reduce)');
 export const prefersMoreContrast = (): boolean => media('(prefers-contrast: more)');

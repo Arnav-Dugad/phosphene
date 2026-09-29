@@ -27,7 +27,8 @@ export function renderHead(entry: PageEntry, site: string): string {
         name: world.name,
         alternateName: world.tagline,
         url: `${site}/`,
-        description: 'An interactive work of science fiction: an observatory decoding the last transmission of a vanished civilization.',
+        description:
+          'An interactive work of science fiction: an observatory decoding the last transmission of a vanished civilization.',
         inLanguage: 'en',
       },
       {
@@ -68,7 +69,9 @@ export function renderHead(entry: PageEntry, site: string): string {
 /** Real content for crawlers and visitors without JavaScript; React replaces it on mount. */
 export function renderBody(entry: PageEntry): string {
   const paragraphs = entry.paragraphs.map((p) => `<p>${escape(p)}</p>`).join('');
-  const links = entry.links.map((l) => `<li><a href="${escape(l.path)}">${escape(l.label)}</a></li>`).join('');
+  const links = entry.links
+    .map((l) => `<li><a href="${escape(l.path)}">${escape(l.label)}</a></li>`)
+    .join('');
   return `<article class="prerender"><h1>${escape(entry.heading)}</h1>${paragraphs}<nav aria-label="Places"><ul>${links}</ul></nav></article>`;
 }
 
@@ -86,7 +89,9 @@ export function devHead(): Plugin {
       const path = (ctx.originalUrl ?? '/').split(/[?#]/)[0] ?? '/';
       const entry = pageEntries().find((p) => p.path === path) ?? notFoundEntry;
       const site = (process.env.VITE_SITE_URL ?? DEFAULT_SITE_URL).replace(/\/$/, '');
-      return html.replace('<!--app-head-->', renderHead(entry, site)).replace('<!--app-body-->', renderBody(entry));
+      return html
+        .replace('<!--app-head-->', renderHead(entry, site))
+        .replace('<!--app-body-->', renderBody(entry));
     },
   };
 }
@@ -109,7 +114,9 @@ export function prerender(): Plugin {
       const site = (process.env.VITE_SITE_URL ?? DEFAULT_SITE_URL).replace(/\/$/, '');
       const template = readFileSync(resolve(outDir, 'index.html'), 'utf8');
       const render = (entry: PageEntry): string =>
-        template.replace('<!--app-head-->', renderHead(entry, site)).replace('<!--app-body-->', renderBody(entry));
+        template
+          .replace('<!--app-head-->', renderHead(entry, site))
+          .replace('<!--app-body-->', renderBody(entry));
 
       const pages = pageEntries();
       for (const entry of pages) {
@@ -121,14 +128,21 @@ export function prerender(): Plugin {
 
       const today = new Date().toISOString().slice(0, 10);
       const urls = pages
-        .map((p) => `  <url><loc>${site}${p.path === '/' ? '/' : p.path}</loc><lastmod>${today}</lastmod></url>`)
+        .map(
+          (p) => `  <url><loc>${site}${p.path === '/' ? '/' : p.path}</loc><lastmod>${today}</lastmod></url>`,
+        )
         .join('\n');
       writeFileSync(
         resolve(outDir, 'sitemap.xml'),
         `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`,
       );
-      writeFileSync(resolve(outDir, 'robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${site}/sitemap.xml\n`);
-      config.logger.info(`prerendered ${pages.length} pages, 404.html, sitemap.xml and robots.txt for ${site}`);
+      writeFileSync(
+        resolve(outDir, 'robots.txt'),
+        `User-agent: *\nAllow: /\n\nSitemap: ${site}/sitemap.xml\n`,
+      );
+      config.logger.info(
+        `prerendered ${pages.length} pages, 404.html, sitemap.xml and robots.txt for ${site}`,
+      );
     },
   };
 }

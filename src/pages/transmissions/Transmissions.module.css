@@ -65,7 +65,11 @@
 
 .row:hover,
 .row:focus-visible {
-  background: linear-gradient(90deg, color-mix(in oklab, var(--story-line) 10%, transparent), transparent 70%);
+  background: linear-gradient(
+    90deg,
+    color-mix(in oklab, var(--story-line) 10%, transparent),
+    transparent 70%
+  );
   padding-left: 1.2rem;
 }
 

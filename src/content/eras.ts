@@ -45,9 +45,21 @@ export const eras: readonly Era[] = [
       'Over millions of turns those flashes grew syntax. A pulse meant here; a pulse doubled meant here, and safe; a slow fade meant I am leaving. By the time the Ithra walked out of the sea, they already had a language — and it was made of light.',
     ],
     events: [
-      { at: '3.1M BE', title: 'The first lights', text: 'Colonial organisms in the Ennet shallows begin to synchronise their glow.' },
-      { at: '840,000 BE', title: 'The grammar of pulses', text: 'Signal patterns acquire order: the first recoverable "sentences" in the signal are this old.' },
-      { at: '61,000 BE', title: 'The long walk', text: 'The first Ithra settle above the tide line and carry their light with them.' },
+      {
+        at: '3.1M BE',
+        title: 'The first lights',
+        text: 'Colonial organisms in the Ennet shallows begin to synchronise their glow.',
+      },
+      {
+        at: '840,000 BE',
+        title: 'The grammar of pulses',
+        text: 'Signal patterns acquire order: the first recoverable "sentences" in the signal are this old.',
+      },
+      {
+        at: '61,000 BE',
+        title: 'The long walk',
+        text: 'The first Ithra settle above the tide line and carry their light with them.',
+      },
     ],
     voice: 'We were speaking before we had anything to say.',
   },
@@ -67,9 +79,21 @@ export const eras: readonly Era[] = [
       'Lanterns could be taught short sequences, and a taught lantern would repeat its sequence for as long as it lived. The Ithra had invented memory outside the body. Their cities, lit by thousands of repeating lanterns, could be read like books from the hills above them.',
     ],
     events: [
-      { at: '58,200 BE', title: 'The first named lantern', text: 'Recovered as "Ossa Who Waits" — the oldest proper name in the archive.' },
-      { at: '49,000 BE', title: 'Crystal-keeping', text: 'Light sequences are sealed into quartz so they outlive the lanterns that made them.' },
-      { at: '40,500 BE', title: 'The Lamplighters', text: 'A guild forms to tend the public lanterns of Senn Reach. Its records survive almost whole.' },
+      {
+        at: '58,200 BE',
+        title: 'The first named lantern',
+        text: 'Recovered as "Ossa Who Waits" — the oldest proper name in the archive.',
+      },
+      {
+        at: '49,000 BE',
+        title: 'Crystal-keeping',
+        text: 'Light sequences are sealed into quartz so they outlive the lanterns that made them.',
+      },
+      {
+        at: '40,500 BE',
+        title: 'The Lamplighters',
+        text: 'A guild forms to tend the public lanterns of Senn Reach. Its records survive almost whole.',
+      },
     ],
     voice: 'Every window was a sentence. The city was a story that told itself all night.',
   },
@@ -89,9 +113,21 @@ export const eras: readonly Era[] = [
       'From this came the Resonant Libraries: caverns of tuned crystal cut into Mereth’s ice, where the cold kept the lattices still. A single chamber could hold the lantern-records of a city. The Ithra began to believe that nothing need ever be forgotten.',
     ],
     events: [
-      { at: '37,400 BE', title: 'The singing stone', text: 'The first deliberate resonant record: a single lantern-sequence, held in a crystal for eleven turns.' },
-      { at: '29,000 BE', title: 'The Mereth Libraries', text: 'Excavation begins beneath the ice of Mereth, the fourth world, where the cold keeps lattices still.' },
-      { at: '22,100 BE', title: 'The Complete Record', text: 'For one turn, everything any Ithra chose to remember was stored. The number is lost; the pride is not.' },
+      {
+        at: '37,400 BE',
+        title: 'The singing stone',
+        text: 'The first deliberate resonant record: a single lantern-sequence, held in a crystal for eleven turns.',
+      },
+      {
+        at: '29,000 BE',
+        title: 'The Mereth Libraries',
+        text: 'Excavation begins beneath the ice of Mereth, the fourth world, where the cold keeps lattices still.',
+      },
+      {
+        at: '22,100 BE',
+        title: 'The Complete Record',
+        text: 'For one turn, everything any Ithra chose to remember was stored. The number is lost; the pride is not.',
+      },
     ],
     voice: 'If a thing can ring, it can remember. We learned to ring.',
   },
@@ -112,9 +148,21 @@ export const eras: readonly Era[] = [
       'It ended with the Accord of Dusk: memory would be kept — but only memory freely given, and any Ithra could ask for theirs to be released. Every later part of the signal obeys this rule. Some of the silence we receive is not damage. It is refusal.',
     ],
     events: [
-      { at: '21,000 BE', title: 'The first dimming', text: 'The Releasers of the southern arc turn their lanterns inland.' },
-      { at: '17,800 BE', title: 'The unlit generation', text: 'Children are born who have never seen the far shore lit.' },
-      { at: '14,500 BE', title: 'The Accord of Dusk', text: 'Memory may be kept only if freely given. The lanterns on both shores are relit in a single night.' },
+      {
+        at: '21,000 BE',
+        title: 'The first dimming',
+        text: 'The Releasers of the southern arc turn their lanterns inland.',
+      },
+      {
+        at: '17,800 BE',
+        title: 'The unlit generation',
+        text: 'Children are born who have never seen the far shore lit.',
+      },
+      {
+        at: '14,500 BE',
+        title: 'The Accord of Dusk',
+        text: 'Memory may be kept only if freely given. The lanterns on both shores are relit in a single night.',
+      },
     ],
     voice: 'We did not fight. We only stopped shining for each other, which was worse.',
   },
@@ -134,9 +182,21 @@ export const eras: readonly Era[] = [
       'It was also when the Ithra built the great light-telescopes on Carrow and mapped every star within four hundred light-years. They searched for anyone else speaking in light. They found no one. The proof of their solitude — the Loneliness Theorem — was carved into the terminator cliffs of Carrow where the star would always light it.',
     ],
     events: [
-      { at: '12,900 BE', title: 'The ring gardens', text: 'The first habitats are seeded in Sollen’s rings; within a thousand turns they hold a fifth of all Ithra.' },
-      { at: '8,300 BE', title: 'The Atlas of Near Stars', text: 'The observatories of Carrow chart 11,406 stars. Not one of them answers.' },
-      { at: '5,050 BE', title: 'The Loneliness Theorem', text: 'A proof, carved in light-reflecting glass, that no one else could hear them.' },
+      {
+        at: '12,900 BE',
+        title: 'The ring gardens',
+        text: 'The first habitats are seeded in Sollen’s rings; within a thousand turns they hold a fifth of all Ithra.',
+      },
+      {
+        at: '8,300 BE',
+        title: 'The Atlas of Near Stars',
+        text: 'The observatories of Carrow chart 11,406 stars. Not one of them answers.',
+      },
+      {
+        at: '5,050 BE',
+        title: 'The Loneliness Theorem',
+        text: 'A proof, carved in light-reflecting glass, that no one else could hear them.',
+      },
     ],
     voice: 'We were the only lanterns in the whole dark harbour, and we made the harbour beautiful anyway.',
   },
@@ -156,9 +216,21 @@ export const eras: readonly Era[] = [
       'But their bodies were made for tides and sunlight. Every attempt to send an Ithra to another star failed long before it left the system. The dark between stars was too wide and too cold, and the Ithra were too heavy for it. Light, they noted, was not.',
     ],
     events: [
-      { at: '3,200 BE', title: 'The first red dawn', text: 'Astronomers on Carrow record the change in Vael’s colour. The record is calm.' },
-      { at: '1,700 BE', title: 'The seas rise to the sky', text: 'The tidal seas of Ithris begin to boil away. The last lanterns of Senn Reach are carried offworld.' },
-      { at: '640 BE', title: 'Carrow is taken', text: 'The observatory world is engulfed. The Loneliness Theorem is lost with it, and survives only as light.' },
+      {
+        at: '3,200 BE',
+        title: 'The first red dawn',
+        text: 'Astronomers on Carrow record the change in Vael’s colour. The record is calm.',
+      },
+      {
+        at: '1,700 BE',
+        title: 'The seas rise to the sky',
+        text: 'The tidal seas of Ithris begin to boil away. The last lanterns of Senn Reach are carried offworld.',
+      },
+      {
+        at: '640 BE',
+        title: 'Carrow is taken',
+        text: 'The observatory world is engulfed. The Loneliness Theorem is lost with it, and survives only as light.',
+      },
     ],
     voice: 'Our star is not angry. It is only old. We have forgiven it.',
   },
@@ -179,9 +251,21 @@ export const eras: readonly Era[] = [
       'We are receiving that song now. It left Ennis thirty-six thousand years ago, while people on Earth were painting horses on the walls of caves.',
     ],
     events: [
-      { at: '390 BE', title: 'The Choir is begun', text: 'The first mirror of the lattice is set on the pole of Ennis.' },
-      { at: '71 BE', title: 'The reading', text: 'Every Ithra who consents is read into the lattice. Almost all consent.' },
-      { at: '0', title: 'Transmission Zero', text: 'A short message, repeated every nine hours: the first thing they wanted to say to whoever was listening.' },
+      {
+        at: '390 BE',
+        title: 'The Choir is begun',
+        text: 'The first mirror of the lattice is set on the pole of Ennis.',
+      },
+      {
+        at: '71 BE',
+        title: 'The reading',
+        text: 'Every Ithra who consents is read into the lattice. Almost all consent.',
+      },
+      {
+        at: '0',
+        title: 'Transmission Zero',
+        text: 'A short message, repeated every nine hours: the first thing they wanted to say to whoever was listening.',
+      },
     ],
     voice: 'We could not leave. So we are sending the lighter part of us.',
   },

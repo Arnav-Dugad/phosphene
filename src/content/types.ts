@@ -15,6 +15,7 @@ export type SceneKey =
   | 'aurora';
 
 /** Modes of the shared Lacuna scene (the ring over the black sea). */
-export type LacunaMode = 'home' | 'chronicle' | 'ambient' | 'dusk' | 'finale' | 'credits' | 'lanterns' | 'choir';
+export type LacunaMode =
+  'home' | 'chronicle' | 'ambient' | 'dusk' | 'finale' | 'credits' | 'lanterns' | 'choir';
 
 export type { SpectralKey };

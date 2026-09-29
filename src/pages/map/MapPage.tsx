@@ -2,7 +2,14 @@ import { useEffect, useMemo, useRef, useState, type CSSProperties } from 'react'
 import { Icon } from '../../components/Icon.tsx';
 import { TransitionLink } from '../../components/TransitionLink.tsx';
 import { fragments } from '../../content/fragments.ts';
-import { chartNodes, NODE_KIND_LABELS, NODE_KINDS, nodeForPath, type ChartNode, type NodeKind } from '../../content/graph.ts';
+import {
+  chartNodes,
+  NODE_KIND_LABELS,
+  NODE_KINDS,
+  nodeForPath,
+  type ChartNode,
+  type NodeKind,
+} from '../../content/graph.ts';
 import type { ConstellationScene } from '../../engine/scenes/constellation/ConstellationScene.ts';
 import { InteractionSurface } from '../../features/stage/InteractionSurface.tsx';
 import { useTransitionNavigate } from '../../features/transition/useTransitionNavigate.ts';
@@ -104,21 +111,35 @@ function Labels({
   );
 }
 
-function Tooltip({ scene, node, observed }: { scene: ConstellationScene | null; node: ChartNode; observed: boolean }) {
+function Tooltip({
+  scene,
+  node,
+  observed,
+}: {
+  scene: ConstellationScene | null;
+  node: ChartNode;
+  observed: boolean;
+}) {
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (!scene) return;
     let raf = 0;
     const tick = (): void => {
       const anchor = scene.anchors[node.index];
-      if (ref.current && anchor) ref.current.style.transform = `translate3d(${anchor.x.toFixed(1)}px, ${anchor.y.toFixed(1)}px, 0)`;
+      if (ref.current && anchor)
+        ref.current.style.transform = `translate3d(${anchor.x.toFixed(1)}px, ${anchor.y.toFixed(1)}px, 0)`;
       raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
   }, [scene, node.index]);
   return (
-    <div ref={ref} className={styles.tooltip} style={{ '--label-line': `var(--line-${node.line})` } as CSSProperties} aria-hidden="true">
+    <div
+      ref={ref}
+      className={styles.tooltip}
+      style={{ '--label-line': `var(--line-${node.line})` } as CSSProperties}
+      aria-hidden="true"
+    >
       <p className={styles.tooltipKind}>
         {NODE_KIND_LABELS[node.kind].one} · {observed ? 'observed' : 'not yet observed'}
       </p>
@@ -159,7 +180,13 @@ export default function MapPage() {
   const listed = shown.filter((n) => !filtered.includes(n.kind));
   const observedCount = shown.filter((n) => observed.has(n.index)).length;
 
-  useStageScene('constellation', { visited, observed: [...observed], hiddenKinds: filtered, revealed, focus: focus ?? -1 });
+  useStageScene('constellation', {
+    visited,
+    observed: [...observed],
+    hiddenKinds: filtered,
+    revealed,
+    focus: focus ?? -1,
+  });
 
   useEffect(() => {
     if (!scene) return;
@@ -188,13 +215,7 @@ export default function MapPage() {
         cursor="drag"
         cursorLabel="Pan"
       />
-      <Labels
-        scene={scene}
-        nodes={listed}
-        observed={observed}
-        hovered={hovered}
-        onFocusNode={setFocus}
-      />
+      <Labels scene={scene} nodes={listed} observed={observed} hovered={hovered} onFocusNode={setFocus} />
       {tipNode && <Tooltip scene={scene} node={tipNode} observed={observed.has(tipNode.index)} />}
 
       <div className={styles.hud}>
@@ -202,8 +223,8 @@ export default function MapPage() {
           <p className="t-kicker">08 · Map</p>
           <h1 className={styles.title}>The Chart of Everything Received</h1>
           <p className={styles.lede}>
-            Every place, world, age, relic and transmission as a star, linked by meaning. The bright line is your own path
-            through the observatory.
+            Every place, world, age, relic and transmission as a star, linked by meaning. The bright line is
+            your own path through the observatory.
           </p>
           <p className={styles.stats}>
             <span>
@@ -244,13 +265,28 @@ export default function MapPage() {
         </fieldset>
 
         <div className={styles.controls}>
-          <button type="button" className={styles.control} onClick={() => scene?.zoomBy(0.75)} aria-label="Zoom in">
+          <button
+            type="button"
+            className={styles.control}
+            onClick={() => scene?.zoomBy(0.75)}
+            aria-label="Zoom in"
+          >
             <Icon name="plus" size={16} />
           </button>
-          <button type="button" className={styles.control} onClick={() => scene?.zoomBy(1.33)} aria-label="Zoom out">
+          <button
+            type="button"
+            className={styles.control}
+            onClick={() => scene?.zoomBy(1.33)}
+            aria-label="Zoom out"
+          >
             <Icon name="minus" size={16} />
           </button>
-          <button type="button" className={styles.control} onClick={() => scene?.home()} aria-label="Recentre the chart">
+          <button
+            type="button"
+            className={styles.control}
+            onClick={() => scene?.home()}
+            aria-label="Recentre the chart"
+          >
             <Icon name="aperture" size={16} />
           </button>
           <button
@@ -265,7 +301,12 @@ export default function MapPage() {
           </button>
         </div>
 
-        <section id="chart-list" className={styles.list} hidden={!listOpen} aria-label="Everything, as a list">
+        <section
+          id="chart-list"
+          className={styles.list}
+          hidden={!listOpen}
+          aria-label="Everything, as a list"
+        >
           {NODE_KINDS.map((kind) => {
             const group = shown.filter((n) => n.kind === kind);
             return (

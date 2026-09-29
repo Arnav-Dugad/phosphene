@@ -18,7 +18,14 @@ import { lineTone } from '../../../lib/spectral.ts';
 import { spectralOrder } from '../../../design/tokens.ts';
 import type { SceneParams } from '../../../stores/stage.ts';
 import { glsl, spectrum } from '../../shaders/chunks.ts';
-import type { FrameState, PostSettings, SceneFactory, StageContext, StageScene, Viewport } from '../../types.ts';
+import type {
+  FrameState,
+  PostSettings,
+  SceneFactory,
+  StageContext,
+  StageScene,
+  Viewport,
+} from '../../types.ts';
 
 const BINS = 160;
 const ROWS = 128;
@@ -136,7 +143,14 @@ class TerrainScene implements StageScene {
     };
     this.fill = new Mesh(
       geometry.surface,
-      new ShaderMaterial({ vertexShader: terrainVertex, fragmentShader: fillFragment, uniforms, polygonOffset: true, polygonOffsetFactor: 1, polygonOffsetUnits: 1 }),
+      new ShaderMaterial({
+        vertexShader: terrainVertex,
+        fragmentShader: fillFragment,
+        uniforms,
+        polygonOffset: true,
+        polygonOffsetFactor: 1,
+        polygonOffsetUnits: 1,
+      }),
     );
     this.lines = new LineSegments(
       geometry.ridges,

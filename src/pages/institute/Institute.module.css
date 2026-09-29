@@ -143,7 +143,15 @@
 .beam {
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, var(--line-he), var(--line-na), var(--line-o3), var(--line-mg), var(--line-hb), var(--line-ca));
+  background: linear-gradient(
+    90deg,
+    var(--line-he),
+    var(--line-na),
+    var(--line-o3),
+    var(--line-mg),
+    var(--line-hb),
+    var(--line-ca)
+  );
   box-shadow: 0 0 12px var(--line-na);
   transform-origin: left center;
 }
@@ -160,7 +168,11 @@
   align-content: start;
   gap: 0.5rem;
   padding: 2rem 0.9rem 1.1rem 0;
-  background: linear-gradient(to bottom, transparent 1.4rem, color-mix(in oklab, var(--void) 68%, transparent) 1.4rem);
+  background: linear-gradient(
+    to bottom,
+    transparent 1.4rem,
+    color-mix(in oklab, var(--void) 68%, transparent) 1.4rem
+  );
 }
 
 .stepNode {
@@ -172,7 +184,9 @@
   border-radius: 50%;
   background: var(--void);
   border: 1px solid var(--step-line);
-  box-shadow: 0 0 12px var(--step-line), inset 0 0 6px var(--step-line);
+  box-shadow:
+    0 0 12px var(--step-line),
+    inset 0 0 6px var(--step-line);
 }
 
 .stepIndex {

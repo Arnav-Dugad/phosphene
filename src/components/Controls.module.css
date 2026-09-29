@@ -81,7 +81,9 @@
   box-shadow:
     inset 0 0 0 1px var(--bone),
     0 0 0 4px color-mix(in oklab, var(--page-line) 0%, transparent);
-  transition: box-shadow var(--dur-quick) var(--ease-out), scale var(--dur-micro) var(--ease-out);
+  transition:
+    box-shadow var(--dur-quick) var(--ease-out),
+    scale var(--dur-micro) var(--ease-out);
 }
 
 .range::-moz-range-thumb {
@@ -246,7 +248,9 @@
   height: 1.4rem;
   border-radius: 999px;
   box-shadow: inset 0 0 0 1px var(--hairline-strong);
-  transition: box-shadow var(--dur-quick) var(--ease-out), background-color var(--dur-quick) var(--ease-out);
+  transition:
+    box-shadow var(--dur-quick) var(--ease-out),
+    background-color var(--dur-quick) var(--ease-out);
 }
 
 .bead {

@@ -125,7 +125,8 @@ const generators: Record<FormationKey, Generator> = {
       const x = rng.range(-1, 1);
       const y = rng.range(-1, 1);
       const v =
-        Math.cos(m * Math.PI * x) * Math.cos(k * Math.PI * y) - Math.cos(k * Math.PI * x) * Math.cos(m * Math.PI * y);
+        Math.cos(m * Math.PI * x) * Math.cos(k * Math.PI * y) -
+        Math.cos(k * Math.PI * x) * Math.cos(m * Math.PI * y);
       if (Math.abs(v) < 0.06 || rng.chance(0.004)) {
         set(out, i, CX + x * size, CY + y * size, CZ + rng.gaussian(0, 0.06));
         i++;
@@ -244,13 +245,7 @@ const generators: Record<FormationKey, Generator> = {
       } else {
         const b = stars[(stars.indexOf(a) + 1) % stars.length] as [number, number, number];
         const t = rng.next();
-        set(
-          out,
-          i,
-          CX + a[0] + (b[0] - a[0]) * t,
-          a[1] + (b[1] - a[1]) * t,
-          CZ + a[2] + (b[2] - a[2]) * t,
-        );
+        set(out, i, CX + a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t, CZ + a[2] + (b[2] - a[2]) * t);
       }
     }
   },

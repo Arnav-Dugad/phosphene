@@ -15,8 +15,16 @@ import styles from './Home.module.css';
 
 const WAYS = [
   { id: 'atlas', glyph: 'orbit', text: 'Fly the dying system of Vael and its six worlds.' },
-  { id: 'archive', glyph: 'plate', text: `${relics.length} relics, rebuilt from descriptions made of light.` },
-  { id: 'instruments', glyph: 'waves', text: 'Six working instruments. Interference, resonance, gravity and more.' },
+  {
+    id: 'archive',
+    glyph: 'plate',
+    text: `${relics.length} relics, rebuilt from descriptions made of light.`,
+  },
+  {
+    id: 'instruments',
+    glyph: 'waves',
+    text: 'Six working instruments. Interference, resonance, gravity and more.',
+  },
   { id: 'array', glyph: 'dishes', text: 'The receiver, live: a spectrogram of the signal as it arrives.' },
 ] as const;
 
@@ -27,7 +35,14 @@ function WayGlyph({ kind }: { kind: (typeof WAYS)[number]['glyph'] }) {
         <svg viewBox="0 0 200 200" aria-hidden="true">
           <circle cx="100" cy="100" r="18" className={styles.glyphFill} />
           {[40, 58, 76, 92].map((r, i) => (
-            <ellipse key={r} cx="100" cy="100" rx={r} ry={r * 0.42} transform={`rotate(${-18 + i * 4} 100 100)`} />
+            <ellipse
+              key={r}
+              cx="100"
+              cy="100"
+              rx={r}
+              ry={r * 0.42}
+              transform={`rotate(${-18 + i * 4} 100 100)`}
+            />
           ))}
           <circle cx="176" cy="84" r="4" className={styles.glyphFill} />
         </svg>
@@ -196,30 +211,35 @@ export function SurvivedChapter({ index }: { index: number }) {
         <div className={styles.ways}>
           <p className={`t-kicker ${styles.waysKicker}`}>Four ways in</p>
           <div ref={listRef} className={styles.waysWrap}>
-          <ul role="list" className={styles.waysList} data-hovered={hovered ?? undefined}>
-            {WAYS.map((way) => {
-              const place = placeById(way.id);
-              return (
-                <li key={way.id} data-way>
-                  <TransitionLink
-                    to={place.path}
-                    className={styles.way}
-                    style={{ '--way-line': `var(--line-${place.line})` } as CSSProperties}
-                    onPointerEnter={() => setHovered(way.id)}
-                    onPointerLeave={() => setHovered(null)}
-                    onFocus={() => setHovered(way.id)}
-                    onBlur={() => setHovered(null)}
-                    data-cursor-label="Enter"
-                  >
-                    <span className={styles.wayIndex}>{pad(place.index)}</span>
-                    <span className={styles.wayLabel}>{place.label}</span>
-                    <span className={styles.wayText}>{way.text}</span>
-                  </TransitionLink>
-                </li>
-              );
-            })}
-          </ul>
-            <div ref={previewRef} className={styles.preview} aria-hidden="true" data-visible={hovered !== null}>
+            <ul role="list" className={styles.waysList} data-hovered={hovered ?? undefined}>
+              {WAYS.map((way) => {
+                const place = placeById(way.id);
+                return (
+                  <li key={way.id} data-way>
+                    <TransitionLink
+                      to={place.path}
+                      className={styles.way}
+                      style={{ '--way-line': `var(--line-${place.line})` } as CSSProperties}
+                      onPointerEnter={() => setHovered(way.id)}
+                      onPointerLeave={() => setHovered(null)}
+                      onFocus={() => setHovered(way.id)}
+                      onBlur={() => setHovered(null)}
+                      data-cursor-label="Enter"
+                    >
+                      <span className={styles.wayIndex}>{pad(place.index)}</span>
+                      <span className={styles.wayLabel}>{place.label}</span>
+                      <span className={styles.wayText}>{way.text}</span>
+                    </TransitionLink>
+                  </li>
+                );
+              })}
+            </ul>
+            <div
+              ref={previewRef}
+              className={styles.preview}
+              aria-hidden="true"
+              data-visible={hovered !== null}
+            >
               {WAYS.map((way) => (
                 <div
                   key={way.id}

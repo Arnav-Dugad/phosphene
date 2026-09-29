@@ -90,9 +90,12 @@ export interface DeviceSignals {
 }
 
 const SOFTWARE = /swiftshader|llvmpipe|softpipe|basic render|microsoft basic|software/i;
-const DISCRETE_HIGH = /rtx\s?[2-9]\d{3}|rtx\s?a\d{3,4}|radeon rx\s?[67]\d{3}|radeon rx\s?9\d{3}|apple m[2-9]|apple m1 (pro|max|ultra)|arc a7/i;
-const DISCRETE_MID = /gtx\s?1[06-9]\d{2}|gtx\s?16\d{2}|rtx|radeon rx|radeon pro|apple m1|apple gpu|arc|geforce/i;
-const MOBILE_HIGH = /adreno.*(7[3-9]\d|8\d\d)|mali-g7[1-9]|mali-g[89]\d\d|immortalis|apple a1[6-9]|apple a[2-9]\d/i;
+const DISCRETE_HIGH =
+  /rtx\s?[2-9]\d{3}|rtx\s?a\d{3,4}|radeon rx\s?[67]\d{3}|radeon rx\s?9\d{3}|apple m[2-9]|apple m1 (pro|max|ultra)|arc a7/i;
+const DISCRETE_MID =
+  /gtx\s?1[06-9]\d{2}|gtx\s?16\d{2}|rtx|radeon rx|radeon pro|apple m1|apple gpu|arc|geforce/i;
+const MOBILE_HIGH =
+  /adreno.*(7[3-9]\d|8\d\d)|mali-g7[1-9]|mali-g[89]\d\d|immortalis|apple a1[6-9]|apple a[2-9]\d/i;
 const MOBILE_LOW = /adreno.*[1-5]\d\d|mali-[4t]|mali-g[1-5]\d|powervr|videocore/i;
 
 /**
@@ -142,5 +145,10 @@ export function readDeviceSignals(gl: WebGL2RenderingContext): DeviceSignals {
 export function describeRenderer(renderer: string): string {
   const angle = /ANGLE \(([^,]+),\s*([^,(]+)/.exec(renderer);
   const label = angle ? `${angle[2] ?? ''}`.trim() : renderer;
-  return label.replace(/\s+Direct3D.*$/i, '').replace(/\s+\(0x[0-9a-f]+\)/i, '').slice(0, 64) || 'Unknown GPU';
+  return (
+    label
+      .replace(/\s+Direct3D.*$/i, '')
+      .replace(/\s+\(0x[0-9a-f]+\)/i, '')
+      .slice(0, 64) || 'Unknown GPU'
+  );
 }

@@ -31,7 +31,9 @@ function ToastItem({ toast }: { toast: Toast }) {
       className={styles.toast}
       data-tone={toast.tone}
       data-leaving={leaving}
-      style={{ '--toast-line': `var(--line-${toast.line ?? 'na'})`, '--ttl': `${toast.ttl}ms` } as CSSProperties}
+      style={
+        { '--toast-line': `var(--line-${toast.line ?? 'na'})`, '--ttl': `${toast.ttl}ms` } as CSSProperties
+      }
       onPointerEnter={() => setPaused(true)}
       onPointerLeave={() => setPaused(false)}
       onFocus={() => setPaused(true)}
@@ -42,7 +44,12 @@ function ToastItem({ toast }: { toast: Toast }) {
         <p className={styles.title}>{toast.title}</p>
         {toast.body && <p className={toast.tone === 'fragment' ? styles.quote : styles.body}>{toast.body}</p>}
       </div>
-      <button type="button" className={styles.close} onClick={() => setLeaving(true)} aria-label="Dismiss notification">
+      <button
+        type="button"
+        className={styles.close}
+        onClick={() => setLeaving(true)}
+        aria-label="Dismiss notification"
+      >
         <Icon name="close" size={14} />
       </button>
       <span className={styles.timer} data-paused={paused} aria-hidden="true" />

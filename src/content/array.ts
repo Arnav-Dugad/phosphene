@@ -38,15 +38,30 @@ export interface Dish {
 
 export const DISH_STATES: readonly DishState[] = ['tracking', 'calibrating', 'slewing', 'stowed', 'offline'];
 
-export const DISH_STATE_INFO: Record<DishState, { label: string; line: SpectralKey | null; description: string }> = {
-  tracking: { label: 'Tracking', line: 'o3', description: 'Following the Lacuna and contributing to the combined signal.' },
+export const DISH_STATE_INFO: Record<
+  DishState,
+  { label: string; line: SpectralKey | null; description: string }
+> = {
+  tracking: {
+    label: 'Tracking',
+    line: 'o3',
+    description: 'Following the Lacuna and contributing to the combined signal.',
+  },
   calibrating: {
     label: 'Calibrating',
     line: 'na',
     description: 'Pointed at a reference source to measure its own errors. Returns to tracking in minutes.',
   },
-  slewing: { label: 'Slewing', line: 'hb', description: 'Moving between targets at a degree and a half per second.' },
-  stowed: { label: 'Stowed', line: null, description: 'Parked facing the zenith — thermal stow, or waiting out a particle storm.' },
+  slewing: {
+    label: 'Slewing',
+    line: 'hb',
+    description: 'Moving between targets at a degree and a half per second.',
+  },
+  stowed: {
+    label: 'Stowed',
+    line: null,
+    description: 'Parked facing the zenith — thermal stow, or waiting out a particle storm.',
+  },
   offline: { label: 'Maintenance', line: 'ha', description: 'Out of the array today. A crew is with it.' },
 };
 
@@ -256,9 +271,15 @@ export function telemetry(date: Date = new Date()): Telemetry {
   const tracking = states.filter((s) => s === 'tracking').length;
   const year = 365.25 * 86400;
   // Earth's orbital velocity projected toward Cygnus (ecliptic latitude ≈ 57°), plus the Moon's orbit.
-  const radialVelocity = 29.78 * Math.cos(degToRad(57)) * wave(t, year, 1.1) + 1.02 * wave(t, SIDEREAL_MONTH_S, 0.4);
+  const radialVelocity =
+    29.78 * Math.cos(degToRad(57)) * wave(t, year, 1.1) + 1.02 * wave(t, SIDEREAL_MONTH_S, 0.4);
   const jitter = createRng(`telemetry:${Math.floor(t)}`);
-  const snr = 12.4 + 1.3 * wave(t, 5400, 0.7) + 0.5 * wave(t, 777) + 1.1 * (tracking / DISH_COUNT - 0.9) * 10 + jitter.gaussian(0, 0.08);
+  const snr =
+    12.4 +
+    1.3 * wave(t, 5400, 0.7) +
+    0.5 * wave(t, 777) +
+    1.1 * (tracking / DISH_COUNT - 0.9) * 10 +
+    jitter.gaussian(0, 0.08);
   const bitsPerSecond = STREAM_BITS_PER_SECOND * (0.96 + 0.05 * wave(t, 3600, 2.1)) + jitter.gaussian(0, 9);
   const cycle = world.cadenceSeconds;
   return {
@@ -352,7 +373,14 @@ function logEntry(slot: number): LogEntry {
     text = `Accord flag on segment ${hex(rng.int(0, 0xffff))}${hex(rng.int(0, 0xffff))} · memory withheld as asked`;
     tone = 'accord';
   }
-  return { id: slot, time, clock: formatOstClock(time), text, tone, line: tone === 'accord' ? 'ca' : channel.key };
+  return {
+    id: slot,
+    time,
+    clock: formatOstClock(time),
+    text,
+    tone,
+    line: tone === 'accord' ? 'ca' : channel.key,
+  };
 }
 
 /** The newest `count` decoder log entries at `date`, newest first. */

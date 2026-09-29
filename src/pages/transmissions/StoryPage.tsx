@@ -8,7 +8,13 @@ import { stories, storyBySlug, type Story } from '../../content/stories.ts';
 import type { LacunaMode, SpectralKey } from '../../content/types.ts';
 import { usePageMeta } from '../../hooks/usePageMeta.ts';
 import { useStageScene } from '../../hooks/useStageScene.ts';
-import { ChoirLayout, GrammarLayout, JournalLayout, LamplightersLayout, SilenceLayout } from './layouts/Layouts.tsx';
+import {
+  ChoirLayout,
+  GrammarLayout,
+  JournalLayout,
+  LamplightersLayout,
+  SilenceLayout,
+} from './layouts/Layouts.tsx';
 import styles from './Story.module.css';
 
 const SCENES: Record<Story['layout'], { mode: LacunaMode; tint: SpectralKey }> = {
@@ -40,7 +46,10 @@ export default function StoryPage() {
   usePageMeta(
     story
       ? { title: `${story.title} — Transmissions`, description: story.excerpt }
-      : { title: 'Transmission not found', description: 'No transmission has been received under this name.' },
+      : {
+          title: 'Transmission not found',
+          description: 'No transmission has been received under this name.',
+        },
   );
   const scene = story ? SCENES[story.layout] : SCENES.silence;
   useStageScene('lacuna', scene);

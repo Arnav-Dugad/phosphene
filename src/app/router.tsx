@@ -5,8 +5,9 @@ import { RootLayout } from './RootLayout.tsx';
 import { RouteFallback } from './RouteFallback.tsx';
 
 const page =
-  (load: () => Promise<{ default: ComponentType }>) =>
-  async (): Promise<{ Component: ComponentType }> => ({ Component: (await load()).default });
+  (load: () => Promise<{ default: ComponentType }>) => async (): Promise<{ Component: ComponentType }> => ({
+    Component: (await load()).default,
+  });
 
 const routes: RouteObject[] = [
   {

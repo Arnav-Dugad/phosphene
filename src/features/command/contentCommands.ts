@@ -23,7 +23,14 @@ export function contentCommands(): Command[] {
         group,
         title: node.label,
         subtitle: node.gloss,
-        keywords: [node.kind, group.toLowerCase(), ...node.gloss.toLowerCase().split(/[\s·,]+/).filter((w) => w.length > 3)],
+        keywords: [
+          node.kind,
+          group.toLowerCase(),
+          ...node.gloss
+            .toLowerCase()
+            .split(/[\s·,]+/)
+            .filter((w) => w.length > 3),
+        ],
         line: node.line,
         run: (ctx) => ctx.go(node.path),
       },

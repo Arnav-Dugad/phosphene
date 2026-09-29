@@ -24,7 +24,10 @@ function Figures() {
   const decoded = useProgress((s) => fragmentCount(s.fragments));
   const figures = [
     { value: fixed(yearsListening(now), 2), label: 'years listening' },
-    { value: `${fixed(data.streamFraction * 100, 3)}%`, label: `of an estimated ${thousands(world.streamYearsTotal)}-year stream` },
+    {
+      value: `${fixed(data.streamFraction * 100, 3)}%`,
+      label: `of an estimated ${thousands(world.streamYearsTotal)}-year stream`,
+    },
     { value: thousands(data.repetitions), label: 'repetitions of Transmission Zero' },
     { value: String(relics.length), label: 'relics reconstructed and published' },
     { value: '211', label: 'people on staff, and four thousand volunteer readers' },
@@ -51,7 +54,15 @@ export default function InstitutePage() {
   useGsap(
     () => {
       if (motion === 'still') return;
-      gsap.from('[data-hero]', { opacity: 0, y: 40, filter: 'blur(8px)', stagger: 0.12, duration: 1.5, ease: 'phos.out', delay: 0.1 });
+      gsap.from('[data-hero]', {
+        opacity: 0,
+        y: 40,
+        filter: 'blur(8px)',
+        stagger: 0.12,
+        duration: 1.5,
+        ease: 'phos.out',
+        delay: 0.1,
+      });
       for (const el of gsap.utils.toArray<HTMLElement>('[data-reveal]')) {
         gsap.from(el, {
           opacity: 0,
@@ -88,8 +99,9 @@ export default function InstitutePage() {
           <em>Keepers of remembered light</em>
         </h1>
         <p className={styles.lede} data-hero>
-          Since 2236 we have received, decoded and kept the memory of the Ithra — a people who ended thirty-six thousand
-          years ago and spent their last centuries making sure someone, someday, would know they had been here.
+          Since 2236 we have received, decoded and kept the memory of the Ithra — a people who ended
+          thirty-six thousand years ago and spent their last centuries making sure someone, someday, would
+          know they had been here.
         </p>
         <figure className={styles.definition} data-hero>
           <p className={styles.word}>
@@ -113,8 +125,8 @@ export default function InstitutePage() {
           How light becomes a memory
         </h2>
         <p className={styles.intro} data-reveal>
-          From a photon arriving in Daedalus Crater to a relic you can turn in your hands, the stream passes through six
-          stages and four houses of the Institute.
+          From a photon arriving in Daedalus Crater to a relic you can turn in your hands, the stream passes
+          through six stages and four houses of the Institute.
         </p>
         <div className={styles.pipeline}>
           <span className={styles.beamTrack} aria-hidden="true">
@@ -144,8 +156,8 @@ export default function InstitutePage() {
           The Accord, as we keep it
         </h2>
         <p className={styles.intro} data-reveal>
-          In their last age the Ithra agreed on how memory should travel. Decoding that agreement turned the Institute
-          from an observatory into the other party to it.
+          In their last age the Ithra agreed on how memory should travel. Decoding that agreement turned the
+          Institute from an observatory into the other party to it.
         </p>
         <ol role="list" className={styles.principles}>
           {principles.map((principle, i) => (
@@ -174,7 +186,13 @@ export default function InstitutePage() {
               data-reveal
             >
               <div className={styles.portrait}>
-                <IthranText text={keeper.name.split(' ')[0] ?? keeper.name} size={30} mode="rosette" weight={1.2} label={`${keeper.name}, in Ithran script`} />
+                <IthranText
+                  text={keeper.name.split(' ')[0] ?? keeper.name}
+                  size={30}
+                  mode="rosette"
+                  weight={1.2}
+                  label={`${keeper.name}, in Ithran script`}
+                />
               </div>
               <p className={styles.keeperRole}>
                 {keeper.role} · {keeper.years}

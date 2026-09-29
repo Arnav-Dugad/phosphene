@@ -41,10 +41,16 @@ export default function Terminal() {
       dialog.showModal();
       audio.play('open', 'he');
       if (motion !== 'still') {
-        dialog.animate([{ transform: 'translateY(-24px)', opacity: 0 }, { transform: 'none', opacity: 1 }], {
-          duration: 360,
-          easing: cssEase.out,
-        });
+        dialog.animate(
+          [
+            { transform: 'translateY(-24px)', opacity: 0 },
+            { transform: 'none', opacity: 1 },
+          ],
+          {
+            duration: 360,
+            easing: cssEase.out,
+          },
+        );
       }
       requestAnimationFrame(() => inputRef.current?.focus());
     } else if (!open && dialog.open) {

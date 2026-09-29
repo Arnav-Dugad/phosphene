@@ -49,7 +49,8 @@ export default function ChroniclePage() {
             // Interpolate the date through the age as the reader moves through it.
             const turns = current.from + (current.to - current.from) * self.progress;
             indicatorRef.current?.style.setProperty('--x', axisX(turns).toFixed(4));
-            if (turnsRef.current) turnsRef.current.textContent = `${thousands(Math.round(turns))} turns before the Encoding`;
+            if (turnsRef.current)
+              turnsRef.current.textContent = `${thousands(Math.round(turns))} turns before the Encoding`;
           },
         });
         if (motion !== 'still') {
@@ -69,7 +70,13 @@ export default function ChroniclePage() {
           mask: 'lines',
           autoSplit: true,
           onSplit: splitAnimation((self) =>
-            gsap.from(self.lines, { yPercent: 110, stagger: 0.12, duration: 1.6, ease: 'phos.out', delay: 0.2 }),
+            gsap.from(self.lines, {
+              yPercent: 110,
+              stagger: 0.12,
+              duration: 1.6,
+              ease: 'phos.out',
+              delay: 0.2,
+            }),
           ),
         });
         return () => split.revert();
@@ -102,8 +109,8 @@ export default function ChroniclePage() {
           The Chronicle of the <em>Seven Ages</em>
         </h1>
         <p className={styles.lead}>
-          Three million turns of Ithran history, as the stream delivered it: in order, like a life. A turn is one year
-          on Ithris — about 1.21 of ours.
+          Three million turns of Ithran history, as the stream delivered it: in order, like a life. A turn is
+          one year on Ithris — about 1.21 of ours.
         </p>
       </header>
 
@@ -211,7 +218,11 @@ export default function ChroniclePage() {
                     <ul role="list">
                       {relics.map((r) => (
                         <li key={r.id}>
-                          <TransitionLink to={`/archive/${r.id}`} className={styles.relic} data-cursor-label="Examine">
+                          <TransitionLink
+                            to={`/archive/${r.id}`}
+                            className={styles.relic}
+                            data-cursor-label="Examine"
+                          >
                             <RelicPlate relic={r} marks={false} />
                             <span>{r.name}</span>
                           </TransitionLink>

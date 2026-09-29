@@ -21,7 +21,13 @@
     <link rel="preload" href="/fonts/mona-sans-latin.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/martian-mono-latin.woff2" as="font" type="font/woff2" crossorigin />
     <script src="/boot.js"></script>
-    <noscript><style>.boot { display: none; }</style></noscript>
+    <noscript
+      ><style>
+        .boot {
+          display: none;
+        }
+      </style></noscript
+    >
     <style>
       html,
       body {
@@ -40,7 +46,12 @@
         place-items: center;
         background: #040406;
         color: #aaa498;
-        font: 400 11px/1.4 ui-monospace, 'Cascadia Mono', Menlo, Consolas, monospace;
+        font:
+          400 11px/1.4 ui-monospace,
+          'Cascadia Mono',
+          Menlo,
+          Consolas,
+          monospace;
         letter-spacing: 0.14em;
         text-transform: uppercase;
         pointer-events: none;
@@ -98,7 +109,10 @@
         margin: 0 auto;
         padding: 18vh 24px 12vh;
         color: #ece6da;
-        font: 17px/1.65 Georgia, 'Iowan Old Style', serif;
+        font:
+          17px/1.65 Georgia,
+          'Iowan Old Style',
+          serif;
       }
       .prerender h1 {
         font-weight: 400;
@@ -119,7 +133,9 @@
         margin: 12vh auto;
         padding: 0 24px;
         color: #ece6da;
-        font: 18px/1.6 Georgia, serif;
+        font:
+          18px/1.6 Georgia,
+          serif;
       }
     </style>
   </head>
@@ -127,14 +143,16 @@
     <div id="boot" class="boot" aria-hidden="true">
       <div class="boot__line boot__line--top"><span>Halden Deep Array</span><span>Channel 7</span></div>
       <div class="boot__aperture"><span class="boot__dot"></span></div>
-      <div class="boot__line boot__line--bottom"><span>Establishing link</span><span id="boot-pct">00%</span></div>
+      <div class="boot__line boot__line--bottom">
+        <span>Establishing link</span><span id="boot-pct">00%</span>
+      </div>
     </div>
     <div id="root"><!--app-body--></div>
     <noscript>
       <div class="noscript">
         <p>
-          PHOSPHENE is an interactive observatory rendered in real time. It needs JavaScript to receive the signal —
-          please enable it to continue.
+          PHOSPHENE is an interactive observatory rendered in real time. It needs JavaScript to receive the
+          signal — please enable it to continue.
         </p>
       </div>
     </noscript>

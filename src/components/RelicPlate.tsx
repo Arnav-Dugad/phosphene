@@ -28,7 +28,12 @@ interface RelicPlateProps {
  * A relic as an engraved plate: its reconstruction projected into hairlines,
  * nearer lines stronger, like a museum drawing made by an instrument.
  */
-export const RelicPlate = memo(function RelicPlate({ relic, className, draw = false, marks = true }: RelicPlateProps) {
+export const RelicPlate = memo(function RelicPlate({
+  relic,
+  className,
+  draw = false,
+  marks = true,
+}: RelicPlateProps) {
   const lines = useMemo(() => plateFor(relic), [relic]);
   return (
     <svg

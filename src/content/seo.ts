@@ -24,14 +24,26 @@ export interface PageEntry {
   links: readonly { path: string; label: string }[];
 }
 
-const trim = (text: string, max = 160): string => (text.length <= max ? text : `${text.slice(0, max - 1).trimEnd()}…`);
+const trim = (text: string, max = 160): string =>
+  text.length <= max ? text : `${text.slice(0, max - 1).trimEnd()}…`;
 
 const primaryLinks = places.filter((p) => p.kind !== 'hidden').map((p) => ({ path: p.path, label: p.label }));
 
-function placePage(id: string, paragraphs: readonly string[], links: PageEntry['links'] = primaryLinks): PageEntry {
+function placePage(
+  id: string,
+  paragraphs: readonly string[],
+  links: PageEntry['links'] = primaryLinks,
+): PageEntry {
   const place = places.find((p) => p.id === id);
   if (!place) throw new Error(`Unknown place "${id}"`);
-  return { path: place.path, title: place.title, description: place.description, heading: place.title, paragraphs, links };
+  return {
+    path: place.path,
+    title: place.title,
+    description: place.description,
+    heading: place.title,
+    paragraphs,
+    links,
+  };
 }
 
 export function pageEntries(): PageEntry[] {
@@ -73,12 +85,18 @@ export function pageEntries(): PageEntry[] {
       ...principles.map((p) => `${p.title} ${p.text}`),
       ...questions.map((q) => `${q.q} ${q.a}`),
     ]),
-    placePage('map', ['Every place, world, age, relic and transmission in the observatory as a navigable constellation, with your own path of observation traced in light.']),
-    placePage('settings', ['Motion, graphics quality, sound, theme, contrast, cursor and film grain — every preference stays on your device.']),
+    placePage('map', [
+      'Every place, world, age, relic and transmission in the observatory as a navigable constellation, with your own path of observation traced in light.',
+    ]),
+    placePage('settings', [
+      'Motion, graphics quality, sound, theme, contrast, cursor and film grain — every preference stays on your device.',
+    ]),
     placePage('transmission-zero', [
       'Twelve lines repeated at the head of the Serein Signal every nine hours, seventeen minutes and twenty-three seconds. Each line is decoded somewhere in the observatory.',
     ]),
-    placePage('credits', [`${world.name} is a work of fiction. The Ithra, the Institute and the Serein Signal are invented; the sky they live in is real.`]),
+    placePage('credits', [
+      `${world.name} is a work of fiction. The Ithra, the Institute and the Serein Signal are invented; the sky they live in is real.`,
+    ]),
   ];
 
   for (const w of worlds) {
@@ -97,8 +115,16 @@ export function pageEntries(): PageEntry[] {
       title: `${r.name} (${r.catalog}) — Archive`,
       description: trim(r.summary),
       heading: `${r.name} — ${r.catalog}`,
-      paragraphs: [r.summary, ...r.description, r.notes, `Integrity ${r.integrity}%. ${r.material}. ${r.dimensions}.`],
-      links: [{ path: '/archive', label: 'The Archive' }, ...r.related.map((id) => ({ path: `/archive/${id}`, label: id.toUpperCase() }))],
+      paragraphs: [
+        r.summary,
+        ...r.description,
+        r.notes,
+        `Integrity ${r.integrity}%. ${r.material}. ${r.dimensions}.`,
+      ],
+      links: [
+        { path: '/archive', label: 'The Archive' },
+        ...r.related.map((id) => ({ path: `/archive/${id}`, label: id.toUpperCase() })),
+      ],
     });
   }
   for (const s of stories) {
@@ -109,7 +135,9 @@ export function pageEntries(): PageEntry[] {
       heading: s.title,
       paragraphs: [
         s.subtitle,
-        ...s.blocks.flatMap((b) => ('text' in b ? [resolveStoryText(b.text)] : 'caption' in b ? [b.caption] : [])),
+        ...s.blocks.flatMap((b) =>
+          'text' in b ? [resolveStoryText(b.text)] : 'caption' in b ? [b.caption] : [],
+        ),
       ],
       links: [{ path: '/transmissions', label: 'All transmissions' }],
     });

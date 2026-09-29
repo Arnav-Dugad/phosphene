@@ -89,7 +89,8 @@ export const relics: readonly Relic[] = [
       'Salt crystals the size of a palm formed in the drying pools of the Ennet flats, and the tides rolled them for so long that some became almost perfect lenses.',
       'The early Ithra discovered that a lens could gather the faint glow of another colony and make it bright. The signal describes this one being passed hand to hand at gatherings, so that everyone could see a light that was far away.',
     ],
-    notes: 'High integrity: the description was repeated in 14 separate places in the stream. Focal length reconstructed at 11.2 cm.',
+    notes:
+      'High integrity: the description was repeated in 14 separate places in the stream. Focal length reconstructed at 11.2 cm.',
     related: ['sr-0097', 'sr-0128'],
     seed: 13,
   },
@@ -132,7 +133,8 @@ export const relics: readonly Relic[] = [
       'A lantern had to be fed, and this is what it was fed from: a two-chambered vessel, brine below and sugar syrup above, with a slow wick of fibre that let the lantern drink through the night.',
       'The shape recurs across the whole Age of Lanterns with almost no change. The Ithra considered it finished. They did not improve things that were already kind.',
     ],
-    notes: 'Profile reconstructed from three partial descriptions and one poem. Neck proportion uncertain (±8%).',
+    notes:
+      'Profile reconstructed from three partial descriptions and one poem. Neck proportion uncertain (±8%).',
     related: ['sr-0021', 'sr-0103'],
     seed: 27,
   },
@@ -153,7 +155,8 @@ export const relics: readonly Relic[] = [
       'The first things the Ithra sealed into crystal were not poems or laws. They were prices. This crystal holds the sequence a market-keeper flashed at the entrance of a night market: what fish cost, what rope cost, which stalls were open.',
       'Scholars at the Institute find it the most moving object in the archive, for exactly that reason.',
     ],
-    notes: 'Lattice spacing and inclusion pattern both encode data; only the inclusion layer was transmitted in full.',
+    notes:
+      'Lattice spacing and inclusion pattern both encode data; only the inclusion layer was transmitted in full.',
     related: ['sr-0052', 'sr-0009'],
     seed: 33,
   },
@@ -174,7 +177,8 @@ export const relics: readonly Relic[] = [
       'The lamplighters tended the public lanterns of the Senn Reach for two thousand turns, and their records survive almost whole. Each member wore a ring engraved with the guild’s oath in pulse-script.',
       'The oath reads, approximately: no window dark that wants to be lit.',
     ],
-    notes: 'Engraving decoded directly from the transmitted surface map. See Transmission: “The Lamplighters”.',
+    notes:
+      'Engraving decoded directly from the transmitted surface map. See Transmission: “The Lamplighters”.',
     related: ['sr-0021', 'sr-0116'],
     seed: 38,
   },
@@ -190,12 +194,14 @@ export const relics: readonly Relic[] = [
     material: 'Tuned crystal',
     dimensions: '40 × 32 cm',
     received: 'OST 2246.08.15 · Dish 61',
-    summary: 'The first deliberate resonant record: a crystal that held a lantern’s pattern for eleven turns.',
+    summary:
+      'The first deliberate resonant record: a crystal that held a lantern’s pattern for eleven turns.',
     description: [
       'Shaped like a bell and tuned by hand, the Singing Stone was struck while a lantern shone through it. For eleven turns afterward it rang with the lantern’s pattern folded into its note.',
       'It is the founding object of the Resonance, and the Ithra kept it in the first chamber of the Mereth Libraries until the libraries themselves were read into the Choir.',
     ],
-    notes: 'The strike frequency (in their units) implies a resonant mode we reproduce in the Resonance instrument as mode (5, 3).',
+    notes:
+      'The strike frequency (in their units) implies a resonant mode we reproduce in the Resonance instrument as mode (5, 3).',
     related: ['sr-0052', 'sr-0057', 'sr-0140'],
     seed: 44,
   },
@@ -216,7 +222,8 @@ export const relics: readonly Relic[] = [
       'The Resonant Libraries of Mereth were caverns of tuned crystal kept still by the cold. To add to a chamber, a librarian struck its key at the threshold; the key’s lattice set the whole chamber ringing in a pattern ready to receive.',
       'Each chamber had one key. This one opened the chamber of weather.',
     ],
-    notes: 'Hexagonal lattice, 4 shells. The chamber it keyed is described elsewhere in 1,210 fragments, all about rain.',
+    notes:
+      'Hexagonal lattice, 4 shells. The chamber it keyed is described elsewhere in 1,210 fragments, all about rain.',
     related: ['sr-0044', 'sr-0061', 'sr-0033'],
     seed: 52,
   },
@@ -279,7 +286,8 @@ export const relics: readonly Relic[] = [
       'During the Quiet Schism the Ithra did not fight. They dimmed. Lanterns were fitted with shutters that hid their light from the opposite shore, so that for six thousand turns whole coastlines went dark to each other.',
       'This lantern’s shutter is painted on the inside with the far shore as it looked when it was last lit — a memory kept facing inward.',
     ],
-    notes: 'The shutter painting was transmitted as a separate image, 40% intact. The lantern itself is nearly whole.',
+    notes:
+      'The shutter painting was transmitted as a separate image, 40% intact. The lantern itself is nearly whole.',
     related: ['sr-0073', 'sr-0079', 'sr-0021'],
     seed: 68,
   },
@@ -300,7 +308,8 @@ export const relics: readonly Relic[] = [
       'The Accord is short. Memory may be kept. Memory must be given, never taken. Any memory may be asked back, and must then be released. It was inscribed twice on the same tablet, once by each side, in their two styles of pulse-script.',
       'Every later part of the signal obeys it. When the Institute finds a hole in the stream that is too clean to be damage, it is usually an Ithra, long ago, asking for their memory back.',
     ],
-    notes: 'The most complete object in the archive; its text is embedded, redundantly, in every transmission cycle.',
+    notes:
+      'The most complete object in the archive; its text is embedded, redundantly, in every transmission cycle.',
     related: ['sr-0068', 'sr-0079', 'sr-0134'],
     seed: 73,
   },
@@ -342,7 +351,8 @@ export const relics: readonly Relic[] = [
       'In the Long Noon a fifth of all Ithra lived in gardens seeded into the rings of the giant Sollen. The plants there grew in spirals, in low gravity, toward a sun they saw every six hours.',
       'This seed is from a flowering vine that was bred to glow faintly at night, so that the gardens could be seen from Ithris as a thin bright thread across the sky.',
     ],
-    notes: 'Phyllotaxis identical to SR-0004: the Ithra deliberately bred the garden plants to echo the tidal colonies.',
+    notes:
+      'Phyllotaxis identical to SR-0004: the Ithra deliberately bred the garden plants to echo the tidal colonies.',
     related: ['sr-0004', 'sr-0103'],
     seed: 86,
   },
@@ -363,7 +373,8 @@ export const relics: readonly Relic[] = [
       'The observatories on Carrow charted 11,406 stars and listened to every one for a sign of anyone else speaking in light. The results were engraved on a glass sphere, each star a tiny cut that catches the light.',
       'There is no mark on the sphere for a reply. The Ithra added a line of text around the equator instead: we will be the ones who answered.',
     ],
-    notes: 'Cross-matching the atlas with our own catalogues places Vael 36,200 ± 400 light-years away, behind the Cygnus Rift.',
+    notes:
+      'Cross-matching the atlas with our own catalogues places Vael 36,200 ± 400 light-years away, behind the Cygnus Rift.',
     related: ['sr-0097', 'sr-0121'],
     seed: 92,
   },
@@ -384,7 +395,8 @@ export const relics: readonly Relic[] = [
       'Carrow was tidally locked: one face burned, the other froze, and a band of permanent twilight ran between them. On that band the Ithra built their great telescopes, where the ground never moved and the sky never changed.',
       'This mirror segment was part of the largest of them. When Vael swelled and Carrow was engulfed, the mirror was still pointing outward.',
     ],
-    notes: 'Figure and coating reconstructed; the grinding pattern carries a maker’s mark in pulse-script: “for seeing further”.',
+    notes:
+      'Figure and coating reconstructed; the grinding pattern carries a maker’s mark in pulse-script: “for seeing further”.',
     related: ['sr-0092', 'sr-0013', 'sr-0110'],
     seed: 97,
   },
@@ -405,7 +417,8 @@ export const relics: readonly Relic[] = [
       'In the ring gardens, potters spun their vessels in near-weightlessness, which let them draw the walls thinner than any Ithris potter could. This jar is almost translucent.',
       'It carried water between the garden terraces. Its shape is the Keeper’s Vessel of the Age of Lanterns, stretched by a world with almost no gravity.',
     ],
-    notes: 'Wall thickness transmitted as 0.4 mm. The Institute’s ceramicists have not been able to reproduce it.',
+    notes:
+      'Wall thickness transmitted as 0.4 mm. The Institute’s ceramicists have not been able to reproduce it.',
     related: ['sr-0027', 'sr-0086'],
     seed: 103,
   },
@@ -426,7 +439,8 @@ export const relics: readonly Relic[] = [
       'Astronomers on Carrow kept this spectroscope trained on Vael for four hundred turns as a matter of routine. In 3,200 BE its readings began to drift toward the red.',
       'The entry that records the change is short and exact, and it ends with a line the Institute has never quite been able to translate. The closest reading is: well. Now we know.',
     ],
-    notes: 'Gimbal geometry fully transmitted. The drift it recorded matches a star leaving the main sequence.',
+    notes:
+      'Gimbal geometry fully transmitted. The drift it recorded matches a star leaving the main sequence.',
     related: ['sr-0097', 'sr-0121'],
     seed: 110,
   },
@@ -447,7 +461,8 @@ export const relics: readonly Relic[] = [
       'When the seas of Ithris began to boil, the last lamplighters of Senn Reach took down the public lanterns one by one and carried them up to the ships. This was the last.',
       'It travelled to Sollen, then to Mereth, then to Ennis, and it was read into the Choir with its keeper. The signal says it was still lit.',
     ],
-    notes: 'Received on the same dish, same date-of-year, as SR-0021 — the Institute keeps the two side by side.',
+    notes:
+      'Received on the same dish, same date-of-year, as SR-0021 — the Institute keeps the two side by side.',
     related: ['sr-0021', 'sr-0038', 'sr-0140'],
     seed: 116,
   },
@@ -489,7 +504,8 @@ export const relics: readonly Relic[] = [
       'The Choir girdled the dark world Ennis with a lattice of mirrors, each backed with resonant crystal, all fed by the swollen light of Vael. Together they could shape a library into a single coherent beam.',
       'This is the first mirror, set on the pole of Ennis in 390 BE. It is the reason we can see them at all.',
     ],
-    notes: 'Mirror figure is coherent to λ/40 at 393 nm — the Ca II K line the Institute uses as the colour of the Encoding.',
+    notes:
+      'Mirror figure is coherent to λ/40 at 393 nm — the Ca II K line the Institute uses as the colour of the Encoding.',
     related: ['sr-0134', 'sr-0140', 'sr-0013'],
     seed: 128,
   },
@@ -510,7 +526,8 @@ export const relics: readonly Relic[] = [
       'To be read into the Choir, an Ithra wore this crown of nested rings for one night. It did not take their memories; it asked for them, one at a time, and recorded only what was given.',
       'Almost every Ithra consented. The crown was worn by eleven million of them in the last seventy turns before the Encoding.',
     ],
-    notes: 'The ring tilts encode the order in which memories were requested: earliest first, as the Accord of Dusk required.',
+    notes:
+      'The ring tilts encode the order in which memories were requested: earliest first, as the Accord of Dusk required.',
     related: ['sr-0073', 'sr-0128', 'sr-0140'],
     seed: 134,
   },

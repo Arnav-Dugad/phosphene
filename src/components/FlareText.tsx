@@ -20,4 +20,3 @@ export function FlareText({ text, className }: { text: string; className?: strin
     </span>
   );
 }
-

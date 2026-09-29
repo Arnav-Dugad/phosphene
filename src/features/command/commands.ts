@@ -94,7 +94,8 @@ const actionCommands: Command[] = [
     icon: 'orbit',
     run: (ctx) => {
       const current = ctx.settings().motion;
-      const next = current === 'full' || current === 'system' ? 'gentle' : current === 'gentle' ? 'still' : 'full';
+      const next =
+        current === 'full' || current === 'system' ? 'gentle' : current === 'gentle' ? 'still' : 'full';
       ctx.setSetting('motion', next);
       ctx.notify('Motion', next === 'full' ? 'Full' : next === 'gentle' ? 'Gentle' : 'Still');
     },
