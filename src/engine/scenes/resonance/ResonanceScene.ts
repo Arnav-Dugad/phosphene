@@ -23,6 +23,7 @@ import { createRng } from '../../../lib/random.ts';
 import type { SceneParams } from '../../../stores/stage.ts';
 import { glsl, hash } from '../../shaders/chunks.ts';
 import type { FrameState, PostSettings, SceneFactory, StageContext, StageScene, Viewport } from '../../types.ts';
+import { Emitter } from '../../util/Emitter.ts';
 import { Gpgpu, referenceUvs } from '../../util/gpgpu.ts';
 
 /** Chladni mode shape for a free square plate: cos(nπx)cos(mπy) − cos(mπx)cos(nπy). */
@@ -149,7 +150,8 @@ class ResonanceScene implements StageScene {
   m = 5;
   n = 3;
   settled = 0;
-  onSettled: ((m: number, n: number) => void) | null = null;
+  /** `settled` fires when the plate's figure has settled into mode (m, n). */
+  readonly events = new Emitter<{ settled: [number, number] }>();
 
   private readonly ctx: StageContext;
   private readonly gpgpu: Gpgpu;
@@ -349,14 +351,14 @@ class ResonanceScene implements StageScene {
     const key = `${this.m},${this.n}`;
     if (this.settled >= 1 && this.announced !== key) {
       this.announced = key;
-      this.onSettled?.(this.m, this.n);
+      this.events.emit('settled', this.m, this.n);
     }
     // Keep simulating even when motion is "still" so the pattern can resolve.
     this.ctx.invalidate();
   }
 
   dispose(): void {
-    this.onSettled = null;
+    this.events.clear();
     this.gpgpu.dispose();
     this.grains.geometry.dispose();
     this.grains.material.dispose();

@@ -1,7 +1,7 @@
 import type { IconName } from '../../components/Icon.tsx';
 import { places } from '../../content/routes.ts';
 import type { SpectralKey } from '../../design/tokens.ts';
-import type { QualityTier, Settings } from '../../stores/settings.ts';
+import type { Settings } from '../../stores/settings.ts';
 
 export type CommandGroup =
   | 'Recent'
@@ -61,7 +61,7 @@ const tierCommands: Command[] = (['auto', 'ultra', 'high', 'balanced', 'eco'] as
   keywords: ['quality', 'performance', 'graphics', tier],
   icon: 'eye',
   run: (ctx) => {
-    ctx.setSetting('quality', tier as QualityTier | 'auto');
+    ctx.setSetting('quality', tier);
     ctx.notify('Graphics recalibrated', tier === 'auto' ? 'Automatic quality' : `Tier: ${tier}`);
   },
 }));

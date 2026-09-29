@@ -40,11 +40,11 @@ export function InterferencePanel() {
 
   useEffect(() => {
     if (!scene) return;
-    scene.onLocked = () => unlockFragment(6);
-    scene.onChange = setCount;
+    const offLocked = scene.events.on('locked', () => unlockFragment(6));
+    const offCount = scene.events.on('count', setCount);
     return () => {
-      scene.onLocked = null;
-      scene.onChange = null;
+      offLocked();
+      offCount();
     };
   }, [scene]);
 

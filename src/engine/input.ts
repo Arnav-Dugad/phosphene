@@ -52,7 +52,7 @@ export const stageInput = {
     lastMove: 0,
     kind: 'mouse',
   } as PointerInput,
-  scroll: { y: 0, progress: 0, velocity: 0 } as ScrollInput,
+  scroll: { y: 0, progress: 0, velocity: 0 } satisfies ScrollInput,
   /** Named scalar channels written by pages (e.g. `home.progress`). */
   channels: new Map<string, number>(),
   /** Queue of discrete pointer impulses (clicks/taps) consumed by scenes. */

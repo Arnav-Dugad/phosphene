@@ -27,6 +27,7 @@ export class OrbitRig {
   phi: number;
   private thetaVelocity = 0;
   private phiVelocity = 0;
+  private phiGoal: number | null = null;
   private dragging = false;
   private lastX = 0;
   private lastY = 0;
@@ -53,6 +54,7 @@ export class OrbitRig {
 
   pointerDown(x: number, y: number): void {
     this.dragging = true;
+    this.phiGoal = null;
     this.lastX = x;
     this.lastY = y;
     this.travel = 0;
@@ -98,6 +100,11 @@ export class OrbitRig {
     if (distance !== undefined) this.distanceGoal = clamp(distance, this.options.minDistance, this.options.maxDistance);
   }
 
+  /** Eases the polar angle to `phi` — e.g. a higher vantage for a close subject. Dragging cancels it. */
+  tiltTo(phi: number): void {
+    this.phiGoal = clamp(phi, this.options.minPhi, this.options.maxPhi);
+  }
+
   /** Follow a moving subject without the easing lag of `flyTo`. */
   follow(target: Vector3): void {
     this.targetGoal.copy(target);
@@ -121,6 +128,10 @@ export class OrbitRig {
       const decay = Math.exp(-4 * dt);
       this.thetaVelocity *= decay;
       this.phiVelocity *= decay;
+      if (this.phiGoal !== null) {
+        this.phi = damp(this.phi, this.phiGoal, still ? 1000 : 2.4, dt);
+        if (Math.abs(this.phi - this.phiGoal) < 1e-3) this.phiGoal = null;
+      }
       if (!still && this.idleFor > 2.5) this.theta += this.options.autoRotate * dt * Math.min(1, (this.idleFor - 2.5) / 3);
     }
     const k = still ? 1000 : 3.2;

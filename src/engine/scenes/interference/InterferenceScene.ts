@@ -14,6 +14,7 @@ import { createRng } from '../../../lib/random.ts';
 import type { SceneParams } from '../../../stores/stage.ts';
 import { gauss, glsl, spectrum } from '../../shaders/chunks.ts';
 import type { FrameState, PostSettings, SceneFactory, StageContext, StageScene, Viewport } from '../../types.ts';
+import { Emitter as SceneEvents } from '../../util/Emitter.ts';
 
 export type InterferencePreset = 'slits' | 'ring' | 'array' | 'chaos';
 export type InterferenceDisplay = 'intensity' | 'phase' | 'spectral';
@@ -110,10 +111,8 @@ class InterferenceScene implements StageScene {
 
   /** Fraction in [0, 1] of how well the beam is locked on the target. */
   lock = 0;
-  /** Fires once when the beam has held the target long enough. */
-  onLocked: (() => void) | null = null;
-  /** Fires when emitters change (count, for the UI). */
-  onChange: ((count: number) => void) | null = null;
+  /** `locked` fires once the beam has held the target long enough; `count` when emitters change. */
+  readonly events = new SceneEvents<{ locked: []; count: [number] }>();
 
   private readonly material: ShaderMaterial;
   private readonly mesh: Mesh<BufferGeometry, ShaderMaterial>;
@@ -219,7 +218,7 @@ class InterferenceScene implements StageScene {
     }
     this.locked = false;
     this.lockHeld = 0;
-    this.onChange?.(this.emitters.length);
+    this.events.emit('count', this.emitters.length);
   }
 
   /**
@@ -264,7 +263,7 @@ class InterferenceScene implements StageScene {
     if (index >= 0 && now - this.lastClick < 320 && this.selected === index) {
       this.emitters.splice(index, 1);
       this.selected = -1;
-      this.onChange?.(this.emitters.length);
+      this.events.emit('count', this.emitters.length);
     } else if (index >= 0) {
       this.dragging = index;
       this.selected = index;
@@ -272,7 +271,7 @@ class InterferenceScene implements StageScene {
       this.emitters.push({ x: p.x, y: p.y, phase: 0 });
       this.selected = this.emitters.length - 1;
       this.dragging = this.selected;
-      this.onChange?.(this.emitters.length);
+      this.events.emit('count', this.emitters.length);
     }
     this.lastClick = now;
   }
@@ -295,7 +294,7 @@ class InterferenceScene implements StageScene {
       if (this.emitters.length < MAX_EMITTERS) {
         this.emitters.push({ x: 0, y: 0, phase: 0 });
         this.selected = this.emitters.length - 1;
-        this.onChange?.(this.emitters.length);
+        this.events.emit('count', this.emitters.length);
       }
       return true;
     }
@@ -318,7 +317,7 @@ class InterferenceScene implements StageScene {
     else if (key === 'Delete' || key === 'Backspace') {
       this.emitters.splice(this.selected, 1);
       this.selected = Math.min(this.selected, this.emitters.length - 1);
-      this.onChange?.(this.emitters.length);
+      this.events.emit('count', this.emitters.length);
     } else return false;
     return true;
   }
@@ -361,13 +360,12 @@ class InterferenceScene implements StageScene {
     (u.uLock as { value: number }).value = this.lock;
     if (this.lock >= 1 && !this.locked) {
       this.locked = true;
-      this.onLocked?.();
+      this.events.emit('locked');
     }
   }
 
   dispose(): void {
-    this.onLocked = null;
-    this.onChange = null;
+    this.events.clear();
     this.mesh.geometry.dispose();
     this.material.dispose();
     this.scene.clear();

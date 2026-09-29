@@ -8,7 +8,7 @@ import { spring } from '../../design/tokens.ts';
 import { useGsap } from '../../hooks/useGsap.ts';
 import { useResolvedMotion } from '../../hooks/useResolvedMotion.ts';
 import { pad } from '../../lib/format.ts';
-import { gsap, SplitText } from '../../lib/gsap.ts';
+import { gsap, SplitText, splitAnimation } from '../../lib/gsap.ts';
 import { Spring2 } from '../../lib/spring.ts';
 import { chapterTrigger } from './useChapter.ts';
 import styles from './Home.module.css';
@@ -141,7 +141,7 @@ export function SurvivedChapter({ index }: { index: number }) {
         type: 'lines',
         mask: 'lines',
         autoSplit: true,
-        onSplit: (self) =>
+        onSplit: splitAnimation((self) =>
           gsap.from(self.lines, {
             yPercent: 110,
             stagger: 0.1,
@@ -149,6 +149,7 @@ export function SurvivedChapter({ index }: { index: number }) {
             ease: 'phos.out',
             scrollTrigger: { trigger: '[data-survived-title]', start: 'top 80%' },
           }),
+        ),
       });
       gsap.from('[data-featured]', {
         opacity: 0,

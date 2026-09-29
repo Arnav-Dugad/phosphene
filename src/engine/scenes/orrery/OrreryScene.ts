@@ -31,6 +31,7 @@ import { createRng } from '../../../lib/random.ts';
 import type { SceneParams } from '../../../stores/stage.ts';
 import type { QualityProfile } from '../../quality.ts';
 import type { FrameState, PostSettings, SceneFactory, StageContext, StageScene, Viewport } from '../../types.ts';
+import { Emitter } from '../../util/Emitter.ts';
 import { OrbitRig } from '../../util/OrbitRig.ts';
 import {
   beltFragment,
@@ -80,8 +81,8 @@ class OrreryScene implements StageScene {
   /** Screen-space label anchors, read by the Atlas page each frame. */
   readonly labels: OrreryLabel[];
   hovered: string | null = null;
-  /** Called when a body is picked with the pointer. */
-  onSelect: ((id: string | null) => void) | null = null;
+  /** `select` fires when a body (or empty space: null) is clicked. */
+  readonly events = new Emitter<{ select: [string | null] }>();
 
   private readonly ctx: StageContext;
   private readonly bodies: Body[] = [];
@@ -340,7 +341,10 @@ class OrreryScene implements StageScene {
     const click = this.rig.travel < 0.012;
     this.pressed = false;
     this.rig.pointerUp();
-    if (click) this.onSelect?.(this.pick(x, y));
+    if (click) {
+      const id = this.pick(x, y);
+      this.events.emit('select', id);
+    }
   }
 
   onZoom(factor: number): void {
@@ -445,7 +449,7 @@ class OrreryScene implements StageScene {
   }
 
   dispose(): void {
-    this.onSelect = null;
+    this.events.clear();
     this.belt?.dispose();
     for (const d of this.disposables) d.dispose();
     this.scene.clear();

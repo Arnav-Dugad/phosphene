@@ -7,7 +7,7 @@ import { useGsap } from '../../hooks/useGsap.ts';
 import { useNow } from '../../hooks/useNow.ts';
 import { useResolvedMotion } from '../../hooks/useResolvedMotion.ts';
 import { fixed } from '../../lib/format.ts';
-import { gsap, SplitText } from '../../lib/gsap.ts';
+import { gsap, SplitText, splitAnimation } from '../../lib/gsap.ts';
 import { cadencePhase, yearsListening } from '../../lib/time.ts';
 import { capitalize, numberToWords } from '../../lib/words.ts';
 import { useUi } from '../../stores/ui.ts';
@@ -60,8 +60,9 @@ export function Hero({ index }: { index: number }) {
         type: 'lines',
         mask: 'lines',
         autoSplit: true,
-        onSplit: (self) =>
+        onSplit: splitAnimation((self) =>
           gsap.from(self.lines, { yPercent: 115, duration: 1.8, stagger: 0.14, ease: 'phos.out', delay: 0.15 }),
+        ),
       });
       gsap.fromTo(
         '[data-hero-reveal]',

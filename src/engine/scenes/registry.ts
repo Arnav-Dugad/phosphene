@@ -16,6 +16,7 @@ export const sceneLoaders: Partial<Record<SceneKey, Loader>> = {
   gravity: () => import('./gravity/GravityScene.ts'),
   terrain: () => import('./terrain/TerrainScene.ts'),
   aurora: () => import('./aurora/AuroraScene.ts'),
+  array: () => import('./array/ArrayScene.ts'),
 };
 
 export function loaderFor(key: SceneKey): Loader {

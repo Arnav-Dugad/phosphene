@@ -102,7 +102,7 @@ export function GlyphStudio({ instrument }: { instrument: Instrument }) {
 
   return (
     <>
-      <div className={styles.studioArt} ref={artRef} style={{ color: `var(--line-${line})` } as CSSProperties}>
+      <div className={styles.studioArt} ref={artRef} style={{ color: `var(--line-${line})` }}>
         {clean.trim() ? (
           <IthranText
             key={`${take}-${mode}-${clean}`}

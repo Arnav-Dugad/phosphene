@@ -28,6 +28,10 @@ const ordered = [...relics].sort((a, b) => a.catalog.localeCompare(b.catalog));
 
 export default function RelicPage() {
   const { id = '' } = useParams<{ id: string }>();
+  return <RelicView key={id} id={id} />;
+}
+
+function RelicView({ id }: { id: string }) {
   const relic = relicById(id);
   const [mode, setMode] = useState<RelicViewMode>('hologram');
   const [decode, setDecode] = useState(1);
@@ -42,7 +46,6 @@ export default function RelicPage() {
 
   useEffect(() => {
     if (!relic) return;
-    setDecode(1);
     const progress = useProgress.getState();
     progress.viewRelic(relic.id);
     if (useProgress.getState().relicsViewed.length >= 5) unlockFragment(4);

@@ -76,12 +76,9 @@ export function ResonancePanel() {
 
   useEffect(() => {
     if (!scene) return;
-    scene.onSettled = (mm, nn) => {
+    return scene.events.on('settled', (mm, nn) => {
       if (CHORD.has(`${mm},${nn}`)) unlockFragment(7);
-    };
-    return () => {
-      scene.onSettled = null;
-    };
+    });
   }, [scene]);
 
   const [lm, ln] = live.split(',').map(Number) as [number, number];

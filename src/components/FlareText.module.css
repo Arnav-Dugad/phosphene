@@ -7,16 +7,12 @@
   display: inline-flex;
 }
 
-.flareHost {
-  /* Marker class: hovering any element with it plays the flare on its FlareText. */
-}
-
 .char {
   display: inline-block;
 }
 
-:is(a, button, [role='button'], .flareHost):hover .char,
-:is(a, button, [role='button'], .flareHost):focus-visible .char {
+:is(a, button, [role='button']):hover .char,
+:is(a, button, [role='button']):focus-visible .char {
   animation: flare 620ms var(--ease-soft) both;
   animation-delay: calc(var(--i) * 26ms);
 }

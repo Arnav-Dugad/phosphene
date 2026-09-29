@@ -9,7 +9,7 @@
   try {
     var raw = window.localStorage.getItem('phosphene:settings');
     if (raw) settings = (JSON.parse(raw) || {}).state || {};
-  } catch (e) {
+  } catch {
     settings = {};
   }
   var mq = function (q) {

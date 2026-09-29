@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { Outlet, useLocation, useMatches, useNavigationType } from 'react-router';
+import { NavigationType, Outlet, useLocation, useMatches, useNavigationType } from 'react-router';
 import { placeForPath } from '../content/routes.ts';
 import { RouteAnnouncer } from '../features/a11y/RouteAnnouncer.tsx';
 import { AudioController } from '../features/audio/AudioController.tsx';
@@ -55,7 +55,7 @@ export function RootLayout() {
   // Back/forward navigations skip the blink; the world resolves in softly instead.
   useEffect(() => {
     const world = worldRef.current;
-    if (!world || navigationType !== 'POP' || isDirectorNavigating() || motion === 'still') return;
+    if (!world || navigationType !== NavigationType.Pop || isDirectorNavigating() || motion === 'still') return;
     world.animate([{ opacity: 0.2, filter: 'blur(6px)' }, { opacity: 1, filter: 'blur(0px)' }], {
       duration: 520,
       easing: 'cubic-bezier(0.16, 1, 0.3, 1)',

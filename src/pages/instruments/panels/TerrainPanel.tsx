@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Segmented } from '../../../components/Segmented.tsx';
 import { Slider } from '../../../components/Slider.tsx';
 import { Switch } from '../../../components/Switch.tsx';
@@ -20,22 +20,19 @@ const PALETTES = [
   { value: 'ember', label: 'Ember' },
 ] as const;
 
+const micSupported = (): boolean =>
+  typeof navigator !== 'undefined' && navigator.mediaDevices !== undefined && 'getUserMedia' in navigator.mediaDevices;
+
 /**
  * Microphone audio is analysed locally: the stream feeds an AnalyserNode that
- * is never connected to the speakers or the network.
+ * is never connected to the speakers or the network. `report` hears whether
+ * the visitor granted access.
  */
-function useMicrophone(scene: TerrainScene | null, wanted: boolean): MicState {
-  const [state, setState] = useState<MicState>('idle');
-  const session = useRef<{ stream: MediaStream; ctx: AudioContext } | null>(null);
-
+function useMicrophone(scene: TerrainScene | null, active: boolean, report: (state: 'live' | 'denied') => void): void {
   useEffect(() => {
-    if (!wanted || !scene) return;
-    if (!navigator.mediaDevices?.getUserMedia) {
-      setState('unavailable');
-      return;
-    }
+    if (!active || !scene) return;
     let cancelled = false;
-    setState('asking');
+    let session: { stream: MediaStream; ctx: AudioContext } | null = null;
     navigator.mediaDevices
       .getUserMedia({ audio: { echoCancellation: false, noiseSuppression: false } })
       .then((stream) => {
@@ -49,26 +46,21 @@ function useMicrophone(scene: TerrainScene | null, wanted: boolean): MicState {
         analyser.smoothingTimeConstant = 0.2;
         source.connect(analyser);
         scene.setAnalyser(analyser);
-        session.current = { stream, ctx };
-        setState('live');
+        session = { stream, ctx };
+        report('live');
       })
       .catch(() => {
-        if (!cancelled) setState('denied');
+        if (!cancelled) report('denied');
       });
     return () => {
       cancelled = true;
       scene.setAnalyser(null);
-      const s = session.current;
-      if (s) {
-        s.stream.getTracks().forEach((t) => t.stop());
-        void s.ctx.close();
+      if (session) {
+        session.stream.getTracks().forEach((t) => t.stop());
+        void session.ctx.close();
       }
-      session.current = null;
-      setState('idle');
     };
-  }, [scene, wanted]);
-
-  return state;
+  }, [scene, active, report]);
 }
 
 const MIC_MESSAGES: Record<MicState, string> = {
@@ -81,21 +73,31 @@ const MIC_MESSAGES: Record<MicState, string> = {
 
 export function TerrainPanel() {
   const [source, setSource] = useState<Source>('carrier');
+  const [mic, setMic] = useState<MicState>('idle');
   const [gain, setGain] = useState(1);
   const [speed, setSpeed] = useState(30);
   const [palette, setPalette] = useState<'spectral' | 'ember'>('spectral');
   const [frozen, setFrozen] = useState(false);
   const scene = useStageApi<TerrainScene>('terrain');
   useStageScene('terrain', { gain, speed, palette, frozen });
-  const mic = useMicrophone(scene, source === 'microphone');
+  const report = useCallback((state: 'live' | 'denied') => {
+    setMic(state);
+    if (state === 'denied') setSource('carrier');
+  }, []);
+  useMicrophone(scene, source === 'microphone', report);
 
-  useEffect(() => {
-    if (mic === 'denied' || mic === 'unavailable') setSource('carrier');
-  }, [mic]);
+  const chooseSource = (next: Source): void => {
+    if (next === 'microphone' && !micSupported()) {
+      setMic('unavailable');
+      return;
+    }
+    setSource(next);
+    setMic(next === 'microphone' ? 'asking' : 'idle');
+  };
 
   return (
     <>
-      <Segmented label="Source" value={source} options={SOURCES} onChange={setSource} />
+      <Segmented label="Source" value={source} options={SOURCES} onChange={chooseSource} />
       {MIC_MESSAGES[mic] && (
         <p className={styles.hint} role="status">
           {MIC_MESSAGES[mic]}

@@ -21,4 +21,3 @@ export function FlareText({ text, className }: { text: string; className?: strin
   );
 }
 
-export const flareHostClass = styles.flareHost ?? '';

@@ -8,7 +8,7 @@ function ToastItem({ toast }: { toast: Toast }) {
   const [paused, setPaused] = useState(false);
   const [leaving, setLeaving] = useState(false);
   const remaining = useRef(toast.ttl);
-  const started = useRef(performance.now());
+  const started = useRef(0);
 
   useEffect(() => {
     if (paused || leaving) return;

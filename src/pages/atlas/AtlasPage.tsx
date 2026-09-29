@@ -91,19 +91,16 @@ export default function AtlasPage() {
 
   const pick = useCallback(
     (id: string | null) => {
-      navigate(id ? `/atlas/${id}` : '/atlas', { replace: true, preventScrollReset: true });
+      void navigate(id ? `/atlas/${id}` : '/atlas', { replace: true, preventScrollReset: true });
     },
     [navigate],
   );
 
   useEffect(() => {
     if (!scene) return;
-    scene.onSelect = (id) => {
+    return scene.events.on('select', (id) => {
       if (id) pick(id);
-    };
-    return () => {
-      scene.onSelect = null;
-    };
+    });
   }, [scene, pick]);
 
   useEffect(() => {

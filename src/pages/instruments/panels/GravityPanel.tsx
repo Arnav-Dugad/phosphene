@@ -29,11 +29,11 @@ export function GravityPanel() {
 
   useEffect(() => {
     if (!scene) return;
-    scene.onStable = () => unlockFragment(9);
-    scene.onCount = setCount;
+    const offStable = scene.events.on('stable', () => unlockFragment(9));
+    const offCount = scene.events.on('count', setCount);
     return () => {
-      scene.onStable = null;
-      scene.onCount = null;
+      offStable();
+      offCount();
     };
   }, [scene]);
 

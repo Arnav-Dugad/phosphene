@@ -90,7 +90,16 @@ export function CommandPalette() {
       .flatMap(([, list]) => list);
   }, [commands, query, recent]);
 
-  useEffect(() => setActive(0), [query]);
+  // A click on the dialog element itself (not its box) is a click on the backdrop.
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    if (!dialog) return;
+    const onBackdrop = (e: MouseEvent): void => {
+      if (e.target === dialog) setPalette(false);
+    };
+    dialog.addEventListener('click', onBackdrop);
+    return () => dialog.removeEventListener('click', onBackdrop);
+  }, [setPalette]);
 
   useEffect(() => {
     const dialog = dialogRef.current;
@@ -166,7 +175,6 @@ export function CommandPalette() {
   };
 
   const activeId = rows[active] ? `${listId}-opt-${active}` : undefined;
-  let lastGroup: CommandGroup | null = null;
 
   return (
     <dialog
@@ -176,9 +184,6 @@ export function CommandPalette() {
       onCancel={(e) => {
         e.preventDefault();
         setPalette(false);
-      }}
-      onClick={(e) => {
-        if (e.target === dialogRef.current) setPalette(false);
       }}
     >
       <div className={styles.box}>
@@ -197,6 +202,7 @@ export function CommandPalette() {
             value={query}
             onChange={(e) => {
               setQuery(e.target.value);
+              setActive(0);
               audio.play('type');
             }}
             onKeyDown={onKeyDown}
@@ -213,8 +219,7 @@ export function CommandPalette() {
             </p>
           )}
           {rows.map((row, i) => {
-            const showHeader = row.group !== lastGroup;
-            lastGroup = row.group;
+            const showHeader = i === 0 || rows[i - 1]?.group !== row.group;
             const { command } = row;
             return (
               <div key={`${row.group}-${command.id}`} role="presentation">
@@ -228,6 +233,7 @@ export function CommandPalette() {
                 <div
                   id={`${listId}-opt-${i}`}
                   role="option"
+                  tabIndex={-1}
                   aria-selected={i === active}
                   data-index={i}
                   className={styles.option}

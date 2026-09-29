@@ -21,6 +21,7 @@ import { createRng } from '../../../lib/random.ts';
 import type { SceneParams } from '../../../stores/stage.ts';
 import { gauss, glsl, hash, spectrum } from '../../shaders/chunks.ts';
 import type { FrameState, PostSettings, SceneFactory, StageContext, StageScene, Viewport } from '../../types.ts';
+import { Emitter } from '../../util/Emitter.ts';
 import { Gpgpu, referenceUvs } from '../../util/gpgpu.ts';
 import { TrailBuffer } from '../../util/TrailBuffer.ts';
 
@@ -177,8 +178,8 @@ class GravityScene implements StageScene {
   readonly camera = new PerspectiveCamera(42, 1, 0.1, 100);
   readonly post: Partial<PostSettings> = { bloomIntensity: 0.9, bloomThreshold: 0.35, vignette: 0.7, aberration: 0.6 };
 
-  onStable: (() => void) | null = null;
-  onCount: ((count: number) => void) | null = null;
+  /** `stable` fires when an orbit has held; `count` when masses change. */
+  readonly events = new Emitter<{ stable: []; count: [number] }>();
 
   private readonly ctx: StageContext;
   private gpgpu: Gpgpu;
@@ -367,7 +368,7 @@ class GravityScene implements StageScene {
     this.idle = 0;
     this.stableAnnounced = false;
     this.seedDisk();
-    this.onCount?.(this.masses.length);
+    this.events.emit('count', this.masses.length);
   }
 
   setParams(params: SceneParams): void {
@@ -408,7 +409,7 @@ class GravityScene implements StageScene {
     if (index >= 0 && now - this.lastDown < 320 && index === this.selected) {
       this.masses.splice(index, 1);
       this.selected = -1;
-      this.onCount?.(this.masses.length);
+      this.events.emit('count', this.masses.length);
     } else if (index >= 0) {
       this.selected = index;
       this.dragging = index;
@@ -418,7 +419,7 @@ class GravityScene implements StageScene {
       this.masses.push({ position: p.clone(), mass: this.massValue, orbit: null });
       this.selected = this.masses.length - 1;
       this.dragging = this.selected;
-      this.onCount?.(this.masses.length);
+      this.events.emit('count', this.masses.length);
     }
     this.lastDown = now;
   }
@@ -491,14 +492,13 @@ class GravityScene implements StageScene {
 
     if (!this.stableAnnounced && this.masses.length >= 2 && this.idle > 15) {
       this.stableAnnounced = true;
-      this.onStable?.();
+      this.events.emit('stable');
     }
     this.ctx.invalidate();
   }
 
   dispose(): void {
-    this.onStable = null;
-    this.onCount = null;
+    this.events.clear();
     this.gpgpu.dispose();
     this.particles.geometry.dispose();
     this.particles.material.dispose();

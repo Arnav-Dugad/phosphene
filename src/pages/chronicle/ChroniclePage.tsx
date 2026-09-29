@@ -12,7 +12,7 @@ import { usePageMeta } from '../../hooks/usePageMeta.ts';
 import { useResolvedMotion } from '../../hooks/useResolvedMotion.ts';
 import { useStageScene } from '../../hooks/useStageScene.ts';
 import { thousands } from '../../lib/format.ts';
-import { gsap, ScrollTrigger, SplitText } from '../../lib/gsap.ts';
+import { gsap, ScrollTrigger, SplitText, splitAnimation } from '../../lib/gsap.ts';
 import styles from './Chronicle.module.css';
 
 const MAX_TURNS = eras[0]?.from ?? 3_100_000;
@@ -68,7 +68,9 @@ export default function ChroniclePage() {
           type: 'lines',
           mask: 'lines',
           autoSplit: true,
-          onSplit: (self) => gsap.from(self.lines, { yPercent: 110, stagger: 0.12, duration: 1.6, ease: 'phos.out', delay: 0.2 }),
+          onSplit: splitAnimation((self) =>
+            gsap.from(self.lines, { yPercent: 110, stagger: 0.12, duration: 1.6, ease: 'phos.out', delay: 0.2 }),
+          ),
         });
         return () => split.revert();
       }

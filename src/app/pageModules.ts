@@ -18,6 +18,7 @@ export const pageModules = {
   story: () => import('../pages/transmissions/StoryPage.tsx'),
   instruments: () => import('../pages/instruments/InstrumentsPage.tsx'),
   instrument: () => import('../pages/instruments/InstrumentPage.tsx'),
+  array: () => import('../pages/array/ArrayPage.tsx'),
   notFound: () => import('../pages/not-found/NotFoundPage.tsx'),
 } satisfies Record<string, PageModule>;
 

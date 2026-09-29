@@ -31,6 +31,10 @@ export default tseslint.config(
       '@typescript-eslint/no-misused-promises': ['error', { checksVoidReturn: { attributes: false } }],
       'no-console': ['error', { allow: ['warn', 'error'] }],
       eqeqeq: ['error', 'smart'],
+      // Safari/VoiceOver drops list semantics when list-style is none, so lists state their role.
+      'jsx-a11y-x/no-redundant-roles': ['error', { nav: ['navigation'], ul: ['list'], ol: ['list'] }],
+      // The stage's interaction surface is a role="application" region that takes keyboard focus.
+      'jsx-a11y-x/no-noninteractive-tabindex': ['error', { tags: [], roles: ['tabpanel', 'application'] }],
     },
   },
   {

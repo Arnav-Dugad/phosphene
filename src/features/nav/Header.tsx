@@ -30,10 +30,7 @@ function OstClock() {
 function useAutoHide(disabled: boolean): boolean {
   const [hidden, setHidden] = useState(false);
   useEffect(() => {
-    if (disabled) {
-      setHidden(false);
-      return;
-    }
+    if (disabled) return;
     let last = window.scrollY;
     const onScroll = (): void => {
       const y = window.scrollY;
@@ -45,7 +42,7 @@ function useAutoHide(disabled: boolean): boolean {
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, [disabled]);
-  return hidden;
+  return hidden && !disabled;
 }
 
 export function Header() {
@@ -55,8 +52,7 @@ export function Header() {
   const setMenu = useUi((s) => s.setMenu);
   const setPalette = useUi((s) => s.setPalette);
   const hidden = useAutoHide(menuOpen);
-  const [mac, setMac] = useState(false);
-  useEffect(() => setMac(isMac()), []);
+  const mac = isMac();
 
   return (
     <header className={styles.header} data-hidden={hidden} data-print="hide">

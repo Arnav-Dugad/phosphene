@@ -37,6 +37,11 @@ export function InteractionSurface({
 }: InteractionSurfaceProps) {
   const ref = useRef<HTMLDivElement>(null);
   const instructionsId = useId();
+  // The latest key handler, read by the listener without re-subscribing.
+  const keyHandler = useRef(onKey);
+  useEffect(() => {
+    keyHandler.current = onKey;
+  }, [onKey]);
 
   useEffect(() => {
     const el = ref.current;
@@ -77,18 +82,24 @@ export function InteractionSurface({
       e.preventDefault();
       getEngine()?.dispatchWheel(e);
     };
+    const onKeyDown = (e: KeyboardEvent): void => {
+      const used = keyHandler.current?.(e.key) ?? getEngine()?.dispatchKey(e.key) ?? false;
+      if (used) e.preventDefault();
+    };
 
     el.addEventListener('pointerdown', onDown);
     el.addEventListener('pointermove', onMove);
     el.addEventListener('pointerup', onUp);
     el.addEventListener('pointercancel', onUp);
     el.addEventListener('wheel', onWheel, { passive: false });
+    el.addEventListener('keydown', onKeyDown);
     return () => {
       el.removeEventListener('pointerdown', onDown);
       el.removeEventListener('pointermove', onMove);
       el.removeEventListener('pointerup', onUp);
       el.removeEventListener('pointercancel', onUp);
       el.removeEventListener('wheel', onWheel);
+      el.removeEventListener('keydown', onKeyDown);
     };
   }, [captureWheel]);
 
@@ -103,10 +114,6 @@ export function InteractionSurface({
       data-cursor={cursor}
       data-cursor-label={cursorLabel}
       data-lenis-prevent
-      onKeyDown={(e) => {
-        const used = onKey?.(e.key) ?? getEngine()?.dispatchKey(e.key) ?? false;
-        if (used) e.preventDefault();
-      }}
     >
       <p id={instructionsId} className="sr-only">
         {instructions}

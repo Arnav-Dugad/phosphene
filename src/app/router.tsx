@@ -2,21 +2,17 @@ import type { ComponentType } from 'react';
 import { createBrowserRouter, type RouteObject } from 'react-router';
 import { pageModules } from './pageModules.ts';
 import { RootLayout } from './RootLayout.tsx';
+import { RouteFallback } from './RouteFallback.tsx';
 
 const page =
   (load: () => Promise<{ default: ComponentType }>) =>
   async (): Promise<{ Component: ComponentType }> => ({ Component: (await load()).default });
 
-/** The static boot screen from index.html stays visible until the first route resolves. */
-function BootHold() {
-  return null;
-}
-
 const routes: RouteObject[] = [
   {
     path: '/',
     Component: RootLayout,
-    HydrateFallback: BootHold,
+    HydrateFallback: RouteFallback,
     children: [
       { index: true, lazy: page(pageModules.arrival) },
       { path: 'atlas/:world?', lazy: page(pageModules.atlas), handle: { footer: false } },
@@ -27,6 +23,7 @@ const routes: RouteObject[] = [
       { path: 'transmissions/:slug', lazy: page(pageModules.story) },
       { path: 'instruments', lazy: page(pageModules.instruments) },
       { path: 'instruments/:slug', lazy: page(pageModules.instrument), handle: { footer: false } },
+      { path: 'array', lazy: page(pageModules.array), handle: { footer: false } },
       { path: '*', lazy: page(pageModules.notFound) },
     ],
   },
