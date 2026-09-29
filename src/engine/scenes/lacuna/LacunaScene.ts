@@ -38,7 +38,7 @@ const LOOKS: Record<LacunaMode, Look> = {
     post: { bloomIntensity: 0.95 },
   },
   chronicle: {
-    ringIntensity: 0.45,
+    ringIntensity: 0.16,
     stars: 0.8,
     seaRough: 0.7,
     brightness: 1.15,
@@ -78,7 +78,7 @@ const LOOKS: Record<LacunaMode, Look> = {
     post: {},
   },
   lanterns: {
-    ringIntensity: 0.35,
+    ringIntensity: 0.12,
     stars: 0.9,
     seaRough: 0.45,
     brightness: 1.2,
@@ -258,7 +258,9 @@ class LacunaScene implements StageScene {
     // leaving the left for the headline; it eases back to centre as the story begins.
     const compose =
       this.mode === 'home' && !this.ctx.viewport.compact ? -3.8 * (1 - smoothstep(0.45, 1.2, chapter)) : 0;
-    this.camLook.x = damp(this.camLook.x, pose.look[0] + compose, follow, raw);
+    // Asymmetric poses (ring framed to one side) are re-centred on portrait screens.
+    const lookX = this.mode !== 'home' && this.ctx.viewport.compact ? pose.look[0] * 0.2 : pose.look[0];
+    this.camLook.x = damp(this.camLook.x, lookX + compose, follow, raw);
     this.camLook.y = damp(this.camLook.y, pose.look[1], follow, raw);
     this.camLook.z = damp(this.camLook.z, pose.look[2], follow, raw);
     this.camFov = damp(this.camFov, pose.fov * this.fovScale, follow, raw);
@@ -334,7 +336,12 @@ class LacunaScene implements StageScene {
       delta: still ? 1 : dt,
       pointer: this.pointerWorld,
       pointerStrength: this.pointerStrength,
-      brightness: l.brightness * reveal * (1 + this.exposureKick),
+      // In the lantern field, the lanterns kindle as the reader counts them.
+      brightness:
+        l.brightness *
+        reveal *
+        (1 + this.exposureKick) *
+        (this.mode === 'lanterns' ? 0.15 + 0.85 * getChannel('story.progress', 1) : 1),
       turbulence: l.turbulence,
       orbit: this.orbit,
       orbitMix: this.motes.formation === 'drift' ? 1 : 0.15,

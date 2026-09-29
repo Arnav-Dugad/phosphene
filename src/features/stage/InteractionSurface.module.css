@@ -15,3 +15,11 @@
   border: 1px dashed color-mix(in oklab, var(--focus-ring) 70%, transparent);
   pointer-events: none;
 }
+
+.contained {
+  position: absolute;
+}
+
+.contained:focus-visible::after {
+  inset: 0.75rem;
+}

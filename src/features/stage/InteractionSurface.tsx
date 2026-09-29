@@ -15,6 +15,8 @@ interface InteractionSurfaceProps {
   className?: string;
   children?: ReactNode;
   onKey?: (key: string) => boolean;
+  /** Fill the parent (position: absolute) instead of the whole viewport. */
+  contained?: boolean;
 }
 
 /**
@@ -31,6 +33,7 @@ export function InteractionSurface({
   className,
   children,
   onKey,
+  contained = false,
 }: InteractionSurfaceProps) {
   const ref = useRef<HTMLDivElement>(null);
   const instructionsId = useId();
@@ -92,7 +95,7 @@ export function InteractionSurface({
   return (
     <div
       ref={ref}
-      className={`${styles.surface} ${className ?? ''}`}
+      className={`${styles.surface} ${contained ? styles.contained : ''} ${className ?? ''}`}
       role="application"
       aria-label={label}
       aria-describedby={instructionsId}

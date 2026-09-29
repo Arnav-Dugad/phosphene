@@ -36,8 +36,9 @@ export const HOME_PATH: readonly (Pose & { at: number })[] = [
 /** Static poses for the non-scrolling modes. */
 export const MODE_POSES: Record<Exclude<LacunaMode, 'home'>, Pose> = {
   ambient: { pos: [0, 1.5, 12.5], look: [0, 3.0, CZ], fov: 36 },
-  chronicle: { pos: [-9.5, 4.4, -5], look: [CX, CY, CZ], fov: 40 },
-  dusk: { pos: [2.2, 0.8, 9], look: [0, 2.6, CZ], fov: 38 },
+  // Offset along the camera's right vector so the formation sits left, beside the numerals.
+  chronicle: { pos: [-9.5, 4.4, -5], look: [CX + 3.8, CY, CZ + 3.25], fov: 40 },
+  dusk: { pos: [-2.5, 1.0, 10], look: [-8.5, 2.7, CZ], fov: 38 },
   finale: { pos: [0, CY, 3], look: [CX, CY, CZ], fov: 40 },
   credits: { pos: [0, 2.2, 14], look: [CX, CY, CZ], fov: 36 },
   lanterns: { pos: [0, 1.4, 9], look: [0, 2.2, -20], fov: 44 },

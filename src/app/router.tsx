@@ -20,6 +20,11 @@ const routes: RouteObject[] = [
     children: [
       { index: true, lazy: page(pageModules.arrival) },
       { path: 'atlas/:world?', lazy: page(pageModules.atlas), handle: { footer: false } },
+      { path: 'chronicle', lazy: page(pageModules.chronicle) },
+      { path: 'archive', lazy: page(pageModules.archive) },
+      { path: 'archive/:id', lazy: page(pageModules.relic), handle: { footer: false } },
+      { path: 'transmissions', lazy: page(pageModules.transmissions) },
+      { path: 'transmissions/:slug', lazy: page(pageModules.story) },
       { path: '*', lazy: page(pageModules.notFound) },
     ],
   },

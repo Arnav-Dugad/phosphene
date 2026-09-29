@@ -10,6 +10,7 @@ type Loader = () => Promise<{ default: SceneFactory }>;
 export const sceneLoaders: Partial<Record<SceneKey, Loader>> = {
   lacuna: () => import('./lacuna/LacunaScene.ts'),
   orrery: () => import('./orrery/OrreryScene.ts'),
+  relic: () => import('./relic/RelicScene.ts'),
 };
 
 export function loaderFor(key: SceneKey): Loader {

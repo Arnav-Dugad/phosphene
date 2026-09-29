@@ -1,0 +1,634 @@
+.story {
+  --story-line: var(--ember);
+  position: relative;
+}
+
+.header {
+  display: grid;
+  gap: 1.1rem;
+  padding-top: calc(var(--header-h) + var(--safe-top) + clamp(3rem, 10vh, 7rem));
+  padding-bottom: clamp(3rem, 8vh, 5rem);
+}
+
+.back {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  font-family: var(--font-mono);
+  font-size: var(--type-nano);
+  font-stretch: 87.5%;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--bone-dim);
+}
+
+.back:hover {
+  color: var(--story-line);
+}
+
+.kind {
+  font-family: var(--font-mono);
+  font-size: var(--type-micro);
+  font-stretch: 87.5%;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--story-line);
+}
+
+.title {
+  max-width: 14ch;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: var(--type-display);
+  line-height: 0.9;
+  letter-spacing: -0.035em;
+  color: var(--bone);
+  text-wrap: balance;
+}
+
+.subtitle {
+  max-width: 40ch;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--type-h3);
+  line-height: 1.25;
+  color: var(--bone-dim);
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 2.6rem;
+  margin-top: 1.4rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--hairline);
+}
+
+.meta dt {
+  font-family: var(--font-mono);
+  font-size: var(--type-nano);
+  font-stretch: 87.5%;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--bone-faint);
+}
+
+.meta dd {
+  margin-top: 0.3rem;
+  font-size: var(--type-small);
+  color: var(--bone);
+}
+
+.confidence {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-mono);
+  font-stretch: 87.5%;
+}
+
+.confidence > span {
+  position: relative;
+  width: 5rem;
+  height: 1px;
+  background: var(--hairline-strong);
+}
+
+.confidence > span > span {
+  position: absolute;
+  left: 0;
+  top: -0.5px;
+  height: 2px;
+  background: var(--story-line);
+  box-shadow: 0 0 6px var(--story-line);
+}
+
+.body {
+  position: relative;
+}
+
+/* ── Shared editorial blocks ───────────────────────────────────────────── */
+
+.column {
+  display: grid;
+  gap: 1.5rem;
+  max-width: 40rem;
+}
+
+.lead {
+  font-family: var(--font-display);
+  font-size: var(--type-h3);
+  line-height: 1.3;
+  color: var(--bone);
+  text-wrap: pretty;
+}
+
+.p {
+  font-size: 1.08rem;
+  line-height: 1.8;
+  color: var(--bone-dim);
+  text-wrap: pretty;
+  hanging-punctuation: first;
+}
+
+.h {
+  margin-top: 1.6rem;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--type-h2);
+  line-height: 1;
+  color: var(--bone);
+}
+
+.quote {
+  margin: 1rem 0;
+  padding-left: 1.4rem;
+  border-left: 1px solid var(--story-line);
+}
+
+.quote p {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--type-h3);
+  line-height: 1.3;
+  color: var(--bone);
+}
+
+.quote footer {
+  margin-top: 0.8rem;
+  font-family: var(--font-mono);
+  font-size: var(--type-nano);
+  font-stretch: 87.5%;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--bone-faint);
+}
+
+.pull {
+  margin: 2rem 0;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 300;
+  font-size: var(--type-h1);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  color: var(--story-line);
+  text-wrap: balance;
+}
+
+.glyph {
+  display: grid;
+  gap: 1rem;
+  margin: 2rem 0;
+  padding: 2rem 1.6rem;
+  border: 1px solid var(--hairline);
+  background: radial-gradient(circle at 50% 40%, color-mix(in oklab, var(--story-line) 10%, transparent), transparent 70%);
+}
+
+.glyphArt {
+  display: grid;
+  place-items: center;
+  color: var(--story-line);
+}
+
+.glyphArt svg {
+  max-width: 100%;
+  height: auto;
+}
+
+.glyph figcaption {
+  font-size: var(--type-small);
+  line-height: 1.6;
+  color: var(--bone-dim);
+  text-align: center;
+}
+
+/* ── The Lamplighters ──────────────────────────────────────────────────── */
+
+.lampGrid {
+  display: grid;
+  grid-template-columns: minmax(12rem, 18rem) minmax(0, 40rem);
+  gap: clamp(2rem, 6vw, 7rem);
+}
+
+.lampSide {
+  position: sticky;
+  top: 7rem;
+  align-self: start;
+  display: grid;
+  gap: 1rem;
+}
+
+.lampLabel {
+  font-family: var(--font-mono);
+  font-size: var(--type-nano);
+  font-stretch: 87.5%;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--bone-faint);
+}
+
+.lampCount {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(4rem, 8vw, 7rem);
+  line-height: 0.9;
+  font-variant-numeric: tabular-nums;
+  color: var(--story-line);
+  text-shadow: 0 0 30px color-mix(in oklab, var(--story-line) 50%, transparent);
+}
+
+.lampOf {
+  font-size: 1.2rem;
+  color: var(--bone-faint);
+  text-shadow: none;
+}
+
+.lampDots {
+  display: grid;
+  grid-template-columns: repeat(21, 1fr);
+  gap: 4px;
+}
+
+.lampDots span {
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--hairline-strong);
+  transition:
+    background-color 400ms var(--ease-out),
+    box-shadow 400ms var(--ease-out);
+}
+
+.lampDots span.lit {
+  background: var(--story-line);
+  box-shadow: 0 0 6px var(--story-line);
+}
+
+/* ── A Grammar of Light ───────────────────────────────────────────────── */
+
+.essay {
+  margin-inline: auto;
+}
+
+.try {
+  display: grid;
+  gap: 1rem;
+  margin: 1.5rem 0;
+  padding: 1.6rem;
+  border: 1px solid color-mix(in oklab, var(--story-line) 45%, var(--hairline));
+  background: color-mix(in oklab, var(--story-line) 5%, var(--void));
+}
+
+.tryLabel {
+  font-family: var(--font-mono);
+  font-size: var(--type-nano);
+  font-stretch: 87.5%;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--story-line);
+}
+
+.tryInput {
+  padding: 0.4rem 0;
+  border: 0;
+  border-bottom: 1px solid var(--hairline-strong);
+  background: none;
+  outline: none;
+  font-family: var(--font-display);
+  font-size: var(--type-h3);
+  color: var(--bone);
+}
+
+.tryInput:focus {
+  border-color: var(--story-line);
+}
+
+.tryOutput {
+  display: grid;
+  place-items: center;
+  min-height: 6rem;
+  overflow-x: auto;
+  color: var(--story-line);
+}
+
+.tryEmpty {
+  font-size: var(--type-small);
+  color: var(--bone-faint);
+}
+
+.tryActions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.tryButton {
+  padding: 0.6rem 1rem;
+  border: 1px solid var(--story-line);
+  font-family: var(--font-mono);
+  font-size: var(--type-nano);
+  font-stretch: 87.5%;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--bone);
+}
+
+.tryButton:disabled {
+  opacity: 0.4;
+}
+
+.tryButton:not(:disabled):hover {
+  background: color-mix(in oklab, var(--story-line) 15%, transparent);
+}
+
+.tryLink {
+  font-size: var(--type-small);
+  color: var(--story-line);
+}
+
+/* ── The Last Choir ───────────────────────────────────────────────────── */
+
+.choir {
+  display: grid;
+}
+
+.choirScene {
+  display: grid;
+  place-items: center;
+  min-height: 85svh;
+  text-align: center;
+}
+
+.choirScene > div {
+  max-width: 44rem;
+}
+
+.choirScene .p,
+.choirScene .lead {
+  font-family: var(--font-display);
+  font-size: var(--type-h3);
+  line-height: 1.35;
+  color: var(--bone);
+  text-shadow: 0 0 30px var(--void);
+}
+
+.choirScene .quote {
+  border: 0;
+  padding: 0;
+}
+
+.choirScene .quote p {
+  font-size: var(--type-h1);
+}
+
+/* ── The Listening Years ──────────────────────────────────────────────── */
+
+.journal {
+  display: grid;
+  max-width: 54rem;
+  margin-left: clamp(0rem, 4vw, 4rem);
+  border-left: 1px solid var(--hairline-strong);
+}
+
+.journalIntro {
+  padding: 0 0 3rem 2rem;
+}
+
+.journalItem {
+  position: relative;
+  padding: 1.6rem 0 1.6rem 2rem;
+  border-top: 1px dashed var(--hairline);
+}
+
+.journalItem::before {
+  content: '';
+  position: absolute;
+  left: -4px;
+  top: 2.05rem;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--void);
+  box-shadow: inset 0 0 0 1px var(--story-line);
+}
+
+.journalIndex {
+  position: absolute;
+  left: -3.4rem;
+  top: 1.8rem;
+  font-family: var(--font-mono);
+  font-size: var(--type-nano);
+  color: var(--bone-faint);
+}
+
+.entry {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.entryDate {
+  font-family: var(--font-mono);
+  font-size: var(--type-micro);
+  font-stretch: 87.5%;
+  letter-spacing: 0.08em;
+  color: var(--story-line);
+}
+
+.entryText {
+  font-size: 1.12rem;
+  line-height: 1.75;
+  color: var(--bone);
+}
+
+.entryAuthor {
+  font-family: var(--font-display);
+  font-style: italic;
+  color: var(--bone-faint);
+}
+
+.redacted {
+  display: inline;
+  padding: 0 0.1em;
+  font: inherit;
+  color: transparent;
+  background: var(--bone);
+  border-radius: 1px;
+  cursor: pointer;
+  transition:
+    color 300ms var(--ease-out),
+    background-color 300ms var(--ease-out);
+}
+
+.redacted:hover,
+.redacted:focus-visible,
+.redacted[data-open='true'] {
+  color: var(--story-line);
+  background: color-mix(in oklab, var(--story-line) 14%, transparent);
+}
+
+/* ── What the Silence Said ────────────────────────────────────────────── */
+
+.silence {
+  display: grid;
+  gap: clamp(8rem, 26vh, 16rem);
+  padding-block: 4rem 8rem;
+}
+
+.silenceItem {
+  justify-self: var(--align);
+  max-width: 34rem;
+}
+
+.silenceItem[data-kind='gap'] {
+  justify-self: stretch;
+  max-width: none;
+}
+
+.silence .p,
+.silence .lead {
+  font-family: var(--font-display);
+  font-size: var(--type-h3);
+  line-height: 1.35;
+  color: var(--bone);
+}
+
+.gap {
+  display: grid;
+  gap: 1rem;
+  justify-items: center;
+}
+
+.gapLine {
+  position: relative;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--story-line), transparent);
+  opacity: 0.6;
+}
+
+.gapLine::after {
+  content: '';
+  position: absolute;
+  inset: -6px 0;
+  background: repeating-linear-gradient(90deg, transparent 0 18px, color-mix(in oklab, var(--story-line) 30%, transparent) 18px 19px);
+  mask: linear-gradient(90deg, transparent, black 30%, black 70%, transparent);
+}
+
+.gapLabel {
+  font-family: var(--font-mono);
+  font-size: var(--type-nano);
+  font-stretch: 87.5%;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--bone-faint);
+}
+
+/* ── End of transmission ──────────────────────────────────────────────── */
+
+.end {
+  display: grid;
+  justify-items: center;
+  gap: 1.5rem;
+  padding-block: clamp(6rem, 18vh, 12rem) 3rem;
+  text-align: center;
+}
+
+.endWave {
+  width: min(22rem, 70vw);
+  height: 3rem;
+  color: var(--story-line);
+}
+
+.endWave path {
+  stroke-width: 1.2px;
+}
+
+.endLabel {
+  font-family: var(--font-mono);
+  font-size: var(--type-micro);
+  font-stretch: 87.5%;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--bone-faint);
+}
+
+.next {
+  --next-line: var(--ember);
+  display: grid;
+  gap: 0.6rem;
+  justify-items: center;
+  max-width: 40rem;
+  margin-top: 2rem;
+  padding: 2rem;
+  border: 1px solid var(--hairline);
+  transition: border-color var(--dur-quick) var(--ease-out);
+}
+
+.next:hover {
+  border-color: var(--next-line);
+}
+
+.nextLabel {
+  font-family: var(--font-mono);
+  font-size: var(--type-nano);
+  font-stretch: 87.5%;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--next-line);
+}
+
+.nextTitle {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: var(--type-h2);
+  color: var(--bone);
+}
+
+.nextExcerpt {
+  font-family: var(--font-display);
+  font-style: italic;
+  color: var(--bone-dim);
+}
+
+.missing {
+  display: grid;
+  gap: 1.4rem;
+  padding-top: calc(var(--header-h) + 6rem);
+  padding-bottom: 8rem;
+}
+
+@media (max-width: 900px) {
+  .lampGrid {
+    grid-template-columns: 1fr;
+  }
+  .lampSide {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    padding: 0.8rem 0;
+    background: color-mix(in oklab, var(--void) 88%, transparent);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+  .lampCount {
+    font-size: 2.6rem;
+  }
+  .lampDots {
+    display: none;
+  }
+  .journalIndex {
+    display: none;
+  }
+  .silenceItem {
+    justify-self: start;
+  }
+}

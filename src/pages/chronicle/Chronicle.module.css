@@ -1,0 +1,357 @@
+.chronicle {
+  position: relative;
+}
+
+.head {
+  display: grid;
+  gap: 1.4rem;
+  padding-top: calc(var(--header-h) + var(--safe-top) + clamp(3rem, 12vh, 8rem));
+  padding-bottom: clamp(2rem, 6vh, 4rem);
+}
+
+.title {
+  max-width: 14ch;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: var(--type-display);
+  line-height: 0.92;
+  letter-spacing: -0.035em;
+  color: var(--bone);
+}
+
+.title em {
+  display: block;
+  color: var(--line-mg);
+}
+
+.lead {
+  max-width: 48ch;
+  font-size: var(--type-lead);
+  line-height: 1.5;
+  color: var(--bone-dim);
+}
+
+.axisWrap {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  padding: calc(var(--safe-top) + 1rem) 0 1rem;
+  background: linear-gradient(to bottom, color-mix(in oklab, var(--void) 88%, transparent) 60%, transparent);
+}
+
+.axis {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.axisTrack {
+  position: relative;
+  height: 1.8rem;
+  border-bottom: 1px solid var(--hairline-strong);
+}
+
+.axisSpan {
+  --span-line: var(--ember);
+  position: absolute;
+  bottom: -1px;
+  height: 3px;
+  background: color-mix(in oklab, var(--span-line) 45%, transparent);
+  transition:
+    background-color var(--dur-quick) var(--ease-out),
+    height var(--dur-nav) var(--ease-out);
+}
+
+.axisSpan[data-active='true'] {
+  height: 5px;
+  background: var(--span-line);
+  box-shadow: 0 0 12px var(--span-line);
+}
+
+.axisNumeral {
+  position: absolute;
+  bottom: 0.7rem;
+  left: 50%;
+  translate: -50% 0;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 0.9rem;
+  color: var(--bone-faint);
+}
+
+.axisSpan[data-active='true'] .axisNumeral {
+  color: var(--span-line);
+}
+
+.indicator {
+  --x: 0;
+  position: absolute;
+  bottom: -5px;
+  left: calc(var(--x) * 100%);
+  width: 9px;
+  height: 9px;
+  margin-left: -4.5px;
+  rotate: 45deg;
+  background: var(--bone);
+  box-shadow: 0 0 10px var(--bone);
+  transition: left 120ms linear;
+}
+
+.axisLegend {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  font-family: var(--font-mono);
+  font-size: var(--type-nano);
+  font-stretch: 87.5%;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--bone-faint);
+}
+
+.turns {
+  color: var(--bone);
+  font-variant-numeric: tabular-nums;
+}
+
+.jump {
+  padding-block: 1.5rem 0;
+}
+
+.jump ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.4rem;
+}
+
+.jump a {
+  --jump-line: var(--ember);
+  font-size: var(--type-small);
+  color: var(--bone-faint);
+  transition: color var(--dur-quick) var(--ease-out);
+}
+
+.jump a span {
+  font-family: var(--font-display);
+  font-style: italic;
+  color: var(--jump-line);
+  margin-right: 0.3rem;
+}
+
+.jump a:hover,
+.jump a[aria-current='true'] {
+  color: var(--bone);
+}
+
+.era {
+  --era-line: var(--ember);
+  position: relative;
+  padding-block: clamp(5rem, 16vh, 11rem);
+  border-top: 1px solid var(--hairline);
+}
+
+.eraGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: clamp(2rem, 6vw, 7rem);
+}
+
+.eraSide {
+  position: sticky;
+  top: 8rem;
+  align-self: start;
+  display: grid;
+  gap: 1rem;
+}
+
+.numeral {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(7rem, 16vw, 17rem);
+  line-height: 0.8;
+  color: transparent;
+  -webkit-text-stroke: 1px color-mix(in oklab, var(--era-line) 70%, transparent);
+  text-shadow: 0 0 60px color-mix(in oklab, var(--era-line) 25%, transparent);
+}
+
+.span {
+  font-family: var(--font-mono);
+  font-size: var(--type-micro);
+  font-stretch: 87.5%;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--era-line);
+}
+
+.eraMain {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  gap: 1.3rem;
+  max-width: 44rem;
+}
+
+/* A soft pool of darkness behind the text: legibility without a visible box. */
+.eraMain::before {
+  content: '';
+  position: absolute;
+  inset: -12% -18%;
+  z-index: -1;
+  background: radial-gradient(closest-side, color-mix(in oklab, var(--void) 72%, transparent), transparent);
+  pointer-events: none;
+}
+
+.eraName {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: var(--type-h1);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  color: var(--bone);
+}
+
+.subtitle {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--type-h3);
+  color: color-mix(in oklab, var(--era-line) 80%, var(--bone));
+}
+
+.summary {
+  font-size: var(--type-lead);
+  line-height: 1.5;
+  color: var(--bone);
+}
+
+.body {
+  line-height: 1.75;
+  color: var(--bone-dim);
+}
+
+.voice {
+  margin: 0.6rem 0;
+  padding: 1.2rem 0 1.2rem 1.4rem;
+  border-left: 1px solid var(--era-line);
+}
+
+.voice p {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--type-h3);
+  line-height: 1.25;
+  color: var(--bone);
+}
+
+.voice footer {
+  margin-top: 0.7rem;
+  font-family: var(--font-mono);
+  font-size: var(--type-nano);
+  font-stretch: 87.5%;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--bone-faint);
+}
+
+.events {
+  display: grid;
+  border-top: 1px solid var(--hairline);
+}
+
+.events li {
+  display: grid;
+  grid-template-columns: 7rem minmax(0, 1fr);
+  grid-template-areas:
+    'at title'
+    'at text';
+  gap: 0.2rem 1.2rem;
+  padding: 0.9rem 0;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.eventAt {
+  grid-area: at;
+  font-family: var(--font-mono);
+  font-size: var(--type-micro);
+  font-stretch: 87.5%;
+  color: var(--era-line);
+}
+
+.eventTitle {
+  grid-area: title;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  color: var(--bone);
+}
+
+.eventText {
+  grid-area: text;
+  font-size: var(--type-small);
+  line-height: 1.6;
+  color: var(--bone-dim);
+}
+
+.relics {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.relics ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr));
+  gap: 0.8rem;
+}
+
+.relic {
+  display: grid;
+  gap: 0.4rem;
+  padding: 0.6rem;
+  border: 1px solid var(--hairline);
+  font-family: var(--font-display);
+  font-size: 1rem;
+  line-height: 1.15;
+  color: var(--bone);
+  transition: border-color var(--dur-quick) var(--ease-out);
+}
+
+.relic:hover {
+  border-color: var(--era-line);
+}
+
+.epilogue {
+  display: grid;
+  gap: 1.4rem;
+  padding-block: clamp(6rem, 16vh, 10rem);
+  border-top: 1px solid var(--hairline);
+}
+
+.epilogueActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 1.6rem;
+  margin-top: 1rem;
+}
+
+@media (max-width: 900px) {
+  .eraGrid {
+    grid-template-columns: 1fr;
+  }
+  .eraSide {
+    position: relative;
+    top: 0;
+    grid-template-columns: auto 1fr;
+    align-items: end;
+  }
+  .numeral {
+    font-size: clamp(5rem, 24vw, 8rem);
+  }
+  .events li {
+    grid-template-columns: 1fr;
+    grid-template-areas: 'at' 'title' 'text';
+  }
+  .axisLegend > span:not(.turns) {
+    display: none;
+  }
+  .jump {
+    display: none;
+  }
+}

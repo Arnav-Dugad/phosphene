@@ -11,6 +11,11 @@ type PageModule = () => Promise<{ default: ComponentType }>;
 export const pageModules = {
   arrival: () => import('../pages/home/HomePage.tsx'),
   atlas: () => import('../pages/atlas/AtlasPage.tsx'),
+  chronicle: () => import('../pages/chronicle/ChroniclePage.tsx'),
+  archive: () => import('../pages/archive/ArchivePage.tsx'),
+  relic: () => import('../pages/archive/RelicPage.tsx'),
+  transmissions: () => import('../pages/transmissions/TransmissionsPage.tsx'),
+  story: () => import('../pages/transmissions/StoryPage.tsx'),
   notFound: () => import('../pages/not-found/NotFoundPage.tsx'),
 } satisfies Record<string, PageModule>;
 
